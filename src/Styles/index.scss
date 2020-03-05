@@ -89,6 +89,15 @@ template {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+span {
+  font-size: 1.2rem;
 }
 
 /**
@@ -134,7 +143,7 @@ dfn {
  */
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0.67rem 0;
 }
 
@@ -258,6 +267,8 @@ textarea {
   color: inherit; /* 1 */
   font: inherit; /* 2 */
   margin: 0; /* 3 */
+  padding: 0;
+  border: none;
 }
 
 /**

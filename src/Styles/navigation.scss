@@ -1,5 +1,7 @@
+@import 'themeColors';
+
 .navigation {
-    background-color: yellow;
+    background-color: $themeYellow;
     width: 100%;
     height: 10rem;
     display: flex;
