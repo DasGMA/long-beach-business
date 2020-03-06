@@ -1,0 +1,44 @@
+@import 'themeColors';
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        min-width: 30rem;
+        max-width: 30rem;
+        margin: 1rem;
+
+        h2 {
+            font-size: 2rem;
+            color: $themeTeal;
+        }
+        button {
+            background: transparent;
+            display: flex;
+            align-content: flex-end;
+            font-size: 1.5rem;
+            padding: 0.5rem 0;
+            color: $themeLinkColor;
+
+            &:hover {
+                text-decoration: underline;
+            }
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+} 
+
+.footer-bottom {
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+}

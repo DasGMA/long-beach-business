@@ -14,11 +14,9 @@ export default function Navigation() {
     }
 
     return(
-        <header>
-            <nav className = 'navigation'>
-                <button className = 'button' onClick = {login}>Login</button>
-                <button className = 'button' onClick = {register}>Register</button>
-            </nav>
-        </header>
+        <nav className = 'navigation'>
+            <button className = 'button' onClick = {login}>Login</button>
+            <button className = 'button' onClick = {register}>Register</button>
+        </nav>
     )
 }

@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <div className="login">
-      <div>
+      <div className="login-top">
         <h1>Log In to LBB</h1>
         <p>
           New to LBB? <a href="!#"> Sign Up</a>.{" "}

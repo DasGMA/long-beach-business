@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../Styles/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import HomePage from '../HomePage/HomePage';
@@ -9,7 +8,7 @@ import Register from '../Register/Register';
 
 export default function App() {
   return (
-    <div className='App'>
+    <>
       <Navigation />
         <main>
           <Switch>
@@ -19,6 +18,6 @@ export default function App() {
           </Switch>
         </main>
       <Footer />
-    </div>
+    </>
   );
 }

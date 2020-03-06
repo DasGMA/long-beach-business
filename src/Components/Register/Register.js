@@ -60,7 +60,7 @@ export default function Register() {
 
   return (
     <div className="register">
-      <div>
+      <div className="register-top">
         <h1>Sign up for LBB</h1>
         <p>Connect your business with comminity.</p>
         <p>
