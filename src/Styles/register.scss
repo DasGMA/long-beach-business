@@ -1,6 +1,6 @@
 @import 'themeColors';
 
-.login {
+.register {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,6 +23,31 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 30rem;
+
+        .name-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+           
+            .name-input {
+                border: 0.1rem solid grey;
+                border-radius: 0.5rem;
+                width: 14.5rem;
+                height: 3rem;
+                padding: 1rem;
+                margin: 0 0.5rem 0 0;
+                font-size: 1.5rem;
+
+                &:focus {
+                    outline: none;
+                }
+                &:last-child {
+                    margin: 0 0 0 0.5rem;
+                }
+            }
+        }
 
         .input {
             width: 30rem;
@@ -31,7 +56,7 @@
             border-radius: 0.5rem;
             padding: 1rem;
             margin: 1rem 0 0 0;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         
             &:focus {
                 outline: none;

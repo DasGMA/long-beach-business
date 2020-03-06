@@ -9,11 +9,15 @@ export default function Navigation() {
         history.push('/login');
     }
 
+    const register = () => {
+        history.push('/register')
+    }
+
     return(
         <header>
             <nav className = 'navigation'>
                 <button className = 'button' onClick = {login}>Login</button>
-                <button className = 'button'>Register</button>
+                <button className = 'button' onClick = {register}>Register</button>
             </nav>
         </header>
     )

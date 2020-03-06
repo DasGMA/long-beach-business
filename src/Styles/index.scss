@@ -271,6 +271,17 @@ textarea {
   border: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /**
  * Address `overflow` set to `hidden` in IE 8/9/10/11.
  */
