@@ -15,6 +15,8 @@
 
         h2 {
             font-size: 2rem;
+            margin-block-start: 0.5rem;
+            margin-block-end: 0.5rem;
             color: $themeTeal;
         }
         button {
@@ -22,7 +24,7 @@
             display: flex;
             align-content: flex-end;
             font-size: 1.5rem;
-            padding: 0.5rem 0;
+            padding: 0.2rem 0;
             color: $themeLinkColor;
 
             &:hover {

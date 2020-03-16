@@ -10,6 +10,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [username, setUsername] = useState("");
 
   //const dispatch = useDispatch();
 
@@ -17,10 +18,10 @@ export default function Register() {
     event.preventDefault();
 
     if (
-      email.length === 0 ||
-      password.length === 0 ||
-      firstName.length === 0 ||
-      lastName.length === 0 ||
+      email.length <= 3 ||
+      password.length <= 3 ||
+      firstName.length <= 3 ||
+      lastName.length <= 3 ||
       zipCode.length === 0
     )
       return;
@@ -56,6 +57,11 @@ export default function Register() {
   const handleZipCode = event => {
     event.preventDefault();
     setZipCode(event.target.value);
+  };
+
+  const handleUsername = event => {
+    event.preventDefault();
+    setUsername(event.target.value);
   };
 
   return (
@@ -98,7 +104,14 @@ export default function Register() {
             value={lastName}
             onChange={handleLastName}
           />
-        </div>
+      </div>
+        <input
+          className="input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsername}
+        />
         <input
           className="input"
           type="email"

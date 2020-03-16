@@ -5,23 +5,23 @@ import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   //const dispatch = useDispatch();
 
   const handleSubmit = event => {
-    if (email.length === 0 || password.length === 0) return;
+    if (username.length < 3 || password.length < 3) return;
     console.log("Submited");
     event.preventDefault();
     // Here will be dispatched action with email and password
     // dispatch(someAction);
-    setEmail("");
+    setUsername("");
     setPassword("");
   };
 
-  const handleEmail = event => {
+  const handleUsername = event => {
     event.preventDefault();
-    setEmail(event.target.value);
+    setUsername(event.target.value);
   };
 
   const handlePassword = event => {
@@ -53,10 +53,10 @@ export default function Login() {
       <div className="column-section">
         <input
           className="input"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmail}
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsername}
         />
         <input
           className="input"
