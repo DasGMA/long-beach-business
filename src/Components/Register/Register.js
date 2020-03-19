@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-//import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "../../Styles/register.scss";
 import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
+import {registerAction} from "../../Redux/Actions/RegisterActions";
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
@@ -10,23 +11,32 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
 
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const data = {
+    firstName,
+    lastName,
+    email,
+    password,
+    zip: zipCode,
+    userName
+  }
 
   const handleSubmit = event => {
     event.preventDefault();
-
+    
     if (
-      email.length <= 3 ||
-      password.length <= 3 ||
-      firstName.length <= 3 ||
-      lastName.length <= 3 ||
+      email.length < 2 ||
+      password.length < 2 ||
+      firstName.length < 2 ||
+      lastName.length < 2 ||
       zipCode.length === 0
-    )
-      return;
-    // Here will be dispatched action with email and password
-    // dispatch(someAction);
+    ) return;
+
+    // Here will be dispatched action with data
+    dispatch(registerAction(data));
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -109,7 +119,7 @@ export default function Register() {
           className="input"
           type="text"
           placeholder="Username"
-          value={username}
+          value={userName}
           onChange={handleUsername}
         />
         <input
