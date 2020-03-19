@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-//import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "../../Styles/login.scss";
 import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
+import { loginAction } from "../../Redux/Actions/LoginActions";
+import { withRouter } from "react-router-dom";
 
-export default function Login() {
-  const [username, setUsername] = useState("");
+function Login({history}) {
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  //const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+
+  const dispatch = useDispatch();
+
+  const data = {
+    userName,
+    password,
+    email
+  }
 
   const handleSubmit = event => {
-    if (username.length < 3 || password.length < 3) return;
-    console.log("Submited");
     event.preventDefault();
-    // Here will be dispatched action with email and password
-    // dispatch(someAction);
+    
+    if (userName.length < 2 || password.length < 2) return;
+    // Here will be dispatched action with data
+    dispatch(loginAction(data));
     setUsername("");
     setPassword("");
+    setEmail("");
+    history.push("/");
   };
 
   const handleUsername = event => {
@@ -27,6 +39,11 @@ export default function Login() {
   const handlePassword = event => {
     event.preventDefault();
     setPassword(event.target.value);
+  };
+
+  const handleEmail = event => {
+    event.preventDefault();
+    setEmail(event.target.value);
   };
 
   return (
@@ -54,8 +71,15 @@ export default function Login() {
         <input
           className="input"
           type="text"
+          placeholder="Email"
+          value={email}
+          onChange={handleEmail}
+        />
+        <input
+          className="input"
+          type="text"
           placeholder="Username"
-          value={username}
+          value={userName}
           onChange={handleUsername}
         />
         <input
@@ -80,3 +104,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default withRouter(Login);

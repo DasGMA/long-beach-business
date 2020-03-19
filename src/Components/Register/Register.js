@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import "../../Styles/register.scss";
 import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
-import {registerAction} from "../../Redux/Actions/RegisterActions";
+import { registerAction } from "../../Redux/Actions/RegisterActions";
+import { withRouter } from "react-router-dom";
 
-export default function Register() {
+function Register({ history }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,10 +39,12 @@ export default function Register() {
     // Here will be dispatched action with data
     dispatch(registerAction(data));
     setFirstName("");
+    setUsername("");
     setLastName("");
     setEmail("");
     setPassword("");
     setZipCode("");
+    history.push("/");
   };
 
   const handleFirstName = event => {
@@ -156,3 +159,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default withRouter(Register);
