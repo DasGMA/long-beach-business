@@ -10,7 +10,7 @@ export default function Navigation() {
     }
 
     const register = () => {
-        history.push('/register')
+        history.push('/register');
     }
 
     return(

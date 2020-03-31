@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../../Styles/login.scss";
 import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
@@ -9,15 +9,16 @@ import { withRouter } from "react-router-dom";
 function Login({history}) {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [err, setErr] = useState("");
+
+  const error = useSelector(state => state.LoginReducer.login_error);
 
   const dispatch = useDispatch();
 
   const data = {
     userName,
-    password,
-    email
-  }
+    password
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -25,10 +26,13 @@ function Login({history}) {
     if (userName.length < 2 || password.length < 2) return;
     // Here will be dispatched action with data
     dispatch(loginAction(data));
-    setUsername("");
-    setPassword("");
-    setEmail("");
-    history.push("/");
+    if (error) {
+      setErr("Login Error")
+    } else {
+      setUsername("");
+      setPassword("");
+      history.push("/");
+    }
   };
 
   const handleUsername = event => {
@@ -39,11 +43,6 @@ function Login({history}) {
   const handlePassword = event => {
     event.preventDefault();
     setPassword(event.target.value);
-  };
-
-  const handleEmail = event => {
-    event.preventDefault();
-    setEmail(event.target.value);
   };
 
   return (
@@ -68,13 +67,6 @@ function Login({history}) {
       </div>
       <h2><span>OR</span></h2>
       <div className="column-section">
-        <input
-          className="input"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmail}
-        />
         <input
           className="input"
           type="text"
