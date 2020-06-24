@@ -1,6 +1,5 @@
-
 .search-page {
-    background-image: url("../Assets/lb3.jpg");
+    background-image: url('../Assets/lb3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50%;
@@ -12,6 +11,7 @@
     justify-content: center;
     padding: 1rem;
     margin-top: -5rem;
+    margin-bottom: 2rem;
 
     .search-bar {
         display: flex;
@@ -52,8 +52,5 @@
                 width: 4rem;
             }
         }
-
     }
-
-    
 }

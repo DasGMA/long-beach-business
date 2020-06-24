@@ -1,42 +1,89 @@
 import {
     LOGINGIN,
     LOGGEDIN,
-    LOGIN_ERROR
+    SET_LOGIN_ERROR,
+    RESET_ERRORS,
+    SET_PASSWORD,
+    SET_USERNAME
 } from "../../Actions/LoginActions";
 
+import {
+  LOGGED_OUT
+} from "../../Actions/LogoutActions";
+
 const initialState = {
+    userName: '',
+    password: '',
     logingin: false,
     loggedin: false,
     login_error: false,
-    error: null,
-    data: null
-}
+    errors: {},
+    data: null,
+};
 
 export const LoginReducer = (state = initialState, action) => {
     const { type, payload } = action;
-    switch(type) {
+    switch (type) {
+
+        case SET_USERNAME:
+          return {
+            ...state,
+            userName: payload
+          };
+
+        case SET_PASSWORD:
+          return {
+            ...state,
+            password: payload
+          };
+
         case LOGINGIN:
             return {
                 ...state,
-                logingin: true
-            }
+                logingin: true,
+            };
+
         case LOGGEDIN:
             return {
                 ...state,
                 logingin: false,
                 loggedin: true,
-                data: payload
-            }
-        case LOGIN_ERROR:
+                data: payload,
+            };
+
+        case SET_LOGIN_ERROR:
             return {
                 ...state,
                 logingin: false,
                 login_error: true,
-                error: payload
+                errors: {
+                    ...state.errors,
+                    [payload.errorName]: payload.message,
+                },
+            };
+
+        case RESET_ERRORS:
+            return {
+                ...state,
+                login_error: false,
+                errors: {},
+            };
+
+        case LOGGED_OUT:
+            return {
+              ...state,
+              userName: '',
+              password: '',
+              logingin: false,
+              loggedin: false,
+              login_error: false,
+              errors: {},
+              data: null
             }
+
         default:
             return {
-                ...state
-            }
+                ...state,
+            };
     }
-}
+};

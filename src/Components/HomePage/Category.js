@@ -1,12 +1,10 @@
 import React from "react";
 import "../../Styles/category.scss";
 
-function Category() {
+export default function Category() {
     return (
-        <button className="category">
+        <button className='category'>
             <p>Category name</p>
         </button>
-    )
+    );
 }
-
-export default Category;

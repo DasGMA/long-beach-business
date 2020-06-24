@@ -6,27 +6,36 @@
     height: 5rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     flex-direction: row;
-    padding: 2rem;
+    padding: 1rem;
     z-index: 99999;
 
-    .button {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: white;
-        border: 0.1rem solid transparent;
-        background-color: transparent;
-        margin-left: 1rem;
+    .inner-nav {
+        max-width: 102.4rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: row;
 
-        &:hover {
-            border-bottom: 0.1rem solid white;
-        }
-        &:focus {
-            outline: 0;
-        }
-        &:active {
-            text-decoration: underline;
+        .button {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+            border: 0.1rem solid transparent;
+            background-color: transparent;
+            margin-left: 1rem;
+
+            &:hover {
+                border-bottom: 0.1rem solid white;
+            }
+            &:focus {
+                outline: 0;
+            }
+            &:active {
+                text-decoration: underline;
+            }
         }
     }
 }
