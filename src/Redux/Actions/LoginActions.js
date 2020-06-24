@@ -42,10 +42,9 @@ export const loginAction = () => async (dispatch, getState) => {
   try {
     const {userName, password} = getState().LoginReducer;
     const data = {userName, password};
-    
+
     const login = await Axios.post(loginUrl, data);
-    const token = login.data.token;
-    const session = login.data.session;
+    const {token, session} = login.data;
 
     localStorage.setItem('Token', token);
     sessionStorage.setItem('Session', session);

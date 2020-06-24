@@ -1,0 +1,14 @@
+
+.spinner {
+    max-width: 100%;
+    padding: 1rem;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } 
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -90,6 +90,9 @@
             color: $themeGrey;
             background: $themeTeal;
             border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             &:focus {
                 outline: none;

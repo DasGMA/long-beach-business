@@ -5,25 +5,32 @@ import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
 import { loginAction, resetErrors, setUsername, setPassword, changeHandle, checkForErrors } from "../../Redux/Actions/LoginActions";
 import { useHistory } from "react-router-dom";
+import Spinner from "../Reusable/Spinner/Spinner";
 
 export default function Login() {
     const history = useHistory();
     const {
-        errors, 
+        errors,
+        logingin, 
         loggedin,
         userName,
         password
     } = useSelector((state) => state.LoginReducer);
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         if (loggedin) {
             dispatch(setUsername(""));
             dispatch(setPassword(""));
             history.push("/");
         }
-    }, [loggedin, dispatch, history])
+
+        if (history.location !== '/login') {
+            dispatch(setUsername(''));
+            dispatch(setPassword(''))
+        }
+    }, [loggedin, dispatch, history]);
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -46,7 +53,7 @@ export default function Login() {
             <div className='login-top'>
                 <h1>Log In to LBO</h1>
                 <p>
-                    New to LBO? <a href='!#'> Sign Up</a>.{" "}
+                    New to LBO? <a href='!#'> Sign Up</a>.
                 </p>
                 <p>
                     By logging in, you agree to{" "}
@@ -104,7 +111,7 @@ export default function Login() {
             </form>
             <div className='column-section'>
                 <button className='login-button' onClick={handleSubmit}>
-                    Log In
+                    {logingin === true ? <Spinner loading={logingin} size={'4rem'}/> : 'Log In'}
                 </button>
                 <span className='span-text'>
                     New to LBO? <a href='!#'>Sign Up</a>

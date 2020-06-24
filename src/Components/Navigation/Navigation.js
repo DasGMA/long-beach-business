@@ -17,6 +17,10 @@ export default function Navigation() {
         history.push('/register');
     }
 
+    const account = () => {
+        history.push('/account');
+    }
+
     const logout = () => {
         dispatch(logoutAction());
         history.push('/');
@@ -25,8 +29,12 @@ export default function Navigation() {
     return(
         <nav className = 'navigation'>
             <div className="inner-nav">
-                {loggedin ? 
-                    <button className = 'button' onClick = {logout}>Logout</button> :
+                {loggedin ?
+                    <>
+                    <button className = 'button' onClick={account}>Account</button> 
+                    <button className = 'button' onClick = {logout}>Logout</button>
+                    </>
+                    :
                     <>
                     <button className = 'button' onClick = {login}>Login</button>
                     <button className = 'button' onClick = {register}>Register</button>
