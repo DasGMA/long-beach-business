@@ -14,10 +14,14 @@ export const setLogoutError = (errorName, message) => dispatch => {
     });
 };
 
-export const logoutAction = () => async dispatch => {
+export const logoutAction = () => async (dispatch, getState) => {
+    const {user, token} = getState().LoginReducer.data;
+    const data = {_id: user._id};
+    const headers = {'authorization': token};
+
     dispatch({type: LOGGING_OUT});
     try {
-        await axios.get(logoutUrl);
+        await axios.post(logoutUrl, data, headers);
         localStorage.clear();
         sessionStorage.clear();
 

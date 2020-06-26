@@ -27,15 +27,16 @@
             background-color: transparent;
             margin-left: 1rem;
 
-            &:hover {
-                border-bottom: 0.1rem solid white;
-            }
             &:focus {
                 outline: 0;
             }
-            &:active {
-                text-decoration: underline;
+            &:hover {
+                border-bottom: 0.1rem solid white;
             }
+        }
+        
+        .active {
+            border-bottom: 0.1rem solid white;
         }
     }
 }

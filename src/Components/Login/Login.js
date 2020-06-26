@@ -51,7 +51,7 @@ export default function Login() {
     return (
         <div className='login'>
             <div className='login-top'>
-                <h1>Log In to LBO</h1>
+                <h1>Login to LBO</h1>
                 <p>
                     New to LBO? <a href='!#'> Sign Up</a>.
                 </p>
