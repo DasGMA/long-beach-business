@@ -4,7 +4,8 @@ import {
     SET_LOGIN_ERROR,
     RESET_ERRORS,
     SET_PASSWORD,
-    SET_USERNAME
+    SET_USERNAME,
+    SET_VERIFY_PASSWORD
 } from "../../Actions/LoginActions";
 
 import {
@@ -19,6 +20,7 @@ import {
 const initialState = {
     userName: '',
     password: '',
+    verifyPassword: '',
     logingin: false,
     loggedin: false,
     login_error: false,
@@ -41,6 +43,11 @@ export const LoginReducer = (state = initialState, action) => {
             ...state,
             password: payload
           };
+        case SET_VERIFY_PASSWORD:
+            return {
+                ...state,
+                verifyPassword: payload
+            };
 
         case GETTING_USER_INFO:
         case LOGINGIN:
@@ -88,6 +95,7 @@ export const LoginReducer = (state = initialState, action) => {
               ...state,
               userName: '',
               password: '',
+              verifyPassword: '',
               logingin: false,
               loggedin: false,
               login_error: false,

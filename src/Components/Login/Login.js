@@ -10,13 +10,14 @@ import {
     setPassword,
     changeHandle,
     checkForErrors,
+    setVerifyPassword
 } from "../../Redux/Actions/LoginActions";
 import { useHistory } from "react-router-dom";
 import Spinner from "../Reusable/Spinner/Spinner";
 
 export default function Login() {
     const history = useHistory();
-    const { errors, logingin, loggedin, userName, password } = useSelector(
+    const { errors, logingin, loggedin, userName, password, verifyPassword } = useSelector(
         (state) => state.LoginReducer
     );
 
@@ -26,12 +27,14 @@ export default function Login() {
         if (loggedin) {
             dispatch(setUsername(""));
             dispatch(setPassword(""));
+            dispatch(setVerifyPassword(""));
             history.push("/");
         }
 
         if (history.location !== "/login") {
             dispatch(setUsername(""));
             dispatch(setPassword(""));
+            dispatch(setVerifyPassword(""));
         }
     }, [loggedin, dispatch, history]);
 
@@ -86,8 +89,8 @@ export default function Login() {
                 <span>OR</span>
             </h2>
             <form className="column-section" onSubmit={handleSubmit}>
-                {errors.Username && <span>{errors.Username}</span>}
-                {errors.LoginDetails && <span>{errors.LoginDetails}</span>}
+                {errors.Username && <span className='error'>{errors.Username}</span>}
+                {errors.LoginDetails && <span className='error'>{errors.LoginDetails}</span>}
                 <input
                     className="input"
                     name="username"
@@ -97,14 +100,24 @@ export default function Login() {
                     onChange={handleChange}
                     onFocus={onFocus}
                 />
-                {errors.Password && <span>{errors.Password}</span>}
-                {errors.LoginDetails && <span>{errors.LoginDetails}</span>}
+                {errors.Password && <span className='error'>{errors.Password}</span>}
+                {errors.LoginDetails && <span className='error'>{errors.LoginDetails}</span>}
                 <input
                     className="input"
                     type="password"
                     name="password"
                     placeholder="Password"
                     value={password}
+                    onChange={handleChange}
+                    onFocus={onFocus}
+                />
+                {errors.verifyPassword && <span className='error'>{errors.verifyPassword}</span>}
+                <input
+                    className="input"
+                    type="password"
+                    name="verifyPassword"
+                    placeholder="Verify password"
+                    value={verifyPassword}
                     onChange={handleChange}
                     onFocus={onFocus}
                 />

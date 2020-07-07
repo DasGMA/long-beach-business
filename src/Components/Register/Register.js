@@ -24,8 +24,6 @@ export default function Register() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    console.log(useSelector(state => state.RegisterReducer))
-
     useEffect(() => {
         if (registered) {
             dispatch(clearInput());
@@ -85,26 +83,27 @@ export default function Register() {
                 <span>OR</span>
             </h2>
             <form className='column-section'>
-                <div className='name-section'>
-                    <input
-                        className='name-input'
-                        name='firstName'
-                        type='text'
-                        placeholder='First Name'
-                        value={firstName}
-                        onChange={handleChange}
-                        onFocus={onFocus}
-                    />
-                    <input
-                        className='name-input'
-                        name='lastName'
-                        type='text'
-                        placeholder='Last Name'
-                        value={lastName}
-                        onChange={handleChange}
-                        onFocus={onFocus}
-                    />
-                </div>
+                {errors.firstName && <span className='error'>{errors.firstName}</span>}
+                <input
+                    className='input'
+                    name='firstName'
+                    type='text'
+                    placeholder='First Name'
+                    value={firstName}
+                    onChange={handleChange}
+                    onFocus={onFocus}
+                />
+                {errors.lastName && <span className='error'>{errors.lastName}</span>}
+                <input
+                    className='input'
+                    name='lastName'
+                    type='text'
+                    placeholder='Last Name'
+                    value={lastName}
+                    onChange={handleChange}
+                    onFocus={onFocus}
+                />
+                {errors.userName && <span className='error'>{errors.userName}</span>}
                 <input
                     className='input'
                     name='username'
@@ -114,6 +113,7 @@ export default function Register() {
                     onChange={handleChange}
                     onFocus={onFocus}
                 />
+                {errors.email && <span className='error'>{errors.email}</span>}
                 <input
                     className='input'
                     name='email'
@@ -123,6 +123,7 @@ export default function Register() {
                     onChange={handleChange}
                     onFocus={onFocus}
                 />
+                {errors.password && <span className='error'>{errors.password}</span>}
                 <input
                     className='input'
                     name='password'
@@ -132,6 +133,7 @@ export default function Register() {
                     onChange={handleChange}
                     onFocus={onFocus}
                 />
+                {errors.accountType && <span className='error'>{errors.accountType}</span>}
                 <select name='accountType' onChange={handleChange} onFocus={onFocus}>
                     <option value='none'>Choose Account Type</option>
                     <option value='customer'>Customer</option>
@@ -139,16 +141,19 @@ export default function Register() {
                 </select>
                 <br />
                 {accountType === 'business' && 
+                    <>
+                    {errors.zipcode && <span className='error'>{errors.zipcode}</span>}
+                    {errors.zipTooLong && <span className='error'>{errors.zipTooLong}</span>}
                     <input
                         className='input'
                         name='zip'
                         type='number'
-                        maxLength='5'
                         placeholder='Business ZIP code'
                         value={zipcode}
                         onChange={handleChange}
                         onFocus={onFocus}
                     />
+                    </>
                 }
             </form>
             <div className='column-section'>

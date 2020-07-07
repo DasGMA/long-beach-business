@@ -6,6 +6,7 @@ export const SET_LOGIN_ERROR = "SET_LOGIN_ERROR";
 export const RESET_ERRORS = "RESET_ERRORS";
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_PASSWORD = "SET_PASSWORD";
+export const SET_VERIFY_PASSWORD = "SET_VERIFY_PASSWORD";
 
 const loginUrl = "http://localhost:8888/users/login";
 
@@ -19,6 +20,13 @@ export const setUsername = value => dispatch => {
 export const setPassword = value => dispatch => {
   dispatch({
     type: SET_PASSWORD,
+    payload: value
+  })
+};
+
+export const setVerifyPassword = value => dispatch => {
+  dispatch({
+    type: SET_VERIFY_PASSWORD,
     payload: value
   })
 };
@@ -73,13 +81,16 @@ export const changeHandle = event => dispatch => {
     case 'password':
       dispatch(setPassword(value));
       return;
+    case 'verifyPassword':
+      dispatch(setVerifyPassword(value));
+      return;
     default:
       return;
   }
 }
 
 export const checkForErrors = () => (dispatch, getState) => {
-  const {userName, password} = getState().LoginReducer;
+  const {userName, password, verifyPassword} = getState().LoginReducer;
 
   let hasErrors = false;
 
@@ -98,6 +109,14 @@ export const checkForErrors = () => (dispatch, getState) => {
     ),
     hasErrors = true
   );
+
+  if (password !== verifyPassword) dispatch(
+    setLoginError(
+      'verifyPassword',
+      'Passwords do not match.'
+    ),
+    hasErrors = true
+  )
 
 
   return hasErrors;

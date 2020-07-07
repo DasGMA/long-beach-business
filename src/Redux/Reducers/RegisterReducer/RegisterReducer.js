@@ -25,7 +25,7 @@ const initialState = {
     accountType: 'none',
     registering: false,
     registered: false,
-    errors: null
+    errors: {}
 }
 
 export const RegisterReducer = (state = initialState, action) => {
@@ -96,7 +96,7 @@ export const RegisterReducer = (state = initialState, action) => {
         case CLEAR_ERRORS:
             return {
                 ...state,
-                errors: null
+                errors: {}
             }
         case CLEAR_INPUT:
             return {
