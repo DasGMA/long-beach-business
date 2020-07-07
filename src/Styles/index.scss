@@ -13,6 +13,7 @@
   -webkit-text-size-adjust: 100%; /* 2 */
   height: 100%;
   box-sizing: border-box;
+  letter-spacing: 0.1rem;
 }
 
 body, #root {
@@ -139,7 +140,7 @@ a:hover {
  */
 
 abbr[title] {
-  border-bottom: 1px dotted;
+  border-bottom: 0.1rem dotted;
 }
 
 /**
@@ -291,6 +292,7 @@ textarea {
   margin: 0; /* 3 */
   padding: 0;
   border: none;
+  letter-spacing: inherit;
 }
 
 input::-webkit-outer-spin-button,

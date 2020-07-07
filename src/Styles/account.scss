@@ -1,0 +1,14 @@
+
+.account {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    .account-inner {
+        display: flex;
+        height: 100%;
+        max-width: 102.4rem;
+        width: 100%;
+        border: 0.1rem solid red;
+    }
+}

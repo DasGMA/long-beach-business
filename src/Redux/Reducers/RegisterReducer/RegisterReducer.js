@@ -1,16 +1,31 @@
 import {
     REGISTERING,
     REGISTERED,
-    REGISTER_ERROR
+    REGISTER_ERROR,
+    SET_ACCOUNT_TYPE,
+    SET_EMAIL,
+    SET_FIRSTNAME,
+    SET_LASTNAME,
+    SET_PASSWORD,
+    SET_REGISTER_ERROR,
+    SET_USERNAME,
+    SET_ZIPCODE,
+    CLEAR_ERRORS,
+    CLEAR_INPUT
 } from "../../Actions/RegisterActions";
 
 
 const initialState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    zipcode: '',
+    userName: '',
+    accountType: 'none',
     registering: false,
     registered: false,
-    register_error: false,
-    error: null,
-    data: null
+    errors: null
 }
 
 export const RegisterReducer = (state = initialState, action) => {
@@ -34,6 +49,65 @@ export const RegisterReducer = (state = initialState, action) => {
                 rgistering: false,
                 register_error: true,
                 error: payload
+            }
+        case SET_ACCOUNT_TYPE:
+            return {
+                ...state,
+                accountType: payload
+            }
+        case SET_EMAIL:
+            return {
+                ...state,
+                email: payload
+            }
+        case SET_FIRSTNAME:
+            return {
+                ...state,
+                firstName: payload
+            }
+        case SET_LASTNAME:
+            return {
+                ...state,
+                lastName: payload
+            }
+        case SET_PASSWORD:
+            return {
+                ...state,
+                password: payload
+            }
+        case SET_USERNAME:
+            return {
+                ...state,
+                userName: payload
+            }
+        case SET_ZIPCODE:
+            return {
+                ...state,
+                zipcode: payload
+            }
+        case SET_REGISTER_ERROR:
+            return {
+                ...state,
+                errors: {
+                    ...state.errors,
+                    [payload.errorName]: payload.message
+                }
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                errors: null
+            }
+        case CLEAR_INPUT:
+            return {
+                ...state,
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                zipcode: '',
+                userName: '',
+                accountType: 'none'
             }
         default:
             return {

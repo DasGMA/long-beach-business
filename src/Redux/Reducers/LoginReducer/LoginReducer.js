@@ -11,6 +11,11 @@ import {
   LOGGED_OUT
 } from "../../Actions/LogoutActions";
 
+import {
+    GETTING_USER_INFO,
+    GOT_USER_INFO_SUCCESS
+} from '../../Actions/AccountActions';
+
 const initialState = {
     userName: '',
     password: '',
@@ -37,13 +42,22 @@ export const LoginReducer = (state = initialState, action) => {
             password: payload
           };
 
+        case GETTING_USER_INFO:
         case LOGINGIN:
             return {
                 ...state,
                 logingin: true,
             };
-
+        
         case LOGGEDIN:
+            return {
+                ...state,
+                logingin: false,
+                loggedin: true,
+                data: payload,
+            };
+        
+        case GOT_USER_INFO_SUCCESS:
             return {
                 ...state,
                 logingin: false,

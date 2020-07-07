@@ -1,82 +1,55 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../../Styles/register.scss";
 import facebook from "../../Assets/facebook.png";
 import google from "../../Assets/google.png";
-import { registerAction } from "../../Redux/Actions/RegisterActions";
+import { changeHandle, registerAction, checkForRegisterErrors, clearErrors, clearInput } from "../../Redux/Actions/RegisterActions";
 import { useHistory } from "react-router-dom";
+import Spinner from '../Reusable/Spinner/Spinner';
 
 export default function Register() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [zipCode, setZipCode] = useState('');
-    const [userName, setUsername] = useState('');
+    const {
+        firstName, 
+        lastName, 
+        email, 
+        password, 
+        zipcode, 
+        userName, 
+        accountType,
+        errors,
+        registered,
+        registering
+    } = useSelector(state => state.RegisterReducer);
 
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const data = {
-        firstName,
-        lastName,
-        email,
-        password,
-        zip: zipCode,
-        userName,
-    };
+    console.log(useSelector(state => state.RegisterReducer))
+
+    useEffect(() => {
+        if (registered) {
+            dispatch(clearInput());
+            history.push("/");
+        }
+
+        if (history.location !== "/login") {
+            dispatch(clearInput());
+        }
+    }, [registered, dispatch, history]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        if (
-            email.length < 2 ||
-            password.length < 2 ||
-            firstName.length < 2 ||
-            lastName.length < 2 ||
-            zipCode.length === 0
-        )
-            return;
-
-        // Here will be dispatched action with data
-        dispatch(registerAction(data));
-        setFirstName('');
-        setUsername('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setZipCode('');
-        history.push('/');
+        if (dispatch(checkForRegisterErrors()) === false) {
+            dispatch(registerAction());
+        };
     };
 
-    const handleFirstName = (event) => {
-        event.preventDefault();
-        setFirstName(event.target.value);
+    const handleChange = (event) => {
+        dispatch(changeHandle(event));
     };
 
-    const handleLastName = (event) => {
-        event.preventDefault();
-        setLastName(event.target.value);
-    };
-
-    const handleEmail = (event) => {
-        event.preventDefault();
-        setEmail(event.target.value);
-    };
-
-    const handlePassword = (event) => {
-        event.preventDefault();
-        setPassword(event.target.value);
-    };
-
-    const handleZipCode = (event) => {
-        event.preventDefault();
-        setZipCode(event.target.value);
-    };
-
-    const handleUsername = (event) => {
-        event.preventDefault();
-        setUsername(event.target.value);
+    const onFocus = () => {
+        dispatch(clearErrors());
     };
 
     return (
@@ -111,56 +84,80 @@ export default function Register() {
             <h2>
                 <span>OR</span>
             </h2>
-            <div className='column-section'>
+            <form className='column-section'>
                 <div className='name-section'>
                     <input
                         className='name-input'
+                        name='firstName'
                         type='text'
                         placeholder='First Name'
                         value={firstName}
-                        onChange={handleFirstName}
+                        onChange={handleChange}
+                        onFocus={onFocus}
                     />
                     <input
                         className='name-input'
+                        name='lastName'
                         type='text'
                         placeholder='Last Name'
                         value={lastName}
-                        onChange={handleLastName}
+                        onChange={handleChange}
+                        onFocus={onFocus}
                     />
                 </div>
                 <input
                     className='input'
+                    name='username'
                     type='text'
                     placeholder='Username'
                     value={userName}
-                    onChange={handleUsername}
+                    onChange={handleChange}
+                    onFocus={onFocus}
                 />
                 <input
                     className='input'
+                    name='email'
                     type='email'
                     placeholder='Email'
                     value={email}
-                    onChange={handleEmail}
+                    onChange={handleChange}
+                    onFocus={onFocus}
                 />
                 <input
                     className='input'
+                    name='password'
                     type='password'
                     placeholder='Password'
                     value={password}
-                    onChange={handlePassword}
+                    onChange={handleChange}
+                    onFocus={onFocus}
                 />
+                <select name='accountType' onChange={handleChange} onFocus={onFocus}>
+                    <option value='none'>Choose Account Type</option>
+                    <option value='customer'>Customer</option>
+                    <option value='business'>Business</option>
+                </select>
                 <br />
-                <input
-                    className='input'
-                    type='number'
-                    placeholder='Business ZIP code'
-                    value={zipCode}
-                    onChange={handleZipCode}
-                />
-            </div>
+                {accountType === 'business' && 
+                    <input
+                        className='input'
+                        name='zip'
+                        type='number'
+                        maxLength='5'
+                        placeholder='Business ZIP code'
+                        value={zipcode}
+                        onChange={handleChange}
+                        onFocus={onFocus}
+                    />
+                }
+            </form>
             <div className='column-section'>
                 <button className='login-button' onClick={handleSubmit}>
-                    Sign Up
+                    {registering === true ? (
+                        <Spinner loading={registering} size={"4rem"} />
+                    ) : (
+                        "Signup"
+                    )}
                 </button>
                 <span className='span-text'>
                     Already on LBO? <a href='!#'>Log In</a>

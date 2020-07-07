@@ -51,7 +51,7 @@ export const loginAction = () => async (dispatch, getState) => {
 
     dispatch({
       type: LOGGEDIN,
-      payload: login.data
+      payload: login.data.user
     });
     
   } catch (e) {

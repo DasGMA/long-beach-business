@@ -1,0 +1,32 @@
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+    width: 100%;
+    padding: 1rem;
+    border-right: 0.1rem solid black;
+
+    .button {
+        padding: 1rem;
+        margin: 1rem;
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        outline: none;
+        border-radius: 0.5rem;
+        line-height: 2rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:last-child {
+            background-color: red;
+            color: white;
+        }
+    }
+
+    .active {
+        text-decoration: underline;
+    }
+}
