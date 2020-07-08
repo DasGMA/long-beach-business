@@ -5,7 +5,8 @@ import {
     RESET_ERRORS,
     SET_PASSWORD,
     SET_USERNAME,
-    SET_VERIFY_PASSWORD
+    SET_VERIFY_PASSWORD,
+    RESET_INPUT
 } from "../../Actions/LoginActions";
 
 import {
@@ -88,6 +89,14 @@ export const LoginReducer = (state = initialState, action) => {
                 ...state,
                 login_error: false,
                 errors: {},
+            };
+
+        case RESET_INPUT:
+            return {
+                ...state,
+                userName: '',
+                password: '',
+                verifyPassword: ''
             };
 
         case LOGGED_OUT:

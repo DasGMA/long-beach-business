@@ -7,15 +7,21 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Account from "../Account/Account";
 import ProtectedRoute from "../Auth/ProtectedRoute";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { getUserInfo } from "../../Redux/Actions/AccountActions";
+import { getCategories } from "../../Redux/Actions/CategoriesActions";
 
 export default function App() {
+    const {categories} = useSelector(state => state.CategoriesReducer);
     const dispatch = useDispatch();
     
     useEffect(() => {
         localStorage.getItem('Token') && dispatch(getUserInfo());
     },[dispatch]);
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch, categories]);
 
     return (
         <>

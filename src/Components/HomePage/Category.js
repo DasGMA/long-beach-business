@@ -1,10 +1,10 @@
 import React from "react";
 import "../../Styles/category.scss";
 
-export default function Category() {
+export default function Category(props) {
     return (
         <button className='category'>
-            <p>Category name</p>
+            <p>{props.categoryName}</p>
         </button>
     );
 }

@@ -7,6 +7,7 @@ export const RESET_ERRORS = "RESET_ERRORS";
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_PASSWORD = "SET_PASSWORD";
 export const SET_VERIFY_PASSWORD = "SET_VERIFY_PASSWORD";
+export const RESET_INPUT = "RESET_INPUT";
 
 const loginUrl = "http://localhost:8888/users/login";
 
@@ -42,6 +43,12 @@ export const setLoginError = (errorName, message) => dispatch => {
 export const resetErrors = () => dispatch => {
   dispatch({
     type: RESET_ERRORS
+  })
+};
+
+export const resetInput = () => dispatch => {
+  dispatch({
+    type: RESET_INPUT
   })
 }
 
