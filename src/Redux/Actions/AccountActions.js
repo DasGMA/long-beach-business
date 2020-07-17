@@ -4,7 +4,7 @@ export const GETTING_USER_INFO = 'GET_USER_INFO';
 export const GOT_USER_INFO_SUCCESS = 'GOT_USER_INFO_SUCCESS';
 export const ACCOUNT_ERROR = 'ACCOUNT_ERROR';
 
-const getUserInfoURL = 'http://localhost:8888/users/user';
+const getUserInfoURL = 'http://localhost:8888/user';
 
 export const accountError = (errorName, message) => dispatch => {
     const error = {errorName, message};

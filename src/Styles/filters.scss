@@ -1,0 +1,11 @@
+@import 'themeColors';
+
+.filters-container {
+    display: flex;
+    position: sticky;
+    flex-direction: column;
+    width: 20%;
+    padding: 1rem;
+    border: 0.1rem solid lightgrey;
+    border-radius: 1rem;
+}

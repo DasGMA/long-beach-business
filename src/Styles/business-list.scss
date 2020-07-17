@@ -1,0 +1,15 @@
+@import 'themeColors';
+
+.category-business-list {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+
+    .business-list {
+        width: 100%;
+        max-width: 100%;
+        padding: 1rem;
+    }
+}

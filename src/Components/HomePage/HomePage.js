@@ -8,8 +8,10 @@ export default function HomePage() {
     const {categories} = useSelector(state => state.CategoriesReducer);
     const renderCategories = () => {
         return categories.map(category => <Category 
-                                            key={category.categoryName} 
-                                            categoryName={category.categoryName}
+                                            key={category._id} 
+                                            category={category.categoryName}
+                                            _id={category._id}
+                                            count={category.businessCount}
                                             />);
     };
     return (

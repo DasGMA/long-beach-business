@@ -4,7 +4,7 @@ export const LOGGING_OUT = "LOGGING_OUT";
 export const LOGGED_OUT = "LOGGED_OUT";
 export const SET_LOGOUT_ERROR = "SET_LOGOUT_ERROR";
 
-const logoutUrl = "http://localhost:8888/users/logout";
+const logoutUrl = "http://localhost:8888/logout";
 
 export const setLogoutError = (errorName, message) => dispatch => {
     const error = {errorName, message};

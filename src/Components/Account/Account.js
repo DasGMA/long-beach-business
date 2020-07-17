@@ -1,16 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CustomerAccount from "./CustomerAccount";
-import BusinessAccount from "./BusinessAccount";
+import CustomerAccount from "./CustomerAccount/CustomerAccount";
+import BusinessAccount from "./BusinessAccount/Business";
+import AdminAccount from "./AdminAccount/AdminAccount";
 
-function Account() {
+export default function Account() {
     const user = useSelector((state) => state.LoginReducer.data);
-    
-    return user.accountType === "customer" ? (
-        <CustomerAccount />
-    ) : (
-        <BusinessAccount />
-    );
-}
+    const accountType = user.accountType;
 
-export default Account;
+    switch(accountType) {
+        case 'admin':
+            return <AdminAccount />;
+        case 'business':
+            return <BusinessAccount />;
+        case 'customer':
+            return <CustomerAccount />;
+        default:
+            return;
+    }
+}

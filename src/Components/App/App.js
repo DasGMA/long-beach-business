@@ -10,9 +10,10 @@ import ProtectedRoute from "../Auth/ProtectedRoute";
 import {useDispatch, useSelector} from 'react-redux';
 import { getUserInfo } from "../../Redux/Actions/AccountActions";
 import { getCategories } from "../../Redux/Actions/CategoriesActions";
+import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
 
 export default function App() {
-    const {categories} = useSelector(state => state.CategoriesReducer);
+    const {updated} = useSelector(state => state.CategoriesReducer);
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function App() {
 
     useEffect(() => {
         dispatch(getCategories());
-    }, [dispatch, categories]);
+    }, [dispatch, updated]);
 
     return (
         <>
@@ -32,6 +33,7 @@ export default function App() {
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <ProtectedRoute path='/account' component={Account} />
+                    <Route path='/:category' component={CategoryBusinessesList}/>
                 </Switch>
             </main>
             <Footer />

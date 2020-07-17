@@ -7,14 +7,13 @@ export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_FIRSTNAME = 'SET_FIRSTNAME';
 export const SET_LASTNAME = 'SET_LASTNAME';
 export const SET_EMAIL = 'SET_EMAIL';
-export const SET_ZIPCODE = 'SET_ZIPCODE';
 export const SET_REGISTER_ERROR = 'SET_REGISTER_ERROR';
 export const SET_ACCOUNT_TYPE = 'SET_ACCOUNT_TYPE';
 export const CLEAR_INPUT = 'CLEAR_INPUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 
-const url = "http://localhost:8888/users/register";
+const url = "http://localhost:8888/register";
 
 export const setFirstName = (value) => dispatch => {
     dispatch({
@@ -51,13 +50,6 @@ export const setPassword = (value) => dispatch => {
     });
 }
 
-export const setZipCode = (value) => dispatch => {
-    dispatch({
-        type: SET_ZIPCODE,
-        payload: value
-    });
-}
-
 export const setAccountType = (value) => dispatch => {
     dispatch({
         type: SET_ACCOUNT_TYPE,
@@ -84,11 +76,6 @@ export const clearErrors = () => dispatch => {
 export const changeHandle = (event) => (dispatch, getState) => {
     event.preventDefault();
     const {value, name} = event.target;
-    const {zipcode} = getState().RegisterReducer;
-
-    if (name === 'zip' && zipcode.length > 4) {
-        dispatch(setRegisterError('zipTooLong', 'Zip code is too long.'))
-    }
 
     switch(name) {
         case 'firstName':
@@ -109,9 +96,6 @@ export const changeHandle = (event) => (dispatch, getState) => {
         case 'accountType':
             dispatch(setAccountType(value));
             return;
-        case 'zip':
-            dispatch(setZipCode(value));
-            return;
         default:
             return;
     }
@@ -124,7 +108,6 @@ export const registerAction = () => async (dispatch, getState) => {
         lastName, 
         email, 
         password, 
-        zipcode, 
         userName, 
         accountType
     } = getState().RegisterReducer;
@@ -133,8 +116,7 @@ export const registerAction = () => async (dispatch, getState) => {
         firstName, 
         lastName, 
         email, 
-        password, 
-        zip: parseInt(zipcode), 
+        password,
         userName, 
         accountType
     }

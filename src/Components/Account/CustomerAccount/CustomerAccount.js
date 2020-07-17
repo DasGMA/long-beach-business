@@ -1,8 +1,8 @@
 import React from 'react';
-import SidebarMenu from './SidebarMenu';
+import SidebarMenu from '../SidebarMenu';
 import { Switch, Route } from 'react-router-dom';
-import UserAccount from './UserAccount';
-import '../../Styles/account.scss';
+import Customer from './Customer';
+import '../../../Styles/account.scss';
 
 export default function CustomerAccount() {
     return (
@@ -10,7 +10,7 @@ export default function CustomerAccount() {
             <div className='account-inner'>
                 <SidebarMenu />
                 <Switch>
-                    <Route exact path = '/account' component={UserAccount}/>
+                    <Route exact path = '/account' component={Customer}/>
                 </Switch>
             </div>
         </div>

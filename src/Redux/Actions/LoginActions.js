@@ -9,7 +9,7 @@ export const SET_PASSWORD = "SET_PASSWORD";
 export const SET_VERIFY_PASSWORD = "SET_VERIFY_PASSWORD";
 export const RESET_INPUT = "RESET_INPUT";
 
-const loginUrl = "http://localhost:8888/users/login";
+const loginUrl = "http://localhost:8888/login";
 
 export const setUsername = value => dispatch => {
   dispatch({

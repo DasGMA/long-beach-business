@@ -9,7 +9,6 @@ import {
     SET_PASSWORD,
     SET_REGISTER_ERROR,
     SET_USERNAME,
-    SET_ZIPCODE,
     CLEAR_ERRORS,
     CLEAR_INPUT
 } from "../../Actions/RegisterActions";
@@ -20,7 +19,6 @@ const initialState = {
     lastName: '',
     email: '',
     password: '',
-    zipcode: '',
     userName: '',
     accountType: 'none',
     registering: false,
@@ -80,11 +78,6 @@ export const RegisterReducer = (state = initialState, action) => {
                 ...state,
                 userName: payload
             }
-        case SET_ZIPCODE:
-            return {
-                ...state,
-                zipcode: payload
-            }
         case SET_REGISTER_ERROR:
             return {
                 ...state,
@@ -105,7 +98,6 @@ export const RegisterReducer = (state = initialState, action) => {
                 lastName: '',
                 email: '',
                 password: '',
-                zipcode: '',
                 userName: '',
                 accountType: 'none'
             }
