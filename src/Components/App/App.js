@@ -29,11 +29,11 @@ export default function App() {
             <Navigation />
             <main>
                 <Switch>
-                    <Route exact path='/' component={HomePage} />
+                    <Route exact path='/home' component={HomePage} />
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <ProtectedRoute path='/account' component={Account} />
-                    <Route path='/:category' component={CategoryBusinessesList}/>
+                    <Route path='/business/:category' component={CategoryBusinessesList}/>
                 </Switch>
             </main>
             <Footer />

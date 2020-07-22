@@ -28,14 +28,11 @@ export const getCategories = () => async dispatch => {
 export const getCategoryBusinessList = (category, _id) => async dispatch => {
     dispatch({type: GETTING_BUSINESS_LIST});
     const params = { 
-        params: {
-            name: category,
-            _id
-        }
+        params: { _id }
      };
 
     try {
-        const businesses = await Axios.get(`${url}category`, params);
+        const businesses = await Axios.get(`${url}category-business-list`, params);
         
         dispatch({
             type: GOT_BUSINESS_LIST,

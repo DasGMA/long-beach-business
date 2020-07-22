@@ -31,7 +31,7 @@ export default function Register() {
     useEffect(() => {
         if (registered) {
             dispatch(clearInput());
-            history.push("/");
+            history.push("/home");
         }
 
         if (history.location !== "/login") {

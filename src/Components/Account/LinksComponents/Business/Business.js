@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../Styles/account.scss';
+import '../../../../Styles/account.scss';
 
 export default function BusinessAccount() {
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import '../../../Styles/user-account.scss';
-import avatar from '../../../Assets/avatar.png';
+import '../../../../Styles/user-account.scss';
+import avatar from '../../../../Assets/avatar.png';
 
-export default function UserAccount() {
+export default function Admin() {
     const user = useSelector((state) => state.LoginReducer.data);
 
     return (

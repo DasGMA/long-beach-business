@@ -1,7 +1,7 @@
 import React from 'react';
 import SidebarMenu from '../SidebarMenu';
 import { Switch, Route } from 'react-router-dom';
-import Customer from './Customer';
+import Customer from '../LinksComponents/Customer/Customer';
 import '../../../Styles/account.scss';
 
 export default function CustomerAccount() {

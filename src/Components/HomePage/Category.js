@@ -16,7 +16,7 @@ export default function Category(props) {
 
     useEffect(() => {
         if (gotBusinessList) {
-            history.push(`/${props.category}`);
+            history.push(`/business/${props.category}`);
             dispatch(resetGotBusinessList());
         };
     }, [gotBusinessList, history, props.category, dispatch]);

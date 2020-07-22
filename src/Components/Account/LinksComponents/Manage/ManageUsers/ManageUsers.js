@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Admin() {
+export default function ManageUsers() {
     return (
         <div>
-            Admin
+            Manage Users
         </div>
     )
 }

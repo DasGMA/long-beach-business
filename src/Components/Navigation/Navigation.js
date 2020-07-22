@@ -25,7 +25,7 @@ export default function Navigation() {
 
     const logout = () => {
         dispatch(logoutAction());
-        history.push("/");
+        history.push("/home");
     };
 
     return (

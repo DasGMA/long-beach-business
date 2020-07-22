@@ -40,9 +40,9 @@ export default function BusinessComponent(business) {
                     </div>
                     <div className='business-component-footer'>
                         <span>Offers: 5</span>
-                        <i className='fa fa-thumbs-up fa-2x'>0</i>
+                        <i className='fa fa-thumbs-up fa-2x'> 0</i>
                         <i className='fa fa-thumbs-down fa-2x'> 0</i>
-                        <i className='fa fa-comments-o fa fa-2x'> 0</i>
+                        <i className='fas fa-comments-o fa fa-2x'> 0</i>
                         <span>Reviews: 0</span>
                     </div>
                 </div>
