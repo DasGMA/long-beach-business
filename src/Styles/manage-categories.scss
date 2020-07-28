@@ -1,0 +1,19 @@
+
+.manage-categories {
+    display: flex;
+    flex-direction: column;
+
+    .manage-categories-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}

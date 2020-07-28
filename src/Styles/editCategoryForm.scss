@@ -1,0 +1,52 @@
+
+@import 'themeColors';
+
+.edit-category-form {
+    background-color: #fff;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    min-width: 30rem;
+    max-width: 60rem;
+    width: 100%;
+    border-radius: 0.5rem;
+
+    .edit-header {
+        margin: 1rem 0;
+    }
+
+    .edit-body {
+        display: flex;
+        flex-direction: column;
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            margin: 1rem 0;
+
+            label {
+                padding: 1rem 0;
+                //margin: 1rem;
+                font-size: 1.6rem;
+            }
+
+            input, textArea {
+                border: 0.1rem solid lightgray;
+                padding: 0.5rem;
+                //margin: 1rem 0;
+                border-radius: 0.5rem;
+                font-size: 1.6rem;
+            }
+
+        }
+    }
+
+    .buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 2rem 0 1rem 0;
+    }
+}

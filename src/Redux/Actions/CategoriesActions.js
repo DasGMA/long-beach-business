@@ -6,6 +6,7 @@ export const CATEGORIES_ERROR = 'CATEGORIES_ERROR';
 export const GETTING_BUSINESS_LIST = 'GETTING_BUSINESS_LIST';
 export const GOT_BUSINESS_LIST = 'GOT_BUSINESS_LIST';
 export const RESET_GOT_BUSINESS_LIST = "RESET_GOT_BUSINESS_LIST";
+export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
 const url = 'http://localhost:8888/';
 
@@ -50,3 +51,11 @@ export const resetGotBusinessList = () => dispatch => {
         type: RESET_GOT_BUSINESS_LIST
     });
 }
+
+export const selectCategory = (category) => dispatch => {
+    dispatch({
+        type: SELECT_CATEGORY,
+        payload: category
+    });
+}
+

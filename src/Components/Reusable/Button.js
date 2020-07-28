@@ -9,7 +9,6 @@ export default function Button({icon, iconSize, onClick, text, textPosition}) {
             <button onClick={onClick}>
                  <i className={`fa fa-${icon} fa-${iconSize}x`}/>
             </button>
-           
         </div>
     )
 }

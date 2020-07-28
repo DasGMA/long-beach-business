@@ -1,5 +1,6 @@
 import React from "react";
-import search from "../../Assets/search.png"
+import search from "../../Assets/search.png";
+import '../../Styles/search-bar.scss';
 
 export default function SearchBar() {
   return (
