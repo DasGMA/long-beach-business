@@ -40,7 +40,6 @@ export default function EditCategoryForm() {
         }
     }
 
-console.log({category})
     return (
         <div className='edit-category-form'>
             <div className='edit-header'>

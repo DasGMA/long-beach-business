@@ -5,6 +5,7 @@ import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../../Redux/Actions/ModalActions";
 import { selectCategory } from "../../Redux/Actions/CategoriesActions";
+import { selectBusiness } from "../../Redux/Actions/BusinessActions";
 
 export default function Table({
     data,
@@ -45,6 +46,10 @@ export default function Table({
                 dispatch(toggleModal(`${type}Delete`));
                 dispatch(selectCategory(item));
                 return;
+            case "business":
+                dispatch(toggleModal(`${type}Delete`));
+                dispatch(selectBusiness(item));
+                return;
             default:
                 return;
         }
@@ -56,6 +61,10 @@ export default function Table({
             case "category":
                 dispatch(toggleModal(`${type}Edit`));
                 dispatch(selectCategory(item));
+                return;
+            case "business":
+                dispatch(toggleModal(`${type}Edit`));
+                dispatch(selectBusiness(item));
                 return;
             default:
                 return;

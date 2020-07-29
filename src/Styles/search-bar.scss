@@ -5,15 +5,16 @@
     min-width: 30rem;
     max-width: 60rem;
     width: 100%;
+    border-radius: 0.5rem;
 
     .label-box {
         padding: 0 0 0 1rem;
         background-color: white;
+        border-radius: 0.5rem 0 0 0.5rem;
 
         .label {
             font-size: 1.6rem;
             min-width: 9rem;
-            
         }
     }
     .search-input {
@@ -32,6 +33,7 @@
         height: 100%;
         min-width: 5rem;
         background-color: green;
+        border-radius: 0 0.5rem 0.5rem 0;
 
         .search-icon {
             height: 4rem;

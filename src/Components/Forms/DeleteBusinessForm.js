@@ -1,31 +1,30 @@
 import React from 'react';
 import Button from '../Reusable/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { adminDeleteCategory } from '../../Redux/Actions/AdminActions';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
-import { selectCategory } from '../../Redux/Actions/CategoriesActions';
 import '../../Styles/editCategoryForm.scss';
+import { selectBusiness } from '../../Redux/Actions/BusinessActions';
 
-export default function DeleteForm({ type }) {
-    const { selectedCategory } = useSelector(state => state.CategoriesReducer);
+export default function DeleteBusinessForm({ type }) {
+    const { selectedBusiness } = useSelector(state => state.BusinessReducer);
     
     const dispatch = useDispatch();
 
     const closeModal = () => {
         dispatch(toggleModal(''));
-        dispatch(selectCategory(null));
+        dispatch(selectBusiness(null));
     }
 
     const submitEdit = () => {
-        dispatch(adminDeleteCategory(selectedCategory._id));
-        dispatch(selectCategory(null));
+        //dispatch(adminDeleteBusiness(selectedBusiness._id));
+        dispatch(selectBusiness(null));
         dispatch(toggleModal(''));
     }
 
     return (
         <div className='edit-category-form'>
              <div className='edit-header'>
-                <h1>{`Are you sure you want to delete ${selectedCategory.categoryName} category?`}</h1>
+                <h1>{`Are you sure you want to delete ${selectedBusiness.businessName} business?`}</h1>
             </div>
             <div className='buttons-container'>
                 <Button 
