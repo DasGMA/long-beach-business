@@ -3,9 +3,9 @@ import Button from '../Reusable/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
 import '../../Styles/editCategoryForm.scss';
-import { selectBusiness } from '../../Redux/Actions/BusinessActions';
+import { selectBusiness, deleteBusiness } from '../../Redux/Actions/BusinessActions';
 
-export default function DeleteBusinessForm({ type }) {
+export default function DeleteBusinessForm() {
     const { selectedBusiness } = useSelector(state => state.BusinessReducer);
     
     const dispatch = useDispatch();
@@ -15,8 +15,15 @@ export default function DeleteBusinessForm({ type }) {
         dispatch(selectBusiness(null));
     }
 
+    const data = {
+        _id: selectedBusiness._id,
+        postedBy: selectedBusiness.postedBy._id
+    }
+
+    console.log(data)
+
     const submitEdit = () => {
-        //dispatch(adminDeleteBusiness(selectedBusiness._id));
+        dispatch(deleteBusiness(data));
         dispatch(selectBusiness(null));
         dispatch(toggleModal(''));
     }

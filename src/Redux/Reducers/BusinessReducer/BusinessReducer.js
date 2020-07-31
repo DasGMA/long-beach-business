@@ -2,13 +2,20 @@ import {
     GETTING_BUSINESSES_ERROR,
     GETTING_BUSSINESES,
     GOT_BUSINESSES,
-    SELECT_BUSINESS
+    SELECT_BUSINESS,
+    DELETED_BUSINESS,
+    DELETE_BUSINESS_ERROR,
+    DELETING_BUSINESS
 } from '../../Actions/BusinessActions'
 
 const initialState = {
     gettingBusinesses: false,
     gotBusinesses: false,
     gettingBusinessesError: false,
+
+    deletingBusiness: false,
+    deletedBusiness: false,
+    deleteBusinessError: false,
 
     errors: [],
     businesses: [],
@@ -47,6 +54,29 @@ export const BusinessReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedBusiness: payload
+            }
+        case DELETING_BUSINESS:
+            return {
+                ...state,
+                deletingBusiness: true,
+                deletedBusiness: false,
+                deleteBusinessError: false
+            }
+        case DELETED_BUSINESS:
+            return {
+                ...state,
+                deletingBusiness: false,
+                deletedBusiness: true,
+                deleteBusinessError: false,
+                businesses: payload
+            }
+        case DELETE_BUSINESS_ERROR:
+            return {
+                ...state,
+                deletingBusiness: false,
+                deletedBusiness: false,
+                deleteBusinessError: true,
+                errors: [...state.errors, payload]
             }
         default:
             return {
