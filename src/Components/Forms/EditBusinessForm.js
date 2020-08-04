@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
-import { selectBusiness } from '../../Redux/Actions/BusinessActions';
+import { selectBusiness, updateBusiness } from '../../Redux/Actions/BusinessActions';
 
 export default function EditBusinessForm() {
     const { selectedBusiness } = useSelector(state => state.BusinessReducer);
+    const { categories } = useSelector(state => state.CategoriesReducer);
+
     const [business, setBusiness] = useState({});
+    const [category, setCategory] = useState(null);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,7 +22,7 @@ export default function EditBusinessForm() {
     }
 
     const submitEdit = () => {
-        //dispatch(adminEditCategory(category));
+        dispatch(updateBusiness(business, category));
         dispatch(selectedBusiness(null));
         dispatch(toggleModal(''));
     }
@@ -26,6 +30,16 @@ export default function EditBusinessForm() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         switch(name) {
+            case 'category':
+                setBusiness(business => ({...business, [name]: value}));
+                setCategory(value);
+                return;
+            case 'businessName':
+            case 'businessDescription':
+            case 'phoneNumber':
+            case 'businessEmail':
+                setBusiness(business => ({...business, [name]: value}));
+                return;
             default:
                 return;
         }
@@ -33,8 +47,8 @@ export default function EditBusinessForm() {
 
 
     return (
-        <div>
-
+        <div className='edit-business'>
+            
         </div>
     )
 }

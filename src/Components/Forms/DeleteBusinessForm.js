@@ -20,8 +20,6 @@ export default function DeleteBusinessForm() {
         postedBy: selectedBusiness.postedBy._id
     }
 
-    console.log(data)
-
     const submitEdit = () => {
         dispatch(deleteBusiness(data));
         dispatch(selectBusiness(null));

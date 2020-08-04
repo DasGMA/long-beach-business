@@ -16,16 +16,12 @@ export default function ManageBusinesses() {
         dispatch(getAllBusinesses());
     }, [dispatch])
 
-    console.log({businesses})
-
     const getForms = () => {
         switch(formType) {
             case 'businessDelete':
                 return <DeleteBusinessForm />;
             case 'businessEdit':
                 return <EditBusinessForm />;
-            //case 'categoryPost':
-                //return <PostCategoryForm />;
             default:
                 return;
         }
