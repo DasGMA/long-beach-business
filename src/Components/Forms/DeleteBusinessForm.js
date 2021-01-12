@@ -17,7 +17,8 @@ export default function DeleteBusinessForm() {
 
     const data = {
         _id: selectedBusiness._id,
-        postedBy: selectedBusiness.postedBy._id
+        postedBy: selectedBusiness.postedBy,
+        categoryID: selectedBusiness.category
     }
 
     const submitEdit = () => {

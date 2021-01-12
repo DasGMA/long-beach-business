@@ -6,7 +6,7 @@ export default function SearchBar() {
   return (
     <div className="search-bar">
       <div className="label-box">
-        <p className="label">Search for</p>
+        <p className="label">Search</p>
       </div>
       <input
         className="search-input"

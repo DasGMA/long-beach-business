@@ -5,16 +5,24 @@ import Table from '../../../../Reusable/Table';
 import Modal from '../../../../Reusable/Modal';
 import EditBusinessForm from '../../../../Forms/EditBusinessForm';
 import DeleteBusinessForm from '../../../../Forms/DeleteBusinessForm';
+import PostBusinessForm from '../../../../Forms/PostBusinessForm';
+import { toggleModal } from '../../../../../Redux/Actions/ModalActions';
+import SearchBar from '../../../../Reusable/SearchBar';
+import Button from '../../../../Reusable/Button';
 
 export default function ManageBusinesses() {
-    const { businesses } = useSelector(state => state.BusinessReducer);
+    const { businesses, deletedBusiness } = useSelector(state => state.BusinessReducer);
     const { visible, formType } = useSelector(state => state.ModalReducer);
     
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllBusinesses());
-    }, [dispatch])
+    }, [dispatch]);
+
+    useEffect(() => {
+        deletedBusiness === true && dispatch(getAllBusinesses());
+    }, [dispatch, deletedBusiness]);
 
     const getForms = () => {
         switch(formType) {
@@ -22,13 +30,27 @@ export default function ManageBusinesses() {
                 return <DeleteBusinessForm />;
             case 'businessEdit':
                 return <EditBusinessForm />;
+            case 'businessPost':
+                return <PostBusinessForm />;
             default:
                 return;
         }
-    }
+    };
+
+    const postBusiness = () => {
+        dispatch(toggleModal('businessPost'));
+    };
 
     return (
         <div>
+            <div className='manage-categories-header'>
+                <SearchBar />
+                <Button 
+                    icon='plus'
+                    iconSize={2}
+                    onClick={postBusiness}
+                />
+            </div>
             <Table 
                 data={businesses}
                 tableHeader={['id', 'business name', 'description', 'phone number', 'email']}

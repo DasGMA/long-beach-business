@@ -4,7 +4,7 @@ import { getCategories } from '../../../../../Redux/Actions/CategoriesActions';
 import Table from '../../../../Reusable/Table';
 import Modal from '../../../../Reusable/Modal';
 import EditCategoryForm from '../../../../Forms/EditCategoryForm';
-import DeleteForm from '../../../../Forms/DeleteForm';
+import DeleteCategoryForm from '../../../../Forms/DeleteCategoryForm';
 import SearchBar from '../../../../Reusable/SearchBar';
 import Button from '../../../../Reusable/Button';
 import '../../../../../Styles/manage-categories.scss';
@@ -24,7 +24,7 @@ export default function ManageCategories() {
     const getForms = () => {
         switch(formType) {
             case 'categoryDelete':
-                return <DeleteForm />;
+                return <DeleteCategoryForm />;
             case 'categoryEdit':
                 return <EditCategoryForm />;
             case 'categoryPost':

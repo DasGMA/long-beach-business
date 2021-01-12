@@ -10,6 +10,11 @@ export const DELETE_BUSINESS_ERROR = "DELETE_BUSINESS_ERROR";
 export const UPDATING_BUSINESS = 'UPDATING_BUSINESS';
 export const UPDATED_BUSINESS = 'UPDATED_BUSINESS';
 export const UPDATE_BUSINESS_ERROR = 'UPDATE_BUSINESS_ERROR';
+export const POSTING_BUSINESS = 'POSTING_BUSINESS';
+export const POSTING_BUSINESS_SUCCESS = 'POSTING_BUSINESS_SUCCESS';
+export const POSTING_BUSINESS_ERROR = 'POSTING_BUSIMESS_ERROR';
+export const HANDLE_NEW_BUSINESS_CHANGE = 'HANDLE_NEW_BUSINESS_CHANGE';
+export const CLEAR_NEW_BUSINESS = 'CLEAR_NEW_BUSINESS';
 
 
 const url = "http://localhost:8888/";
@@ -41,38 +46,58 @@ export const selectBusiness = (business) => (dispatch) => {
     });
 };
 
-export const deleteBusiness = ({ _id, postedBy }) => async (
-    dispatch,
-    getState
-) => {
-    const { businesses } = getState().BusinessReducer;
+export const postBusiness = () => async (dispatch, getState) => {
+    const { newBusiness, businesses } = getState().BusinessReducer;
+    const user = getState().LoginReducer.data;
+    newBusiness.postedBy = user._id;
 
+    dispatch({
+        type: POSTING_BUSINESS
+    });
+
+    try {
+        const token = localStorage.getItem('Token');
+        const headers = { headers: { 'authorization': token } };
+        const postedNewBusiness = await axios.post(`${url}post-business`, newBusiness, headers);
+        const newB = postedNewBusiness.data;
+        const payload = [ ...businesses, newB ];
+    
+        dispatch({
+            type: POSTING_BUSINESS_SUCCESS,
+            payload
+        });
+
+    } catch (error) {
+        dispatch({
+            type: POSTING_BUSINESS_ERROR,
+            payload: error
+        });
+    }
+};
+
+export const deleteBusiness = ({ _id, postedBy, categoryID }) => async (dispatch, getState) => {
+    const { businesses } = getState().BusinessReducer;
     dispatch({
         type: DELETING_BUSINESS,
     });
 
     try {
         const token = localStorage.getItem("Token");
-        const headers = { headers: { authorization: token } };
-        const data = { _id, postedBy };
-        const deletedBusiness = await axios.delete(
-            `${url}delete-business`,
-            data,
-            headers
-        );
+        const config = { headers: { 'authorization': token }, data: { _id, postedBy, categoryID } };
+        const deletedBusiness = await axios.delete(`${url}delete-business`, config);
 
-        const filtered = businesses.filter(
+        const payload = businesses.filter(
             (business) => business._id !== deletedBusiness.data._id
         );
 
         dispatch({
             type: DELETED_BUSINESS,
-            payload: filtered,
+            payload
         });
     } catch (error) {
         dispatch({
             type: DELETE_BUSINESS_ERROR,
-            payload: error,
+            payload: error
         });
     }
 };
@@ -113,3 +138,38 @@ export const updateBusiness = (business, category) => async (dispatch, getState)
         });
     }
 };
+
+export const handleNewBusinessChange = (event) => (dispatch, getState) => {
+    event.preventDefault();
+    const { newBusiness } = getState().BusinessReducer;
+    const { name, value } = event.target;
+    const payload = { ...newBusiness, [name]: value };
+
+    dispatch({
+        type: HANDLE_NEW_BUSINESS_CHANGE,
+        payload
+    });
+};
+
+export const clearNewBusiness = () => dispatch => {
+    const payload = {
+        category: '',
+        businessName: '',
+        businessDescription: '',
+        postedBy: '',
+        streetApartmentNumber: '',
+        streetName: '',
+        country: 'usa',
+        state: 'california',
+        city: 'long beach',
+        zip: '',
+        phoneNumber: '',
+        businessEmail: ''
+    };
+
+    dispatch({
+        type: CLEAR_NEW_BUSINESS,
+        payload
+    })
+
+}

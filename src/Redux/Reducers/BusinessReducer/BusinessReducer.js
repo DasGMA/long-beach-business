@@ -5,13 +5,22 @@ import {
     SELECT_BUSINESS,
     DELETED_BUSINESS,
     DELETE_BUSINESS_ERROR,
-    DELETING_BUSINESS
+    DELETING_BUSINESS,
+    POSTING_BUSINESS,
+    POSTING_BUSINESS_ERROR,
+    POSTING_BUSINESS_SUCCESS,
+    HANDLE_NEW_BUSINESS_CHANGE,
+    CLEAR_NEW_BUSINESS
 } from '../../Actions/BusinessActions'
 
 const initialState = {
     gettingBusinesses: false,
     gotBusinesses: false,
     gettingBusinessesError: false,
+
+    postingBusiness: false,
+    postingBusinessSuccess: false,
+    postingBusinessError: false,
 
     deletingBusiness: false,
     deletedBusiness: false,
@@ -20,13 +29,59 @@ const initialState = {
     errors: [],
     businesses: [],
 
-    selectedBusiness: null
+    selectedBusiness: null,
+
+    newBusiness: {
+        category: '',
+        businessName: '',
+        businessDescription: '',
+        postedBy: '',
+        streetApartmentNumber: '',
+        streetName: '',
+        country: 'usa',
+        state: 'california',
+        city: 'long beach',
+        zip: '',
+        phoneNumber: '',
+        businessEmail: ''
+    }
 }
 
 export const BusinessReducer = (state = initialState, action) => {
     const { payload, type } = action;
-
+   
     switch(type) {
+        case HANDLE_NEW_BUSINESS_CHANGE:
+            return {
+                ...state,
+                newBusiness: payload
+            }
+        case CLEAR_NEW_BUSINESS:
+            return {
+                ...state,
+                newBusiness: payload
+            }
+        case POSTING_BUSINESS:
+            return {
+                ...state,
+                postingBusiness: true
+            }
+        case POSTING_BUSINESS_SUCCESS:
+            return {
+                ...state,
+                postingBusiness: false,
+                postingBusinessSuccess: true,
+                postingBusinessError: false,
+                businesses: payload
+            }
+        case POSTING_BUSINESS_ERROR:
+            return {
+                ...state,
+                postingBusiness: false,
+                postingBusinessSuccess: false,
+                postingBusinessError: true,
+                errors: [...state.errors, payload]
+            }
         case GETTING_BUSSINESES:
             return {
                 ...state,
@@ -48,7 +103,7 @@ export const BusinessReducer = (state = initialState, action) => {
                 gettingBusinesses: false,
                 gotBusinesses: false,
                 gettingBusinessesError: true,
-                errros: [...state.errors, payload]
+                errors: [...state.errors, payload]
             }
         case SELECT_BUSINESS:
             return {

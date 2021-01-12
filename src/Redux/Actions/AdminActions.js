@@ -40,7 +40,6 @@ export const clearNewCategory = () => dispatch => {
 }
 
 export const adminPostCategory = () => async (dispatch, getState) => {
-    const user = getState().LoginReducer.data;
     const { newCategory } = getState().CategoriesReducer;
     const { categoryName, categoryDescription } = newCategory;
     
@@ -48,7 +47,6 @@ export const adminPostCategory = () => async (dispatch, getState) => {
 
     try {
         const data = {
-            userID: user._id,
             categoryName,
             categoryDescription
         };
@@ -87,7 +85,6 @@ export const adminDeleteCategory = (categoryID) => async (dispatch, getState) =>
         });
 
     } catch (error) {
-        //console.log(error.response)
         dispatch({
             type: ADMIN_DELETE_CATEGORY_ERROR,
             payload: error
