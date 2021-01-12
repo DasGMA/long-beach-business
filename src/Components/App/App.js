@@ -29,7 +29,7 @@ export default function App() {
             <Navigation />
             <main>
                 <Switch>
-                    <Route exact path='/home' component={HomePage} />
+                    <Route exact path='/' component={HomePage} />
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <ProtectedRoute path='/account' component={Account} />

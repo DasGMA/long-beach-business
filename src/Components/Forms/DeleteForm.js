@@ -6,9 +6,8 @@ import { toggleModal } from '../../Redux/Actions/ModalActions';
 import { selectCategory } from '../../Redux/Actions/CategoriesActions';
 import '../../Styles/editCategoryForm.scss';
 
-export default function DeleteForm({ type }) {
+export default function DeleteForm() {
     const { selectedCategory } = useSelector(state => state.CategoriesReducer);
-    
     const dispatch = useDispatch();
 
     const closeModal = () => {

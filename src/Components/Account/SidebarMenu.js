@@ -14,7 +14,7 @@ export default function SidebarMenu() {
 
     const logout = () => {
         dispatch(logoutAction());
-        history.push('/home');
+        history.push('/');
     }
 
     const click = (props) => {

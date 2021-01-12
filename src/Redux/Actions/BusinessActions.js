@@ -55,7 +55,7 @@ export const deleteBusiness = ({ _id, postedBy }) => async (
         const token = localStorage.getItem("Token");
         const headers = { headers: { authorization: token } };
         const data = { _id, postedBy };
-        const deletedBusiness = await axios.post(
+        const deletedBusiness = await axios.delete(
             `${url}delete-business`,
             data,
             headers

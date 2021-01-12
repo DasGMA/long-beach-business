@@ -12,6 +12,8 @@ export default function HomePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    console.log()
+
     const onClick = (category, _id) => {
         dispatch(getCategoryBusinessList(category, _id));
         setCat(category);
@@ -24,7 +26,6 @@ export default function HomePage() {
             setCat('');
         };
     }, [gotBusinessList, history, cat, dispatch]);
-
 
     const renderCategories = () => {
         return categories.map((category) => (

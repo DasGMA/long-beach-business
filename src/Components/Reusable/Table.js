@@ -7,7 +7,7 @@ import { toggleModal } from "../../Redux/Actions/ModalActions";
 import { selectCategory } from "../../Redux/Actions/CategoriesActions";
 import { selectBusiness } from "../../Redux/Actions/BusinessActions";
 
-export default function Table({
+function Table({
     data,
     dataNames,
     tableHeader,
@@ -118,6 +118,8 @@ export default function Table({
         </div>
     );
 }
+
+export default Table;
 
 Table.defaultProps = {
     showOptions: true,

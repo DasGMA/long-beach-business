@@ -70,19 +70,14 @@ export const adminPostCategory = () => async (dispatch, getState) => {
 };
 
 export const adminDeleteCategory = (categoryID) => async (dispatch, getState) => {
-    const user = getState().LoginReducer.data;
     const { categories } = getState().CategoriesReducer;
 
     dispatch({ type: ADMIN_DELETING_CATEGORY });
 
     try {
-        const data = {
-            categoryID,
-            userID: user._id
-        };
         const token = localStorage.getItem('Token');
-        const headers = { headers: { 'authorization': token } };
-        const deletedCategory = await axios.post(`${url}/delete-category`, data, headers);
+        const config = { headers: { 'authorization': token }, data: {_id: categoryID} };
+        const deletedCategory = await axios.delete(`${url}/delete-category`, config);
 
         const filtered = categories.filter(category => category._id !== deletedCategory.data._id);
         
@@ -92,6 +87,7 @@ export const adminDeleteCategory = (categoryID) => async (dispatch, getState) =>
         });
 
     } catch (error) {
+        //console.log(error.response)
         dispatch({
             type: ADMIN_DELETE_CATEGORY_ERROR,
             payload: error
