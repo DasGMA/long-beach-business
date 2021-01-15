@@ -15,6 +15,7 @@ export const POSTING_BUSINESS_SUCCESS = 'POSTING_BUSINESS_SUCCESS';
 export const POSTING_BUSINESS_ERROR = 'POSTING_BUSIMESS_ERROR';
 export const HANDLE_NEW_BUSINESS_CHANGE = 'HANDLE_NEW_BUSINESS_CHANGE';
 export const CLEAR_NEW_BUSINESS = 'CLEAR_NEW_BUSINESS';
+export const SET_NEW_BUSINESS = 'SET_NEW_BUSINESS';
 
 
 const url = "http://localhost:8888/";
@@ -102,21 +103,18 @@ export const deleteBusiness = ({ _id, postedBy, categoryID }) => async (dispatch
     }
 };
 
-export const updateBusiness = (business, category) => async (dispatch, getState) => {
-    const { businesses } = getState().BusinessReducer;
+export const updateBusiness = () => async (dispatch, getState) => {
+    const { newBusiness, businesses } = getState().BusinessReducer;
     
     dispatch({
         type: UPDATING_BUSINESS
     });
-
+    
     try {
         const token = localStorage.getItem("Token");
         const headers = { headers: { authorization: token } };
-        const data = { business, category };
-
-        const updatedBusiness = await axios.post(`${url}edit-business`, data, headers);
-
-        const newList = businesses.reduce((newArr, business) => {
+        const updatedBusiness = await axios.post(`${url}edit-business`, newBusiness, headers);
+        const payload = businesses.reduce((newArr, business) => {
             if (business._id === updatedBusiness.data._id) {
                 newArr.push(updatedBusiness.data);
             } else {
@@ -126,9 +124,11 @@ export const updateBusiness = (business, category) => async (dispatch, getState)
             return newArr;
         }, []);
 
+        console.log(payload)
+
         dispatch({
             type: UPDATED_BUSINESS,
-            payload: newList
+            payload
         });
 
     } catch (error) {
@@ -148,6 +148,13 @@ export const handleNewBusinessChange = (event) => (dispatch, getState) => {
     dispatch({
         type: HANDLE_NEW_BUSINESS_CHANGE,
         payload
+    });
+};
+
+export const setNewBusiness = (item) => dispatch => {
+    dispatch({
+        type: SET_NEW_BUSINESS,
+        payload: item
     });
 };
 

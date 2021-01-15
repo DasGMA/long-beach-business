@@ -53,7 +53,7 @@ export const adminPostCategory = () => async (dispatch, getState) => {
         const token = localStorage.getItem('Token');
         const headers = {headers: {'authorization': token}};
         const newCategory = await axios.post(`${url}/post-category`, data, headers);
-        console.log(newCategory.data)
+       
         dispatch({
             type: ADMIN_POSTED_CATEGORY,
             payload: newCategory.data

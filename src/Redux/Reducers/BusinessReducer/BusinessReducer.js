@@ -10,7 +10,11 @@ import {
     POSTING_BUSINESS_ERROR,
     POSTING_BUSINESS_SUCCESS,
     HANDLE_NEW_BUSINESS_CHANGE,
-    CLEAR_NEW_BUSINESS
+    CLEAR_NEW_BUSINESS,
+    SET_NEW_BUSINESS,
+    UPDATED_BUSINESS,
+    UPDATE_BUSINESS_ERROR,
+    UPDATING_BUSINESS
 } from '../../Actions/BusinessActions'
 
 const initialState = {
@@ -25,6 +29,10 @@ const initialState = {
     deletingBusiness: false,
     deletedBusiness: false,
     deleteBusinessError: false,
+
+    updatingBusiness: false,
+    updatedBusiness: false,
+    updateBusinessError: false,
 
     errors: [],
     businesses: [],
@@ -51,6 +59,11 @@ export const BusinessReducer = (state = initialState, action) => {
     const { payload, type } = action;
    
     switch(type) {
+        case SET_NEW_BUSINESS:
+            return {
+                ...state,
+                newBusiness: payload
+            }
         case HANDLE_NEW_BUSINESS_CHANGE:
             return {
                 ...state,
@@ -103,6 +116,29 @@ export const BusinessReducer = (state = initialState, action) => {
                 gettingBusinesses: false,
                 gotBusinesses: false,
                 gettingBusinessesError: true,
+                errors: [...state.errors, payload]
+            }
+        case UPDATING_BUSINESS:
+            return {
+                ...state,
+                updatingBusiness: true,
+                updatedBusiness: false,
+                updateBusinessError: false,
+            }
+        case UPDATED_BUSINESS:
+            return {
+                ...state,
+                updatingBusiness: false,
+                updatedBusiness: true,
+                updateBusinessError: false,
+                businesses: payload
+            }
+        case UPDATE_BUSINESS_ERROR:
+            return {
+                ...state,
+                updatingBusiness: false,
+                updatedBusiness: false,
+                updateBusinessError: true,
                 errors: [...state.errors, payload]
             }
         case SELECT_BUSINESS:

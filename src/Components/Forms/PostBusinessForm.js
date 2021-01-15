@@ -54,7 +54,7 @@ export default function PostBusinessForm() {
                         name='businessName'
                         placeholder='New Business Name'
                         onChange={handleChange}
-                        value={newBusiness.categoryName}
+                        value={newBusiness.businessName}
                     />
                 </div>
                 <div className='input-block'>
@@ -116,7 +116,7 @@ export default function PostBusinessForm() {
                             value={newBusiness.country.toUpperCase()}
                             readOnly
                         /> 
-                        <input 
+                        <input
                             type='text'
                             name='state'
                             placeholder='State'
@@ -135,7 +135,7 @@ export default function PostBusinessForm() {
                         <input 
                             type='number'
                             name='zip'
-                            placeholder='Zip code: 00000'
+                            placeholder='Zip code'
                             onChange={handleChange}
                             value={newBusiness.zip}
                         />

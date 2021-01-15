@@ -1,10 +1,20 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import { avatarUpload, handleMediaFileChange } from '../../../../Redux/Actions/MediaUploadActions';
 import '../../../../Styles/user-account.scss';
-import avatar from '../../../../Assets/avatar.png';
 
 export default function Admin() {
-    const user = useSelector((state) => state.LoginReducer.data);
+    const { data } = useSelector((state) => state.LoginReducer);
+   
+    const dispatch = useDispatch();
+
+    const onChange = (event) => {
+        dispatch(handleMediaFileChange(event));
+    }
+
+    const onClick = () => {
+        dispatch(avatarUpload());
+    }
 
     return (
         <div className='user-account'>
@@ -13,27 +23,30 @@ export default function Admin() {
                     <div className='avatar-container'>
                         <img
                             className='avatar-image'
-                            alt={'Avatar for ' + user.userName}
-                            src={avatar}
+                            alt={'Avatar for ' + data.userName}
+                            src={`${data.avatar.imageUrl}?${new Date().getTime()}`}
                         />
                         <div className='update-profile-pic'>
                             <label>Update profile picture</label>
                             <input 
                                 type='file'
                                 accept='image/*'
+                                onChange={onChange}
+                                multiple={false}
                             />
+                            <button onClick={onClick}>Submit</button>
                         </div>
                     </div>
                     
-                    <h1>{user.userName}</h1>
+                    <h1>{data.userName}</h1>
                 </div>
             </div>
             <div>
-                <p>First name: {user.firstName}</p>
-                <p>Last name: {user.lastName}</p>
-                <p>Email: {user.email}</p>
-                <p>Account type: {user.accountType}</p>
-                <p>Zip code: {user.zip}</p>
+                <p>First name: {data.firstName}</p>
+                <p>Last name: {data.lastName}</p>
+                <p>Email: {data.email}</p>
+                <p>Account type: {data.accountType}</p>
+                <p>Zip code: {data.zip}</p>
             </div>
         </div>
     )

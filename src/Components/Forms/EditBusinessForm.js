@@ -1,54 +1,107 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
-import { selectBusiness, updateBusiness } from '../../Redux/Actions/BusinessActions';
+import { clearNewBusiness, handleNewBusinessChange, updateBusiness } from '../../Redux/Actions/BusinessActions';
+import Button from '../Reusable/Button';
 
 export default function EditBusinessForm() {
-    const { selectedBusiness } = useSelector(state => state.BusinessReducer);
+    const { newBusiness } = useSelector(state => state.BusinessReducer);
     const { categories } = useSelector(state => state.CategoriesReducer);
 
-    const [business, setBusiness] = useState({});
-    const [category, setCategory] = useState(null);
-
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setBusiness(selectedBusiness);
-    }, [selectedBusiness]);
-
+console.log('NEW BUSINESS:', newBusiness);
     const closeModal = () => {
         dispatch(toggleModal(''));
-        dispatch(selectBusiness(null));
+        dispatch(clearNewBusiness());
     }
 
-    const submitEdit = () => {
-        dispatch(updateBusiness(business, category));
-        dispatch(selectedBusiness(null));
-        dispatch(toggleModal(''));
+    const submit = () => {
+        dispatch(updateBusiness(newBusiness));
+        closeModal();
     }
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        switch(name) {
-            case 'category':
-                setBusiness(business => ({...business, [name]: value}));
-                setCategory(value);
-                return;
-            case 'businessName':
-            case 'businessDescription':
-            case 'phoneNumber':
-            case 'businessEmail':
-                setBusiness(business => ({...business, [name]: value}));
-                return;
-            default:
-                return;
-        }
+        dispatch(handleNewBusinessChange(event));
+    }
+
+    const categoriesList = () => {
+        return categories.map(category => {
+            return <option key={category._id} value={category._id}>{category.categoryName}</option>
+        });
     }
 
 
     return (
-        <div className='edit-business'>
-            
+        <div className='post-business-form'>
+            <div className='edit-header'>
+                <h1>New Business</h1>
+            </div>
+            <form className='edit-body'>
+                <div className='input-block'>
+                    <label>Select business category: *</label>
+                    <select
+                        name="category"
+                        onChange={handleChange}
+                    >
+                        <option value="none">----------</option>
+                        {categoriesList()}
+                    </select>
+                </div>
+                <div className='input-block'>
+                    <label>New business name:</label>
+                    <input
+                        type='text'
+                        name='businessName'
+                        placeholder='New Business Name'
+                        onChange={handleChange}
+                        value={newBusiness.businessName}
+                    />
+                </div>
+                <div className='input-block'>
+                    <label>New business description: </label>
+                    <textarea
+                        type='text'
+                        rows={6}
+                        name='businessDescription'
+                        placeholder='Business description'
+                        onChange={handleChange}
+                        value={newBusiness.businessDescription}
+                    />
+                </div>
+                <div className='input-block'>
+                    <label>Business email </label>
+                    <input
+                        type='email'
+                        name='businessEmail'
+                        placeholder='Business email'
+                        onChange={handleChange}
+                        value={newBusiness.businessEmail}
+                    />
+                </div>
+                <div className='input-block'>
+                    <label>Business phone number </label>
+                    <input
+                        type='tel'
+                        name='phoneNumber'
+                        placeholder='Business phone number'
+                        onChange={handleChange}
+                        value={newBusiness.phoneNumber}
+                    />
+                </div>
+            </form>
+            <div className='buttons-container'>
+                <Button 
+                    icon="window-close"
+                    iconSize={2} 
+                    onClick={closeModal} 
+                />
+
+                <Button 
+                    icon="check" 
+                    iconSize={2} 
+                    onClick={submit} 
+                />
+            </div>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../../Redux/Actions/ModalActions";
 import { selectCategory } from "../../Redux/Actions/CategoriesActions";
-import { selectBusiness } from "../../Redux/Actions/BusinessActions";
+import { selectBusiness, setNewBusiness } from "../../Redux/Actions/BusinessActions";
 
 function Table({
     data,
@@ -64,7 +64,7 @@ function Table({
                 return;
             case "business":
                 dispatch(toggleModal(`${type}Edit`));
-                dispatch(selectBusiness(item));
+                dispatch(setNewBusiness(item));
                 return;
             default:
                 return;
