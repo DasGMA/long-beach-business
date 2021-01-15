@@ -12,8 +12,6 @@ export default function HomePage() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    console.log()
-
     const onClick = (category, _id) => {
         dispatch(getCategoryBusinessList(category, _id));
         setCat(category);
@@ -41,7 +39,6 @@ export default function HomePage() {
     return (
         <div className="homePage">
             <Search />
-
             <h1>Business Categories</h1>
             <div className="categories">{renderCategories()}</div>
         </div>

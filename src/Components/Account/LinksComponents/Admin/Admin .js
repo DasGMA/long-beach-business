@@ -2,9 +2,10 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { avatarUpload, handleMediaFileChange } from '../../../../Redux/Actions/MediaUploadActions';
 import '../../../../Styles/user-account.scss';
+import Avatar from '../../../Reusable/Image';
 
 export default function Admin() {
-    const { data } = useSelector((state) => state.LoginReducer);
+    const { data, selectedFile } = useSelector((state) => state.LoginReducer);
    
     const dispatch = useDispatch();
 
@@ -15,12 +16,22 @@ export default function Admin() {
     const onClick = () => {
         dispatch(avatarUpload());
     }
-
+console.log(selectedFile)
     return (
         <div className='user-account'>
             <div className='user-info'>
                 <div className='user-info-container'>
-                    <div className='avatar-container'>
+                    <Avatar 
+                        alt={'Avatar for ' + data.userName}
+                        src={`${data.avatar.imageUrl}?${new Date().getTime()}`}
+                        type='file'
+                        accept='image/*'
+                        onChange={onChange}
+                        multiple={false}
+                        selectedFile={selectedFile}
+                        onClick={onClick}
+                    />
+                    {/* <div className='avatar-container'>
                         <img
                             className='avatar-image'
                             alt={'Avatar for ' + data.userName}
@@ -36,7 +47,7 @@ export default function Admin() {
                             />
                             <button onClick={onClick}>Submit</button>
                         </div>
-                    </div>
+                    </div> */}
                     
                     <h1>{data.userName}</h1>
                 </div>

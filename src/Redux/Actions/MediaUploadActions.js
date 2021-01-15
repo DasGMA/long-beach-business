@@ -39,6 +39,7 @@ export const avatarUpload = () => async (dispatch, getState) => {
             type: AVATAR_UPLOADED,
             payload: avatar.data
         });
+        dispatch(selectFile(null));
     } catch (error) {
         dispatch(selectFile(null));
         dispatch({
