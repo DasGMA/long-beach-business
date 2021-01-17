@@ -6,6 +6,7 @@ function Category({ count, category, onClick, src}) {
     return (
         <button className='category' onClick={onClick}>
             <p>{category}</p>
+            <img src={src} alt={`${category}`} style={{width: '15rem', height: '15rem'}}/>
         </button>
     );
 }

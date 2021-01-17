@@ -78,16 +78,16 @@ export const adminPostCategory = () => async (dispatch, getState) => {
         };
         const token = localStorage.getItem('Token');
         const headers = {headers: {'authorization': token}};
-        const newCategory = await axios.post(`${url}/post-category`, data, headers);
+        const newCategory = await axios.post(`${url}post-category`, data, headers);
 
         const form = new FormData();
-        data.append('categoryid', newCategory.data._id);
-        data.append('image', selectedFile);
+        form.append('categoryid', newCategory.data._id);
+        form.append('image', selectedFile);
 
         const config = { headers: { 'Content-Type': 'multipart/form-data', 'authorization': token}};
         
         const categoryImage = await axios.post(`${url}category-image-upload`, form, config);
-
+        
         newCategory.data.image = categoryImage.data;
        
         dispatch({
@@ -96,6 +96,7 @@ export const adminPostCategory = () => async (dispatch, getState) => {
         });
 
     } catch (error) {
+        console.log(error)
         dispatch({
             type: ADMIN_POSTING_CATEGORY_ERROR,
             payload: error
@@ -103,16 +104,18 @@ export const adminPostCategory = () => async (dispatch, getState) => {
     }
 };
 
-export const adminDeleteCategory = (categoryID) => async (dispatch, getState) => {
-    const { categories } = getState().CategoriesReducer;
+export const adminDeleteCategory = () => async (dispatch, getState) => {
+    const { categories, selectedCategory } = getState().CategoriesReducer;
 
     dispatch({ type: ADMIN_DELETING_CATEGORY });
 
     try {
         const token = localStorage.getItem('Token');
-        const config = { headers: { 'authorization': token }, data: {_id: categoryID} };
-        const deletedCategory = await axios.delete(`${url}/delete-category`, config);
-
+        const config = { headers: { 'authorization': token }, data: {_id: selectedCategory._id} };
+        const deleteConfig = { headers: { 'authorization': token }, imageUrl: selectedCategory.image.imageUrl };
+        await axios.post(`${url}delete-single-file`, deleteConfig);
+        const deletedCategory = await axios.delete(`${url}delete-category`, config);
+        
         const filtered = categories.filter(category => category._id !== deletedCategory.data._id);
         
         dispatch({

@@ -32,10 +32,11 @@ export default function HomePage() {
                 count={category.businessCount}
                 category={category.categoryName}
                 onClick={() => onClick(category.categoryName, category._id)}
+                src={category.image.imageUrl}
             />
         ));
     };
-
+console.log(categories)
     return (
         <div className="homePage">
             <Search />

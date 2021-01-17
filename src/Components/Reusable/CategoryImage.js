@@ -57,7 +57,7 @@ function CategoryImage(
 
 CategoryImage.defaultProps = {
     alt: 'Alternate image description',
-    src: 'https://lbo-images.s3-us-west-1.amazonaws.com/avatars/1610576183164',
+    src: 'https://lbo-images.s3-us-west-1.amazonaws.com/categories/default-category.png',
     type: 'file',
     accept: 'image/*',
     multiple: false,

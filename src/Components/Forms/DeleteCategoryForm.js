@@ -16,7 +16,7 @@ export default function DeleteCategoryForm() {
     }
 
     const submitEdit = () => {
-        dispatch(adminDeleteCategory(selectedCategory._id));
+        dispatch(adminDeleteCategory());
         dispatch(selectCategory(null));
         dispatch(toggleModal(''));
     }

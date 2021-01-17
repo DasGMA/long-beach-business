@@ -43,7 +43,7 @@ export default function PostCategoryForm() {
                 <div className='container'>
                     <CategoryImage 
                         alt={`${newCategory.categoryName}`}
-                        src={selectedFile}
+                        src='https://lbo-images.s3-us-west-1.amazonaws.com/categories/default-category.png'
                         name='categoryImage'
                         onChange={onChange}
                         selectedFile={selectedFile}
