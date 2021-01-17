@@ -1,12 +1,12 @@
 import axios from 'axios';
-import store from '../src/Redux/store';
+//import store from '../src/Redux/store';
 
 const lbo = axios.create({
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
     },
-    baseURL: `http://localhost:8888`
+    baseURL: process.env.REACT_APP_BASE_URL
 });
 
 // Use token and check if expired or not. If expired, then refresh token.

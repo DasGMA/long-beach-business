@@ -3,9 +3,13 @@ import Axios from "axios";
 export const AVATAR_UPLOADING = 'AVATAR_UPLOADING';
 export const AVATAR_UPLOADED = 'AVATAR_UPLOADED';
 export const AVATAR_UPLOAD_ERROR = 'AVATAR_UPLOAD_ERROR';
+export const CATEGORY_IMAGE_UPLOADING = 'CATEGORY_IMAGE_UPLOADING';
+export const CATEGORY_IMAGE_UPLOADED = 'CATEGORY_IMAGE_UPLOADED';
+export const CATEGORY_IMAGE_UPLOAD_ERROR = 'CATEGORY_IMAGE_UPLOAD_ERROR';
 export const SELECT_FILE = 'SELECT_FILE';
+export const SELECT_CATEGORY_ID = 'SELECT_CATEGORY_ID';
 
-const url = 'http://localhost:8888/';
+const url = process.env.REACT_APP_BASE_URL;
 
 export const selectFile = (file) => dispatch => {
     dispatch({
@@ -31,7 +35,7 @@ export const avatarUpload = () => async (dispatch, getState) => {
     data.append('userid', userid);
     data.append('image', file);
 
-    const config = { headers: {   'Content-Type': 'multipart/form-data', authorization: token}};
+    const config = { headers: { 'Content-Type': 'multipart/form-data', authorization: token}};
 
     try {
         const avatar = await Axios.post(`${url}avatar-upload`, data, config);

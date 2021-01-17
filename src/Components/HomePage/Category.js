@@ -1,13 +1,27 @@
-import React from "react";
-import "../../Styles/category.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../../Styles/category.scss';
 
-export default function Category({ count, category, onClick}) {
-    // If category is created but business count is 0, category won't show on homepage.
-    const className = count > 0 ? 'category' : 'category hidden';
-
+function Category({ count, category, onClick, src}) {
     return (
-        <button className={className} onClick={onClick}>
+        <button className='category' onClick={onClick}>
             <p>{category}</p>
         </button>
     );
 }
+
+Category.defaultProps = {
+    count: 0,
+    category: '',
+    onClick: () => {},
+    // src: need to uplaod to S3 default categories image
+}
+
+Category.propTypes = {
+    count: PropTypes.number,
+    category: PropTypes.string,
+    onClick: PropTypes.func,
+    src: PropTypes.string
+}
+
+export default Category;

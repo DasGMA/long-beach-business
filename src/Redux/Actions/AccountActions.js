@@ -4,7 +4,7 @@ export const GETTING_USER_INFO = 'GET_USER_INFO';
 export const GOT_USER_INFO_SUCCESS = 'GOT_USER_INFO_SUCCESS';
 export const ACCOUNT_ERROR = 'ACCOUNT_ERROR';
 
-const getUserInfoURL = 'http://localhost:8888/user';
+const userInfoURL = process.env.REACT_APP_BASE_URL;
 
 export const accountError = (errorName, message) => dispatch => {
     const error = {errorName, message};
@@ -20,7 +20,7 @@ export const getUserInfo = () => async dispatch => {
     try {
         const token = localStorage.getItem('Token');
         const headers = {headers: {'authorization': token}};
-        const user = await axios.get(getUserInfoURL, headers);
+        const user = await axios.get(`${userInfoURL}user`, headers);
 
         dispatch({
             type: GOT_USER_INFO_SUCCESS,

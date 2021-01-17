@@ -20,7 +20,8 @@ import {
     ADMIN_POSTING_CATEGORY_ERROR,
     NEW_CATEGORY_NAME,
     NEW_CATEGORY_DESCRIPTION,
-    CLEAR_NEW_CATEGORY
+    CLEAR_NEW_CATEGORY,
+    SELECT_FILE
 } from '../../Actions/AdminActions';
 
 const initialState = {
@@ -45,10 +46,16 @@ const initialState = {
     gotBusinessList: false,
     errors: {},
     updated: false,
+
+    categoryImageUploading: false,
+    categoryImageUploaded: false,
+    categoryImageUploadError: false,
+    categoryImage: null,
     
     businesses: null,
 
     selectedCategory: null,
+    selectedFile: null,
 
     newCategory: {
         categoryName: '',
@@ -60,6 +67,12 @@ export const CategoriesReducer = (state = initialState, action) => {
     const {type, payload} = action;
 
     switch(type) {
+
+        case SELECT_FILE:
+            return {
+                ...state,
+                selectedFile: payload
+            }
 
         case NEW_CATEGORY_NAME:
             return {

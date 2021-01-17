@@ -4,7 +4,7 @@ export const LOGGING_OUT = "LOGGING_OUT";
 export const LOGGED_OUT = "LOGGED_OUT";
 export const SET_LOGOUT_ERROR = "SET_LOGOUT_ERROR";
 
-const logoutUrl = "http://localhost:8888/logout";
+const logoutUrl = process.env.REACT_APP_BASE_URL;
 
 export const setLogoutError = (errorName, message) => dispatch => {
     const error = {errorName, message};
@@ -22,7 +22,7 @@ export const logoutAction = () => async (dispatch, getState) => {
         const data = {_id: user._id};
         const token = localStorage.getItem('Token');
         const headers = {headers: {'authorization': token}};
-        await axios.post(logoutUrl, data, headers);
+        await axios.post(`${logoutUrl}logout`, data, headers);
         localStorage.clear();
         sessionStorage.clear();
 

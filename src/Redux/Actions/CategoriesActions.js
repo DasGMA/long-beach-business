@@ -8,7 +8,7 @@ export const GOT_BUSINESS_LIST = 'GOT_BUSINESS_LIST';
 export const RESET_GOT_BUSINESS_LIST = "RESET_GOT_BUSINESS_LIST";
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
-const url = 'http://localhost:8888/';
+const url = process.env.REACT_APP_BASE_URL;
 
 export const getCategories = () => async dispatch => {
     dispatch({type: CATEGORIES_PENDING});

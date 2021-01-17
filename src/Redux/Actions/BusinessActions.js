@@ -18,7 +18,7 @@ export const CLEAR_NEW_BUSINESS = 'CLEAR_NEW_BUSINESS';
 export const SET_NEW_BUSINESS = 'SET_NEW_BUSINESS';
 
 
-const url = "http://localhost:8888/";
+const url = process.env.REACT_APP_BASE_URL;
 
 export const getAllBusinesses = () => async (dispatch) => {
     dispatch({

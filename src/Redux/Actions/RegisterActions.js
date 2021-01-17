@@ -1,7 +1,7 @@
-import Axios from "axios";
-export const REGISTERING = "REGISTERING";
-export const REGISTERED = "REGISTERED";
-export const REGISTER_ERROR = "REGISTER_ERROR";
+import Axios from 'axios';
+export const REGISTERING = 'REGISTERING';
+export const REGISTERED = 'REGISTERED';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const SET_USERNAME = 'SET_USERNAME';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_FIRSTNAME = 'SET_FIRSTNAME';
@@ -13,7 +13,7 @@ export const CLEAR_INPUT = 'CLEAR_INPUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 
-const url = "http://localhost:8888/register";
+const url = process.env.REACT_APP_BASE_URL;
 
 export const setFirstName = (value) => dispatch => {
     dispatch({
@@ -122,7 +122,7 @@ export const registerAction = () => async (dispatch, getState) => {
     }
 
     try {
-        const register = await Axios.post(url, data);
+        const register = await Axios.post(`${url}/register`, data);
         dispatch({
             type: REGISTERED,
             payload: register.data 

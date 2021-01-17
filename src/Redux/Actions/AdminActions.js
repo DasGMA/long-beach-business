@@ -12,14 +12,40 @@ export const ADMIN_EDIT_CATEGORY_ERROR = 'ADMIN_EDIT_CATEGORY_ERROR';
 export const NEW_CATEGORY_NAME = 'NEW_CATEGORY_NAME';
 export const NEW_CATEGORY_DESCRIPTION = 'NEW_CATEGORY_DESCRIPTION';
 export const CLEAR_NEW_CATEGORY = 'CLEAR_NEW_CATEGORY';
+export const SELECT_FILE = 'SELECT_FILE';
 
-const url = 'http://localhost:8888';
+const url = process.env.REACT_APP_BASE_URL;
 
 export const setCategoryName = (value) => dispatch => {
     dispatch({
         type: NEW_CATEGORY_NAME,
         payload: value
     });
+}
+
+export const selectCategoryImage = (file) => dispatch => {
+    dispatch({
+        type: SELECT_FILE,
+        payload: file
+    });
+}
+
+export const handleCategoryImageChange = (event) => dispatch => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    switch(name) {
+        case 'categoryName':
+            dispatch(setCategoryName(value));
+            return;
+        case 'categoryDescription':
+            dispatch(setCategoryDescription(value));
+            return;
+        case 'categoryImage':
+            dispatch(selectCategoryImage(event.target.files[0]));
+            return;
+        default: 
+            return;
+    }
 }
 
 export const setCategoryDescription = (value) => dispatch => {
@@ -40,7 +66,7 @@ export const clearNewCategory = () => dispatch => {
 }
 
 export const adminPostCategory = () => async (dispatch, getState) => {
-    const { newCategory } = getState().CategoriesReducer;
+    const { newCategory, selectedFile } = getState().CategoriesReducer;
     const { categoryName, categoryDescription } = newCategory;
     
     dispatch({ type: ADMIN_POSTING_CATEGORY });
@@ -53,6 +79,16 @@ export const adminPostCategory = () => async (dispatch, getState) => {
         const token = localStorage.getItem('Token');
         const headers = {headers: {'authorization': token}};
         const newCategory = await axios.post(`${url}/post-category`, data, headers);
+
+        const form = new FormData();
+        data.append('categoryid', newCategory.data._id);
+        data.append('image', selectedFile);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data', 'authorization': token}};
+        
+        const categoryImage = await axios.post(`${url}category-image-upload`, form, config);
+
+        newCategory.data.image = categoryImage.data;
        
         dispatch({
             type: ADMIN_POSTED_CATEGORY,

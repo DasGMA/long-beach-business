@@ -9,7 +9,7 @@ export const SET_PASSWORD = "SET_PASSWORD";
 export const SET_VERIFY_PASSWORD = "SET_VERIFY_PASSWORD";
 export const RESET_INPUT = "RESET_INPUT";
 
-const loginUrl = "http://localhost:8888/login";
+const loginUrl = process.env.REACT_APP_BASE_URL;
 
 export const setUsername = value => dispatch => {
   dispatch({
@@ -58,7 +58,7 @@ export const loginAction = () => async (dispatch, getState) => {
     const {userName, password} = getState().LoginReducer;
     const data = {userName, password};
 
-    const login = await Axios.post(loginUrl, data);
+    const login = await Axios.post(`${loginUrl}login`, data);
     const {token, session} = login.data;
 
     localStorage.setItem('Token', token);

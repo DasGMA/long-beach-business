@@ -3,36 +3,35 @@ import Button from '../Reusable/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
 import '../../Styles/editCategoryForm.scss';
-import { adminPostCategory, clearNewCategory, setCategoryName, setCategoryDescription } from '../../Redux/Actions/AdminActions';
+import { 
+    adminPostCategory, 
+    clearNewCategory, 
+    selectCategoryImage, 
+    handleCategoryImageChange } from '../../Redux/Actions/AdminActions';
+import CategoryImage from '../Reusable/CategoryImage';
 
 export default function PostCategoryForm() {
-    const { newCategory } = useSelector(state => state.CategoriesReducer);
+    const { newCategory, selectedFile } = useSelector(state => state.CategoriesReducer);
 
     const dispatch = useDispatch();
 
     const closeModal = () => {
         dispatch(toggleModal(''));
         dispatch(clearNewCategory());
+        dispatch(selectCategoryImage(null));
     }
 
     const submitEdit = () => {
         dispatch(adminPostCategory());
-        dispatch(clearNewCategory());
-        dispatch(toggleModal(''));
+        closeModal();
     }
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        switch(name) {
-            case 'categoryName':
-                dispatch(setCategoryName(value));
-                return;
-            case 'categoryDescription':
-                dispatch(setCategoryDescription(value));
-                return;
-            default: 
-                return;
-        }
+    const onChange = (event) => {
+        dispatch(handleCategoryImageChange(event));
+    }
+
+    const onClick = () => {
+        dispatch(selectCategoryImage(null));
     }
 
     return (
@@ -41,13 +40,24 @@ export default function PostCategoryForm() {
                 <h1>New Category</h1>
             </div>
             <form className='edit-body'>
+                <div className='container'>
+                    <CategoryImage 
+                        alt={`${newCategory.categoryName}`}
+                        src={selectedFile}
+                        name='categoryImage'
+                        onChange={onChange}
+                        selectedFile={selectedFile}
+                        onClick={onClick}
+                        first={true}
+                    />
+                </div>
                 <div className='input-block'>
-                    <label>New category name: *</label>
+                    <label>New category name:</label>
                     <input
                         type='text'
                         name='categoryName'
                         placeholder='New Category Name'
-                        onChange={handleChange}
+                        onChange={onChange}
                         value={newCategory.categoryName}
                     />
                 </div>
@@ -58,7 +68,7 @@ export default function PostCategoryForm() {
                         rows={6}
                         name='categoryDescription'
                         placeholder='Category description'
-                        onChange={handleChange}
+                        onChange={onChange}
                         value={newCategory.categoryDescription}
                     />
                 </div>
