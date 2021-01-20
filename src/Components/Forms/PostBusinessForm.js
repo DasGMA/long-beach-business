@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearNewBusiness, handleNewBusinessChange, postBusiness } from '../../Redux/Actions/BusinessActions';
+import { clearNewBusiness, handleNewBusinessChange, postBusiness, removeBusinessImage} from '../../Redux/Actions/BusinessActions';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
 import Button from '../Reusable/Button';
 import '../../Styles/postBusiness.scss';
+import BusinessImage from '../Reusable/BusinessImage';
 
 export default function PostBusinessForm() {
     const { categories } = useSelector(state => state.CategoriesReducer);
@@ -30,6 +31,12 @@ export default function PostBusinessForm() {
             return <option key={category._id} value={category._id}>{category.categoryName}</option>
         });
     }
+console.log({newBusiness})
+
+    const removeImage = (e) => {
+        const index =  parseInt(e.target.attributes.fileindex.nodeValue);
+        dispatch(removeBusinessImage(index));
+    }
 
     return (
         <div className='post-business-form'>
@@ -46,6 +53,17 @@ export default function PostBusinessForm() {
                         <option value="none">----------</option>
                         {categoriesList()}
                     </select>
+                </div>
+                <div className='container'>
+                    <BusinessImage
+                        src='https://lbo-media.s3-us-west-1.amazonaws.com/default-multi-images.png'
+                        name='businessImages'
+                        multiple={true}
+                        selectedFile={newBusiness.businessImages}
+                        onChange={handleChange}
+                        first={true}
+                        removeImage={removeImage}
+                    />
                 </div>
                 <div className='input-block'>
                     <label>New business name:</label>

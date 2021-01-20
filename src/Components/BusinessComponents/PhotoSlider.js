@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
 import '../../Styles/photo-slider.scss';
-import lb1 from '../../Assets/lb1.jpg';
-import lb2 from '../../Assets/lb2.jpg';
-import lb3 from '../../Assets/lb3.jpg';
 
-export default function PhotoSlider(images) {
+
+export default function PhotoSlider({ images = []}) {
     const [index, setIndex] = useState(0);
-    const arr = [lb1, lb2, lb3];
-
+    
     const slideRight = () => {
-        if (arr.length - 1 === index) return;
+        if (images.length - 1 === index) return;
         setIndex(index + 1);
     }
 
@@ -21,7 +18,7 @@ export default function PhotoSlider(images) {
     return (
         <div className='photo-slider'>
             <img 
-                src={arr[index]}
+                src={images[index].location}
                 alt='Slider item'
             />
             <button 
@@ -31,7 +28,7 @@ export default function PhotoSlider(images) {
                 {"<"}
             </button>
             <button 
-                className={index !== arr.length - 1 ? 'right-button' : 'right-button hidden'}
+                className={index !== images.length - 1 ? 'right-button' : 'right-button hidden'}
                 onClick={slideRight}
             >
                 {">"}

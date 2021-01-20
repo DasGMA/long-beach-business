@@ -5,7 +5,8 @@ import PhotoSlider from './PhotoSlider';
 export default function BusinessComponent(business) {
     const { businessName, 
             businessDescription, 
-            averageRating, 
+            averageRating,
+            businessImages,
             businessAddress, 
             phoneNumber } = business;
 
@@ -21,7 +22,9 @@ export default function BusinessComponent(business) {
     return (
         <div className='business-component'>
             <div className='inner-business-component'>
-                <PhotoSlider />
+                <PhotoSlider 
+                    images={businessImages.images}
+                />
                 <div className='business-component-display'>
                     <div className='business-component-header'>
                         <div className='business-name'>

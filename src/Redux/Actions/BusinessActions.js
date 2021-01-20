@@ -16,6 +16,7 @@ export const POSTING_BUSINESS_ERROR = 'POSTING_BUSIMESS_ERROR';
 export const HANDLE_NEW_BUSINESS_CHANGE = 'HANDLE_NEW_BUSINESS_CHANGE';
 export const CLEAR_NEW_BUSINESS = 'CLEAR_NEW_BUSINESS';
 export const SET_NEW_BUSINESS = 'SET_NEW_BUSINESS';
+export const REMOVE_BUSINESS_IMAGE = 'REMOVE_BUSINESS_IMAGE';
 
 
 const url = process.env.REACT_APP_BASE_URL;
@@ -40,6 +41,16 @@ export const getAllBusinesses = () => async (dispatch) => {
     }
 };
 
+export const removeBusinessImage = (index) => (dispatch, getState) => {
+    const { newBusiness } = getState().BusinessReducer;
+    let payload = newBusiness.businessImages.filter(item => newBusiness.businessImages.indexOf(item) !== index);
+    
+    dispatch({
+        type: REMOVE_BUSINESS_IMAGE,
+        payload: payload.length === 0 ? null : payload
+    })
+}
+
 export const selectBusiness = (business) => (dispatch) => {
     dispatch({
         type: SELECT_BUSINESS,
@@ -59,10 +70,22 @@ export const postBusiness = () => async (dispatch, getState) => {
     try {
         const token = localStorage.getItem('Token');
         const headers = { headers: { 'authorization': token } };
+        const config = { headers: { 'Content-Type': 'multipart/form-data', 'authorization': token}};
+
+        const form = new FormData();
+        
         const postedNewBusiness = await axios.post(`${url}post-business`, newBusiness, headers);
-        const newB = postedNewBusiness.data;
-        const payload = [ ...businesses, newB ];
-    
+        
+        form.append('businessid', postedNewBusiness.data._id);
+        for (const file of newBusiness.businessImages) {
+            form.append('images', file);
+        }
+        const uploadedImages = await axios.post(`${url}upload-multiple-files`, form, config)
+        
+        postedNewBusiness.data.businessImages = uploadedImages.data;
+
+        const payload = [ ...businesses, postedNewBusiness.data ];
+
         dispatch({
             type: POSTING_BUSINESS_SUCCESS,
             payload
@@ -142,8 +165,18 @@ export const updateBusiness = () => async (dispatch, getState) => {
 export const handleNewBusinessChange = (event) => (dispatch, getState) => {
     event.preventDefault();
     const { newBusiness } = getState().BusinessReducer;
-    const { name, value } = event.target;
-    const payload = { ...newBusiness, [name]: value };
+    const { name, value, files } = event.target;
+    let payload = {};
+
+    if (name === 'businessImages') {
+       newBusiness.businessImages === null ? 
+                            payload = { ...newBusiness, [name]: [...files] } :
+                            payload = { ...newBusiness, [name]: [
+                                ...newBusiness[name], ...files
+                            ]}
+    } else {
+        payload = { ...newBusiness, [name]: value}
+    }
 
     dispatch({
         type: HANDLE_NEW_BUSINESS_CHANGE,
@@ -166,6 +199,7 @@ export const clearNewBusiness = () => dispatch => {
         postedBy: '',
         streetApartmentNumber: '',
         streetName: '',
+        businessImages: null,
         country: 'usa',
         state: 'california',
         city: 'long beach',

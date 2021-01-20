@@ -14,7 +14,8 @@ import {
     SET_NEW_BUSINESS,
     UPDATED_BUSINESS,
     UPDATE_BUSINESS_ERROR,
-    UPDATING_BUSINESS
+    UPDATING_BUSINESS,
+    REMOVE_BUSINESS_IMAGE
 } from '../../Actions/BusinessActions'
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
     businesses: [],
 
     selectedBusiness: null,
+    selectedBusinessFiles: null,
 
     newBusiness: {
         category: '',
@@ -45,6 +47,7 @@ const initialState = {
         businessDescription: '',
         postedBy: '',
         streetApartmentNumber: '',
+        businessImages: null,
         streetName: '',
         country: 'usa',
         state: 'california',
@@ -63,6 +66,14 @@ export const BusinessReducer = (state = initialState, action) => {
             return {
                 ...state,
                 newBusiness: payload
+            }
+        case REMOVE_BUSINESS_IMAGE: 
+            return {
+                ...state,
+                newBusiness: {
+                    ...state.newBusiness,
+                    businessImages: payload
+                }
             }
         case HANDLE_NEW_BUSINESS_CHANGE:
             return {
