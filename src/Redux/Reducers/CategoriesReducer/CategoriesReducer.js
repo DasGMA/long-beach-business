@@ -208,8 +208,6 @@ export const CategoriesReducer = (state = initialState, action) => {
                 categoriesError: true
             };
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }

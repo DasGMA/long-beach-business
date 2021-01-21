@@ -181,8 +181,6 @@ export const BusinessReducer = (state = initialState, action) => {
                 errors: [...state.errors, payload]
             }
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }

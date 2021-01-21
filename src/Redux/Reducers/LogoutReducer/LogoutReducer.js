@@ -1,5 +1,4 @@
 import {
-    LOGGED_OUT,
     LOGGING_OUT,
     SET_LOGOUT_ERROR
 } from "../../Actions/LogoutActions";
@@ -30,8 +29,6 @@ export const LogoutReducer = (state = initialState, action) => {
             };
 
         default:
-            return {
-                ...state,
-            };
+            return state
     }
 };

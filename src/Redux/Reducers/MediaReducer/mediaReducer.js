@@ -50,8 +50,6 @@ export const mediaReducer = (state = initialState, action) => {
                 errors: payload
             }
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }

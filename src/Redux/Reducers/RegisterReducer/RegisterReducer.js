@@ -102,8 +102,6 @@ export const RegisterReducer = (state = initialState, action) => {
                 accountType: 'none'
             }
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }
