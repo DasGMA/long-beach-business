@@ -5,8 +5,8 @@ import BusinessComponent from './BusinessComponent';
 import Filters from './Filters';
 //import { getCategory } from '../../Redux/Actions/CategoriesActions';
 
-export default function CategoryBusinessesList() {
-    const {businesses} = useSelector(state => state.CategoriesReducer);
+export default function CategoryBusinessesList(props) {
+    const { businesses } = useSelector(state => state.CategoriesReducer);
 
     const renderBusinessList = () => {
         return businesses.map(business => {

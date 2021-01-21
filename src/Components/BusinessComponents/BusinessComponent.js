@@ -7,7 +7,8 @@ export default function BusinessComponent(business) {
             businessDescription, 
             averageRating,
             businessImages,
-            businessAddress, 
+            businessAddress,
+            offers, 
             phoneNumber } = business;
 
     const trimmedText = () => {
@@ -42,7 +43,7 @@ export default function BusinessComponent(business) {
                         <p>{trimmedText()}</p>
                     </div>
                     <div className='business-component-footer'>
-                        <span>Offers: 5</span>
+                        <span>Offers: {offers.length}</span>
                         <i className='fa fa-thumbs-up fa-2x'> 0</i>
                         <i className='fa fa-thumbs-down fa-2x'> 0</i>
                         <i className='fas fa-comments-o fa fa-2x'> 0</i>

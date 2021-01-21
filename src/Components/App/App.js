@@ -14,6 +14,7 @@ import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList
 
 export default function App() {
     const {updated} = useSelector(state => state.CategoriesReducer);
+    const {loggedin} = useSelector(state => state.LoginReducer);
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -32,8 +33,8 @@ export default function App() {
                     <Route exact path='/' component={HomePage} />
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
-                    <ProtectedRoute path='/account' component={Account} />
-                    <Route path='/business/:category' component={CategoryBusinessesList}/>
+                    <ProtectedRoute path='/account' component={Account} loggedin={loggedin}/>
+                    <Route path='/:category' component={CategoryBusinessesList}/>
                 </Switch>
             </main>
             <Footer />

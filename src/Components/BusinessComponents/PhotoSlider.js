@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../../Styles/photo-slider.scss';
 
 
-export default function PhotoSlider({ images = []}) {
+export default function PhotoSlider({ images = [] }) {
     const [index, setIndex] = useState(0);
     
     const slideRight = () => {
@@ -14,7 +14,7 @@ export default function PhotoSlider({ images = []}) {
         if (index === 0) return;
         setIndex(index - 1);
     }
-
+console.log({index})
     return (
         <div className='photo-slider'>
             <img 

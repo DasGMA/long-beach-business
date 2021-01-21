@@ -26,7 +26,7 @@ export const getCategories = () => async dispatch => {
     }
 }
 
-export const getCategoryBusinessList = (category, _id) => async dispatch => {
+export const getCategoryBusinessList = (_id) => async dispatch => {
     dispatch({type: GETTING_BUSINESS_LIST});
     const params = { 
         params: { _id }

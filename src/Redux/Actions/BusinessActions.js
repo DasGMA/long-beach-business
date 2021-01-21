@@ -99,7 +99,7 @@ export const postBusiness = () => async (dispatch, getState) => {
     }
 };
 
-export const deleteBusiness = ({ _id, postedBy, categoryID }) => async (dispatch, getState) => {
+export const deleteBusiness = ({ _id, postedBy, categoryID, images }) => async (dispatch, getState) => {
     const { businesses } = getState().BusinessReducer;
     dispatch({
         type: DELETING_BUSINESS,
@@ -108,8 +108,11 @@ export const deleteBusiness = ({ _id, postedBy, categoryID }) => async (dispatch
     try {
         const token = localStorage.getItem("Token");
         const config = { headers: { 'authorization': token }, data: { _id, postedBy, categoryID } };
-        const deletedBusiness = await axios.delete(`${url}delete-business`, config);
-
+        const deletedBusiness = await axios.delete(`${url}delete-business`, config); 
+        
+        images.length !== 0 && 
+        await axios.post(`${url}delete-multi-files`, {images}, { headers: { 'authorization': token}})
+       
         const payload = businesses.filter(
             (business) => business._id !== deletedBusiness.data._id
         );
@@ -146,8 +149,6 @@ export const updateBusiness = () => async (dispatch, getState) => {
         
             return newArr;
         }, []);
-
-        console.log(payload)
 
         dispatch({
             type: UPDATED_BUSINESS,

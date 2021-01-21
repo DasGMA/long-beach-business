@@ -29,7 +29,7 @@ export default function Login() {
     useEffect(() => {
         if (loggedin) {
             dispatch(resetInput());
-            history.push("/");
+            history.push("/account");
         }
 
         if (history.location !== "/login") {

@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../Styles/homePage.scss";
 import Category from "./Category";
 import Search from "./Search";
 import { useHistory } from 'react-router-dom';
-import { getCategoryBusinessList, resetGotBusinessList } from "../../Redux/Actions/CategoriesActions";
+import { getCategoryBusinessList, resetGotBusinessList, selectCategory } from "../../Redux/Actions/CategoriesActions";
 
 export default function HomePage() {
-    const { categories, gotBusinessList } = useSelector((state) => state.CategoriesReducer);
-    const [cat, setCat] = useState('');
+    const { categories, gotBusinessList, selectedCategory } = useSelector((state) => state.CategoriesReducer);
+
     const history = useHistory();
     const dispatch = useDispatch();
 
     const onClick = (category, _id) => {
-        dispatch(getCategoryBusinessList(category, _id));
-        setCat(category);
+        dispatch(getCategoryBusinessList(_id));
+        dispatch(selectCategory({category, _id}));
     }
 
     useEffect(() => {
-        if (gotBusinessList) {
-            history.push(`/business/${cat}`);
-            dispatch(resetGotBusinessList());
-            setCat('');
+        if (gotBusinessList !== false && selectedCategory !== null) {
+            history.push(`/${selectedCategory.category}`);
         };
-    }, [gotBusinessList, history, cat, dispatch]);
+
+        return () => dispatch(resetGotBusinessList());
+    }, [gotBusinessList, history, dispatch, selectedCategory]);
 
     const renderCategories = () => {
         return categories.map((category) => (
