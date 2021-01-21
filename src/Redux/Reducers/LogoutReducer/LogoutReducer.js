@@ -1,10 +1,12 @@
 import {
+    LOGGED_OUT,
     LOGGING_OUT,
     SET_LOGOUT_ERROR
 } from "../../Actions/LogoutActions";
 
 const initialState = {
     logginOut: false,
+    loggedOut: false,
     logoutErrors: {}
 };
 
@@ -17,6 +19,14 @@ export const LogoutReducer = (state = initialState, action) => {
                 ...state,
                 loggingOut: true
             };
+
+        case LOGGED_OUT:
+            return {
+                ...state,
+                loggedOut: true,
+                loggingOut: false,
+                logoutErrors: {}
+            };
         
         case SET_LOGOUT_ERROR:
             return {
@@ -25,7 +35,8 @@ export const LogoutReducer = (state = initialState, action) => {
                     ...state.logoutErrors,
                     [payload.errorName]: payload.message
                 },
-                loggingOut: false
+                loggingOut: false,
+                loggedOut: false
             };
 
         default:

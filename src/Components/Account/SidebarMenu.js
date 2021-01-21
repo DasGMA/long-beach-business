@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import "../../Styles/sidebar-menu.scss";
 import { useHistory } from "react-router-dom";
 import { logoutAction } from "../../Redux/Actions/LogoutActions";
+import getStorePersistor from '../../Redux/store';
+
+const { persistor } = getStorePersistor();
 
 export default function SidebarMenu() {
     const user = useSelector((state) => state.LoginReducer.data);
@@ -14,6 +17,13 @@ export default function SidebarMenu() {
 
     const logout = () => {
         dispatch(logoutAction());
+        persistor.purge()
+            .then(() => {
+            return persistor.flush()
+            })
+            .then(() => {
+            persistor.pause()
+            });
         history.push('/');
     }
 

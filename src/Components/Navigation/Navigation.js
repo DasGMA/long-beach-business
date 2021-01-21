@@ -4,6 +4,10 @@ import "../../Styles/navigation.scss";
 import { useHistory } from "react-router-dom";
 import { logoutAction } from "../../Redux/Actions/LogoutActions";
 
+import getStorePersistor from '../../Redux/store';
+
+const { persistor } = getStorePersistor();
+
 export default function Navigation() {
     const { loggedin } = useSelector((state) => state.LoginReducer);
     const history = useHistory();
@@ -25,6 +29,13 @@ export default function Navigation() {
 
     const logout = () => {
         dispatch(logoutAction());
+        persistor.purge()
+            .then(() => {
+            return persistor.flush()
+            })
+            .then(() => {
+            persistor.pause()
+            });
         history.push("/");
     };
 

@@ -29,7 +29,7 @@ function BusinessImage(
                         className={imageClassName}
                         fileIndex={index}
                         alt={alt}
-                        src={selectedFile === null ? src : URL.createObjectURL(file)}
+                        src={file.location ? file.location : URL.createObjectURL(file)}
                         onClick={removeImage}
                     />
             ))
@@ -37,7 +37,7 @@ function BusinessImage(
             return <img
                     className={imageClassName}
                     alt={alt}
-                    src={selectedFile === null ? src : URL.createObjectURL(selectedFile[0])}
+                    src={src}
                     />
         }
     }

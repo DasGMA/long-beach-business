@@ -36,7 +36,7 @@ export default function HomePage() {
             />
         ));
     };
-console.log(categories)
+
     return (
         <div className="homePage">
             <Search />

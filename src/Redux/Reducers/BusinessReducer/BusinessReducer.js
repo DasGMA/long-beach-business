@@ -47,7 +47,9 @@ const initialState = {
         businessDescription: '',
         postedBy: '',
         streetApartmentNumber: '',
-        businessImages: null,
+        businessImages: {
+            images: null
+        },
         streetName: '',
         country: 'usa',
         state: 'california',
@@ -72,7 +74,10 @@ export const BusinessReducer = (state = initialState, action) => {
                 ...state,
                 newBusiness: {
                     ...state.newBusiness,
-                    businessImages: payload
+                    businessImages: {
+                        ...state.newBusiness.businessImages,
+                        images: payload
+                    }
                 }
             }
         case HANDLE_NEW_BUSINESS_CHANGE:

@@ -59,7 +59,7 @@ console.log({newBusiness})
                         src='https://lbo-media.s3-us-west-1.amazonaws.com/default-multi-images.png'
                         name='businessImages'
                         multiple={true}
-                        selectedFile={newBusiness.businessImages}
+                        selectedFile={newBusiness.businessImages.images}
                         onChange={handleChange}
                         first={true}
                         removeImage={removeImage}

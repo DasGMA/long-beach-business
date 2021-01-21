@@ -43,8 +43,8 @@ export const getAllBusinesses = () => async (dispatch) => {
 
 export const removeBusinessImage = (index) => (dispatch, getState) => {
     const { newBusiness } = getState().BusinessReducer;
-    let payload = newBusiness.businessImages.filter(item => newBusiness.businessImages.indexOf(item) !== index);
-    
+    let payload = newBusiness.businessImages.images.filter(item => newBusiness.businessImages.images.indexOf(item) !== index);
+    console.log({payload})
     dispatch({
         type: REMOVE_BUSINESS_IMAGE,
         payload: payload.length === 0 ? null : payload
@@ -139,6 +139,8 @@ export const updateBusiness = () => async (dispatch, getState) => {
     try {
         const token = localStorage.getItem("Token");
         const headers = { headers: { authorization: token } };
+        // Update remove or add new business images.
+        
         const updatedBusiness = await axios.post(`${url}edit-business`, newBusiness, headers);
         const payload = businesses.reduce((newArr, business) => {
             if (business._id === updatedBusiness.data._id) {
@@ -170,11 +172,15 @@ export const handleNewBusinessChange = (event) => (dispatch, getState) => {
     let payload = {};
 
     if (name === 'businessImages') {
-       newBusiness.businessImages === null ? 
-                            payload = { ...newBusiness, [name]: [...files] } :
-                            payload = { ...newBusiness, [name]: [
-                                ...newBusiness[name], ...files
-                            ]}
+       newBusiness.businessImages.images === null ? 
+                            payload = { ...newBusiness, [name]: {
+                                images: [...files]
+                            }} :
+                            payload = { ...newBusiness, [name]: {
+                                ...newBusiness[name], images: [
+                                    ...newBusiness[name].images, ...files
+                                ]
+                            }}
     } else {
         payload = { ...newBusiness, [name]: value}
     }
@@ -200,7 +206,9 @@ export const clearNewBusiness = () => dispatch => {
         postedBy: '',
         streetApartmentNumber: '',
         streetName: '',
-        businessImages: null,
+        businessImages: {
+            images: null
+        },
         country: 'usa',
         state: 'california',
         city: 'long beach',

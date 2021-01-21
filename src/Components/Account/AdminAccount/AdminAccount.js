@@ -6,7 +6,6 @@ import Admin from '../LinksComponents/Admin/Admin ';
 import Manage from '../LinksComponents/Manage/Manage';
 
 export default function AdminAccount(props) {
-    console.log({props})
     return (
         <div className='account'>
             <div className='account-inner'>
