@@ -17,6 +17,8 @@ export const HANDLE_NEW_BUSINESS_CHANGE = 'HANDLE_NEW_BUSINESS_CHANGE';
 export const CLEAR_NEW_BUSINESS = 'CLEAR_NEW_BUSINESS';
 export const SET_NEW_BUSINESS = 'SET_NEW_BUSINESS';
 export const REMOVE_BUSINESS_IMAGE = 'REMOVE_BUSINESS_IMAGE';
+export const FILES_TO_DELETE = 'FILES_TO_DELETE';
+export const FILES_TO_UPLOAD = 'FILES_TO_UPLOAD';
 
 
 const url = process.env.REACT_APP_BASE_URL;
@@ -42,12 +44,22 @@ export const getAllBusinesses = () => async (dispatch) => {
 };
 
 export const removeBusinessImage = (index) => (dispatch, getState) => {
-    const { newBusiness } = getState().BusinessReducer;
+    const { newBusiness, filesToUpload } = getState().BusinessReducer;
+    let removeToUploadFiles = [];
+    if (newBusiness.businessImages.images[index].hasOwnProperty('location')) {
+        dispatch(toDeleteFiles(newBusiness.businessImages.images[index]));
+    } else {
+        removeToUploadFiles = filesToUpload.filter((file, i) => filesToUpload[i].name !== file.name);
+    }
+
     let payload = newBusiness.businessImages.images.filter(item => newBusiness.businessImages.images.indexOf(item) !== index);
-    console.log({payload})
+    
     dispatch({
         type: REMOVE_BUSINESS_IMAGE,
-        payload: payload.length === 0 ? null : payload
+        payload: {
+            removeBusinessIMG: payload.length === 0 ? null : payload,
+            removeToUploadFILES: removeToUploadFiles.length === 0 ? null : removeToUploadFiles
+        }
     })
 }
 
@@ -77,15 +89,15 @@ export const postBusiness = () => async (dispatch, getState) => {
         const postedNewBusiness = await axios.post(`${url}post-business`, newBusiness, headers);
         
         form.append('businessid', postedNewBusiness.data._id);
-        for (const file of newBusiness.businessImages) {
+        for (const file of newBusiness.businessImages.images) {
             form.append('images', file);
         }
-        const uploadedImages = await axios.post(`${url}upload-multiple-files`, form, config)
-        
-        postedNewBusiness.data.businessImages = uploadedImages.data;
+        const uploadedImages = await axios.post(`${url}upload-multiple-files`, form, config);
+        postedNewBusiness.data.businessImages = {};
+        postedNewBusiness.data.businessImages.images = uploadedImages.data;
 
         const payload = [ ...businesses, postedNewBusiness.data ];
-
+       
         dispatch({
             type: POSTING_BUSINESS_SUCCESS,
             payload
@@ -130,7 +142,7 @@ export const deleteBusiness = ({ _id, postedBy, categoryID, images }) => async (
 };
 
 export const updateBusiness = () => async (dispatch, getState) => {
-    const { newBusiness, businesses } = getState().BusinessReducer;
+    const { newBusiness, businesses, filesToUpload, filesToDelete } = getState().BusinessReducer;
     
     dispatch({
         type: UPDATING_BUSINESS
@@ -139,7 +151,22 @@ export const updateBusiness = () => async (dispatch, getState) => {
     try {
         const token = localStorage.getItem("Token");
         const headers = { headers: { authorization: token } };
-        // Update remove or add new business images.
+        const config = { headers: { 'Content-Type': 'multipart/form-data', 'authorization': token}};
+        // Upload new business images
+        if (filesToUpload !== null) {
+            const uploadForm = new FormData();
+            uploadForm.append('businessid', newBusiness._id);
+            for (const file of filesToUpload) {
+                uploadForm.append('images', file);
+            }
+            
+            await axios.post(`${url}upload-multiple-files`, uploadForm, config);
+        }
+
+        // Delete business images
+        if (filesToDelete !== null) {
+            await axios.post(`${url}delete-multi-files`, {images: filesToDelete, businessid: newBusiness._id}, { headers: { 'authorization': token}});
+        }
         
         const updatedBusiness = await axios.post(`${url}edit-business`, newBusiness, headers);
         const payload = businesses.reduce((newArr, business) => {
@@ -151,7 +178,7 @@ export const updateBusiness = () => async (dispatch, getState) => {
         
             return newArr;
         }, []);
-
+        
         dispatch({
             type: UPDATED_BUSINESS,
             payload
@@ -172,7 +199,8 @@ export const handleNewBusinessChange = (event) => (dispatch, getState) => {
     let payload = {};
 
     if (name === 'businessImages') {
-       newBusiness.businessImages.images === null ? 
+        dispatch(toUploadFiles(files));
+        newBusiness.businessImages.images === null ? 
                             payload = { ...newBusiness, [name]: {
                                 images: [...files]
                             }} :
@@ -221,5 +249,30 @@ export const clearNewBusiness = () => dispatch => {
         type: CLEAR_NEW_BUSINESS,
         payload
     })
+}
 
+export const toDeleteFiles = (file) => (dispatch, getState) => {
+    const { filesToDelete } = getState().BusinessReducer;
+    let payload;
+    filesToDelete === null ?
+        payload = file === null ? null : [ file ] :
+        payload = file === null ? null : [ ...filesToDelete, file ]
+
+    dispatch({
+        type: FILES_TO_DELETE,
+        payload
+    });
+}
+
+export const toUploadFiles = (files) => (dispatch, getState) => {
+    const { filesToUpload } = getState().BusinessReducer;
+    let payload;
+    filesToUpload === null ?
+        payload = files === null ? null : [ ...files ] :
+        payload = files === null ? null : [ ...filesToUpload, ...files ]
+
+    dispatch({
+        type: FILES_TO_UPLOAD,
+        payload
+    });
 }

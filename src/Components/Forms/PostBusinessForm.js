@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearNewBusiness, handleNewBusinessChange, postBusiness, removeBusinessImage} from '../../Redux/Actions/BusinessActions';
+import { clearNewBusiness, handleNewBusinessChange, postBusiness, removeBusinessImage, toDeleteFiles, toUploadFiles} from '../../Redux/Actions/BusinessActions';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
 import Button from '../Reusable/Button';
 import '../../Styles/postBusiness.scss';
@@ -15,6 +15,8 @@ export default function PostBusinessForm() {
     const closeModal = () => {
         dispatch(toggleModal(''));
         dispatch(clearNewBusiness());
+        dispatch(toUploadFiles(null));
+        dispatch(toDeleteFiles(null));
     }
 
     const submit = () => {

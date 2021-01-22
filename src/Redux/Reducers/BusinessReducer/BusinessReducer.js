@@ -15,7 +15,9 @@ import {
     UPDATED_BUSINESS,
     UPDATE_BUSINESS_ERROR,
     UPDATING_BUSINESS,
-    REMOVE_BUSINESS_IMAGE
+    REMOVE_BUSINESS_IMAGE,
+    FILES_TO_UPLOAD,
+    FILES_TO_DELETE
 } from '../../Actions/BusinessActions'
 
 const initialState = {
@@ -40,6 +42,9 @@ const initialState = {
 
     selectedBusiness: null,
     selectedBusinessFiles: null,
+
+    filesToDelete: null,
+    filesToUpload: null,
 
     newBusiness: {
         category: '',
@@ -76,9 +81,10 @@ export const BusinessReducer = (state = initialState, action) => {
                     ...state.newBusiness,
                     businessImages: {
                         ...state.newBusiness.businessImages,
-                        images: payload
+                        images: payload.removeBusinessIMG
                     }
-                }
+                },
+                filesToUpload: payload.removeToUploadFILES
             }
         case HANDLE_NEW_BUSINESS_CHANGE:
             return {
@@ -148,6 +154,16 @@ export const BusinessReducer = (state = initialState, action) => {
                 updatedBusiness: true,
                 updateBusinessError: false,
                 businesses: payload
+            }
+        case FILES_TO_DELETE:
+            return {
+                ...state,
+                filesToDelete: payload
+            }
+        case FILES_TO_UPLOAD:
+            return {
+                ...state,
+                filesToUpload: payload
             }
         case UPDATE_BUSINESS_ERROR:
             return {

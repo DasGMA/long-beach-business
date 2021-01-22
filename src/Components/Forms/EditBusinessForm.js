@@ -1,19 +1,29 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
-import { clearNewBusiness, handleNewBusinessChange, removeBusinessImage, updateBusiness } from '../../Redux/Actions/BusinessActions';
+import { 
+    clearNewBusiness, 
+    handleNewBusinessChange, 
+    removeBusinessImage, 
+    toDeleteFiles, 
+    toUploadFiles, 
+    updateBusiness 
+} from '../../Redux/Actions/BusinessActions';
 import Button from '../Reusable/Button';
 import BusinessImage from '../Reusable/BusinessImage';
 
 export default function EditBusinessForm() {
-    const { newBusiness } = useSelector(state => state.BusinessReducer);
+    const { newBusiness, filesToUpload, filesToDelete } = useSelector(state => state.BusinessReducer);
     const { categories } = useSelector(state => state.CategoriesReducer);
 
     const dispatch = useDispatch();
 console.log('NEW BUSINESS:', newBusiness);
+console.log({filesToUpload, filesToDelete})
     const closeModal = () => {
         dispatch(toggleModal(''));
         dispatch(clearNewBusiness());
+        dispatch(toDeleteFiles(null));
+        dispatch(toUploadFiles(null));
     }
 
     const submit = () => {
