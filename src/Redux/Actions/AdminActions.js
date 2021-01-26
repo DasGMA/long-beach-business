@@ -115,7 +115,7 @@ export const adminDeleteCategory = () => async (dispatch, getState) => {
         const deleteConfig = { headers: { 'authorization': token }, imageUrl: selectedCategory.image.imageUrl };
         await axios.post(`${url}delete-single-file`, deleteConfig);
         const deletedCategory = await axios.delete(`${url}delete-category`, config);
-        
+       
         const filtered = categories.filter(category => category._id !== deletedCategory.data._id);
         
         dispatch({

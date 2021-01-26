@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
     margin: 1rem;
     width: 15rem;
-    height: 15rem;
+    height: auto;
+    border: 0.1rem solid lightgray;
 
     &:hover {
         box-shadow: 0.5rem 0.5rem 0.5rem lightgrey;

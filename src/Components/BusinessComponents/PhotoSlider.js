@@ -7,14 +7,14 @@ export default function PhotoSlider({ images = [] }) {
     
     const slideRight = () => {
         if (images.length - 1 === index) return;
-        setIndex(index + 1);
+        setIndex(index => index + 1);
     }
 
     const slideLeft = () => {
         if (index === 0) return;
-        setIndex(index - 1);
+        setIndex(index => index - 1);
     }
-console.log({index})
+console.log(images)
     return (
         <div className='photo-slider'>
             <img 

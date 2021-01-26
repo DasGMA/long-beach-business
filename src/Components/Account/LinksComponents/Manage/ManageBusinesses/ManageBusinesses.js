@@ -11,7 +11,7 @@ import SearchBar from '../../../../Reusable/SearchBar';
 import Button from '../../../../Reusable/Button';
 
 export default function ManageBusinesses() {
-    const { businesses, deletedBusiness, postingBusinessSuccess } = useSelector(state => state.BusinessReducer);
+    const { businesses, deletedBusiness } = useSelector(state => state.BusinessReducer);
     const { visible, formType } = useSelector(state => state.ModalReducer);
     
     const dispatch = useDispatch();

@@ -4,10 +4,17 @@ import '../../Styles/category.scss';
 
 function Category({ count, category, onClick, src}) {
     return (
-        <button className='category' onClick={onClick}>
-            <p>{category}</p>
-            <img src={src} alt={`${category}`} style={{width: '15rem', height: '15rem'}}/>
-        </button>
+        <div className='category'>
+            <h2>{category} {count}</h2>
+            <button onClick={onClick}>
+            <img 
+                src={src} 
+                alt={`${category}`} 
+                style={{width: '100%', height: 'auto', backgroundSize: 'cover'}}
+            />
+            </button>
+        </div>
+        
     );
 }
 
@@ -15,7 +22,7 @@ Category.defaultProps = {
     count: 0,
     category: '',
     onClick: () => {},
-    // src: need to uplaod to S3 default categories image
+    src: 'https://lbo-images.s3.us-west-1.amazonaws.com/categories/default-category.png'
 }
 
 Category.propTypes = {
