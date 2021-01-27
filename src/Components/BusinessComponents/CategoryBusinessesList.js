@@ -3,7 +3,7 @@ import '../../Styles/business-list.scss';
 import {useSelector} from 'react-redux';
 import BusinessComponent from './BusinessComponent';
 import Filters from './Filters';
-//import { getCategory } from '../../Redux/Actions/CategoriesActions';
+
 
 export default function CategoryBusinessesList(props) {
     const { businesses } = useSelector(state => state.CategoriesReducer);

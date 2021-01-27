@@ -5,7 +5,7 @@ import '../../../Styles/account.scss';
 import Admin from '../LinksComponents/Admin/Admin ';
 import Manage from '../LinksComponents/Manage/Manage';
 
-export default function AdminAccount(props) {
+export default function AdminAccount() {
     return (
         <div className='account'>
             <div className='account-inner'>

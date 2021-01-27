@@ -10,6 +10,7 @@
     flex-direction: row;
     padding: 1rem;
     z-index: 99999;
+    //position: fixed;
 
     .inner-nav {
         max-width: 102.4rem;
@@ -19,7 +20,7 @@
         justify-content: flex-end;
         flex-direction: row;
 
-        .button {
+        .nav-link {
             font-size: 1.6rem;
             font-weight: 800;
             color: white;

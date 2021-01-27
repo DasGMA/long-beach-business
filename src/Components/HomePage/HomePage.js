@@ -41,7 +41,7 @@ export default function HomePage() {
         <div className="homePage">
             <Search />
             <h1>Latest Offers</h1>
-            <h1>Business Categories</h1>
+            <h1>Categories</h1>
             <div className="categories">{renderCategories()}</div>
         </div>
     );

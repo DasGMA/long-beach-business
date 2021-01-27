@@ -30,9 +30,15 @@ export default function App() {
             <Navigation />
             <main>
                 <Switch>
-                    <Route exact path='/' component={HomePage} />
-                    <Route path='/login' component={Login} />
-                    <Route path='/register' component={Register} />
+                    <Route exact path='/'>
+                        <HomePage />
+                    </Route>
+                    <Route path='/login'>
+                        <Login />
+                    </Route>
+                    <Route path='/register'>
+                        <Register />
+                    </Route>
                     <ProtectedRoute path='/account' component={Account} loggedin={loggedin}/>
                     <Route path='/:category' component={CategoryBusinessesList}/>
                 </Switch>

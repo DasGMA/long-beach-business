@@ -4,7 +4,7 @@ import CustomerAccount from "./CustomerAccount/CustomerAccount";
 import BusinessAccount from "./LinksComponents/Business/Business";
 import AdminAccount from "./AdminAccount/AdminAccount";
 
-export default function Account(props) {
+export default function Account() {
     const user = useSelector((state) => state.LoginReducer.data);
     const accountType = user.accountType;
 

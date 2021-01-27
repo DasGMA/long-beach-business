@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import '../../Styles/business-component.scss';
 import PhotoSlider from './PhotoSlider';
 
@@ -8,8 +9,11 @@ export default function BusinessComponent(business) {
             averageRating,
             businessImages,
             businessAddress,
-            offers, 
+            offers,
             phoneNumber } = business;
+
+    const history = useHistory();
+    const location = useLocation().pathname;
 
     const trimmedText = () => {
         if (businessDescription.length > 250) {
@@ -19,14 +23,17 @@ export default function BusinessComponent(business) {
         }
     }
 
+    const navigateToBusiness = () => {
+        history.push(`${location}/${businessName}`);
+    }
 
     return (
         <div className='business-component'>
             <div className='inner-business-component'>
-                <PhotoSlider 
+                <PhotoSlider
                     images={businessImages.images}
                 />
-                <div className='business-component-display'>
+                <div className='business-component-display' onClick={navigateToBusiness}>
                     <div className='business-component-header'>
                         <div className='business-name'>
                             <span>{businessName}</span>

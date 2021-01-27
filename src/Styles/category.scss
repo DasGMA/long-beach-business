@@ -3,9 +3,33 @@
     flex-direction: column;
     align-items: center;
     margin: 1rem;
-    width: 15rem;
-    height: auto;
+    max-width: 30rem;
+    width: 100%;
     border: 0.1rem solid lightgray;
+
+    .category-button {
+        position: relative;
+    }
+
+    .category-image {
+        max-width: inherit;
+        width: 100%;
+        height: auto;
+        background-size: cover;
+    }
+
+    .category-business-count {
+        border: 0.1rem solid gray;
+        border-radius: 2rem;
+        max-width: 4rem;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        right: 1%;
+        bottom: 1rem;
+        background-color: transparentize($color: #ffffff, $amount: 0.2);
+        font-size: 1.6rem;
+    }
 
     &:hover {
         box-shadow: 0.5rem 0.5rem 0.5rem lightgrey;

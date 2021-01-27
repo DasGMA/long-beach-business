@@ -5,13 +5,14 @@ import '../../Styles/category.scss';
 function Category({ count, category, onClick, src}) {
     return (
         <div className='category'>
-            <h2>{category} {count}</h2>
-            <button onClick={onClick}>
+            <h2>{category}</h2>
+            <button className='category-button' onClick={onClick}>
             <img 
                 src={src} 
                 alt={`${category}`} 
-                style={{width: '100%', height: 'auto', backgroundSize: 'cover'}}
+                className='category-image'
             />
+            <span className='category-business-count'>{count}</span>
             </button>
         </div>
         

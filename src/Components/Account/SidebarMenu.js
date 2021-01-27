@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import "../../Styles/sidebar-menu.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { logoutAction } from "../../Redux/Actions/LogoutActions";
 import getStorePersistor from '../../Redux/store';
 
@@ -13,7 +13,7 @@ export default function SidebarMenu() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const location = history.location.pathname;
+    const location = useLocation().pathname;
 
     const logout = () => {
         dispatch(logoutAction());
