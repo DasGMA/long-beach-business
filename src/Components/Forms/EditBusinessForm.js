@@ -13,12 +13,11 @@ import Button from '../Reusable/Button';
 import BusinessImage from '../Reusable/BusinessImage';
 
 export default function EditBusinessForm() {
-    const { newBusiness, filesToUpload, filesToDelete } = useSelector(state => state.BusinessReducer);
+    const { newBusiness } = useSelector(state => state.BusinessReducer);
     const { categories } = useSelector(state => state.CategoriesReducer);
 
     const dispatch = useDispatch();
-console.log('NEW BUSINESS:', newBusiness);
-console.log({filesToUpload, filesToDelete})
+
     const closeModal = () => {
         dispatch(toggleModal(''));
         dispatch(clearNewBusiness());
