@@ -5,7 +5,7 @@ import BusinessComponent from './BusinessComponent';
 import Filters from './Filters';
 
 
-export default function CategoryBusinessesList(props) {
+export default function CategoryBusinessesList() {
     const { businesses } = useSelector(state => state.CategoriesReducer);
 
     const renderBusinessList = () => {

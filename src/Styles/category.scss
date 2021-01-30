@@ -14,8 +14,8 @@
     .category-image {
         max-width: inherit;
         width: 100%;
-        height: auto;
-        background-size: cover;
+        height: 100%;
+        object-fit: cover;
     }
 
     .category-business-count {

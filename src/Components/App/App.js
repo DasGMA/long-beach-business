@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getUserInfo } from "../../Redux/Actions/AccountActions";
 import { getCategories } from "../../Redux/Actions/CategoriesActions";
 import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
+import BusinessView from "../BusinessComponents/BusinessView";
 
 export default function App() {
     const {updated} = useSelector(state => state.CategoriesReducer);
@@ -30,17 +31,19 @@ export default function App() {
             <Navigation />
             <main>
                 <Switch>
-                    <Route exact path='/'>
-                        <HomePage />
-                    </Route>
-                    <Route path='/login'>
-                        <Login />
-                    </Route>
-                    <Route path='/register'>
-                        <Register />
-                    </Route>
-                    <ProtectedRoute path='/account' component={Account} loggedin={loggedin}/>
-                    <Route path='/:category' component={CategoryBusinessesList}/>
+                    <Route exact path='/' component={HomePage} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <ProtectedRoute path='/account' component={Account} loggedin={loggedin} />
+                    <Route 
+                        path='/:category'
+                        render={ ({ match: { url } }) => (
+                            <>
+                              <Route exact path={`${url}/`} component={CategoryBusinessesList} />
+                              <Route path={`${url}/:businessName`} component={BusinessView} />
+                            </>
+                          )}
+                    />
                 </Switch>
             </main>
             <Footer />

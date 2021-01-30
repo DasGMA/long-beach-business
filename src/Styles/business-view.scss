@@ -1,0 +1,48 @@
+.business-view {
+
+    .media-slider-container {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 35rem;
+        width: 100%;
+
+        .business-view-media-slider {
+            display: flex;
+            flex-direction: row;
+            height: 35rem;
+            width: 100%;
+            overflow: hidden;
+
+            .business-view-media {
+                min-width: 25%;
+                height: 35rem;
+                flex-shrink: 0;
+            }
+        }
+
+        .left-button, .right-button {
+            position: absolute;
+            width: 5rem;
+            height: 5rem;
+            top: 50% - 5%;
+            border-radius: 50%;
+            background-color: transparentize($color: #000000, $amount: 0.5);
+            color: white;
+            outline: none;
+            font-size: 2rem;
+        }
+    
+        .right-button {
+            right: 0.5rem;
+        }
+    
+        .left-button {
+            left: 0.5rem;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    }
+}

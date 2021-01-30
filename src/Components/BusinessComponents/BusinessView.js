@@ -1,10 +1,14 @@
 import React from 'react';
+import '../../Styles/business-view.scss';
 
-export default function BusinessView(props) {
-    console.log(props)
+import BusinessViewPhotoSlider from '../Reusable/BusinessViewPhotoSlider';
+
+export default function BusinessView() {
+
     return (
-        <div>
-            Business view
+        <div className='business-view'>
+            <BusinessViewPhotoSlider />
+            
         </div>
     )
 }
