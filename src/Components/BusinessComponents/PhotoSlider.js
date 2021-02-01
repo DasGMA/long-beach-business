@@ -15,6 +15,8 @@ export default function PhotoSlider({ images = [] }) {
         setIndex(index => index - 1);
     }
 
+    if (images.length === 0) return null;
+
     return (
         <div className='photo-slider'>
             <img 

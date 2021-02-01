@@ -48,7 +48,7 @@ function Avatar(
                     bottom: '0',
                     zIndex: selectedFile === null ? '0' : '2'
                 }}
-                onClick={selectedFile === null ? '' : onClick}
+                onClick={selectedFile === null ? ()=>{} : onClick}
             />
         </div>
     )
@@ -74,7 +74,7 @@ Avatar.propTypes = {
     accept: PropTypes.oneOf(['*', 'image/*', 'video/*']),
     multiple: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    selectedFile: PropTypes.object.isRequired,
+    selectedFile: PropTypes.object,
     onClick: PropTypes.func.isRequired,
     imageClassName: PropTypes.string,
     containerClassName: PropTypes.string,

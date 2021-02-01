@@ -122,7 +122,7 @@ export const registerAction = () => async (dispatch, getState) => {
     }
 
     try {
-        const register = await Axios.post(`${url}/register`, data);
+        const register = await Axios.post(`${url}register`, data);
         dispatch({
             type: REGISTERED,
             payload: register.data 

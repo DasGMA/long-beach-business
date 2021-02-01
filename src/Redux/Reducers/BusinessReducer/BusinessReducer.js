@@ -17,13 +17,20 @@ import {
     UPDATING_BUSINESS,
     REMOVE_BUSINESS_IMAGE,
     FILES_TO_UPLOAD,
-    FILES_TO_DELETE
+    FILES_TO_DELETE,
+    GETTING_BUSINESS,
+    GETTING_BUSINESS_ERROR,
+    GOT_BUSINESS
 } from '../../Actions/BusinessActions'
 
 const initialState = {
     gettingBusinesses: false,
     gotBusinesses: false,
     gettingBusinessesError: false,
+
+    gettingBusiness: false,
+    gotBusiness: false,
+    gettingBusinessError: false,
 
     postingBusiness: false,
     postingBusinessSuccess: false,
@@ -39,6 +46,7 @@ const initialState = {
 
     errors: [],
     businesses: [],
+    business: null,
 
     selectedBusiness: null,
     selectedBusinessFiles: null,
@@ -138,6 +146,29 @@ export const BusinessReducer = (state = initialState, action) => {
                 gettingBusinesses: false,
                 gotBusinesses: false,
                 gettingBusinessesError: true,
+                errors: [...state.errors, payload]
+            }
+        case GETTING_BUSINESS:
+            return {
+                ...state,
+                gettingBusiness: true,
+                gotBusiness: false,
+                gettingBusinessError: false,
+            }
+        case GOT_BUSINESS:
+            return {
+                ...state,
+                gettingBusiness: false,
+                gotBusiness: true,
+                gettingBusinessError: false,
+                business: payload
+            }
+        case GETTING_BUSINESS_ERROR:
+            return {
+                ...state,
+                gettingBusiness: false,
+                gotBusiness: false,
+                gettingBusinessError: true,
                 errors: [...state.errors, payload]
             }
         case UPDATING_BUSINESS:

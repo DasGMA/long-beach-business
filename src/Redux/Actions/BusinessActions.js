@@ -3,6 +3,9 @@ import axios from 'axios';
 export const GETTING_BUSSINESES = 'GETTING_BUSSINESES';
 export const GOT_BUSINESSES = 'GOT_BUSINESSES';
 export const GETTING_BUSINESSES_ERROR = 'GETTING_BUSINESSES_ERROR';
+export const GETTING_BUSINESS = 'GETTING_BUSSINESS';
+export const GOT_BUSINESS = 'GOT_BUSINESS';
+export const GETTING_BUSINESS_ERROR = 'GETTING_BUSINESS_ERROR';
 export const SELECT_BUSINESS = 'SELECT_BUSINESS';
 export const DELETING_BUSINESS = 'DELETING_BUSINESS';
 export const DELETED_BUSINESS = 'DELETED_BUSINESS';
@@ -42,6 +45,30 @@ export const getAllBusinesses = () => async (dispatch) => {
         });
     }
 };
+
+export const getBusiness = (_id) => async (dispatch, getState) => {
+    const params = { 
+        params: { _id }
+     };
+
+    dispatch({
+        type: GETTING_BUSINESS
+    })
+    try {
+        const biz = await axios.get(`${url}business`, params);
+        console.log({BIZ: biz})
+        dispatch({
+            type: GOT_BUSINESS,
+            payload: biz.data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: GETTING_BUSINESS_ERROR,
+            payload: error
+        })
+    }
+}
 
 export const removeBusinessImage = (index) => (dispatch, getState) => {
     const { newBusiness, filesToUpload } = getState().BusinessReducer;

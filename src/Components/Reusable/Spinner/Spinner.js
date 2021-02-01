@@ -1,13 +1,17 @@
 import React from 'react';
 import '../../../Styles/spinner.scss';
 import spinner from '../../../Assets/loading.png';
+import PropTypes from 'prop-types';
 
-export default function Spinner(props) {
+function Spinner({
+    loading,
+    size
+}) {
     const animatedSpinner = {
-        display: props.loading ? 'flex' : 'none', 
+        display: loading ? 'flex' : 'none', 
         animation: 'spin 3s infinite',
-        width: props.size,
-        height: props.size
+        width: size,
+        height: size
     }
     return (
         <img 
@@ -18,3 +22,10 @@ export default function Spinner(props) {
         />
     )
 }
+
+Spinner.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    size: PropTypes.string.isRequired
+}
+
+export default Spinner;

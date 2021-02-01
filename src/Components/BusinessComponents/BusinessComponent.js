@@ -1,7 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../../Styles/business-component.scss';
 import PhotoSlider from './PhotoSlider';
+import { selectBusiness } from '../../Redux/Actions/BusinessActions';
 
 export default function BusinessComponent(business) {
     const { businessName, 
@@ -14,6 +16,7 @@ export default function BusinessComponent(business) {
 
     const history = useHistory();
     const location = useLocation().pathname;
+    const dispatch = useDispatch();
 
     const trimmedText = () => {
         if (businessDescription.length > 250) {
@@ -24,6 +27,7 @@ export default function BusinessComponent(business) {
     }
 
     const navigateToBusiness = () => {
+        dispatch(selectBusiness(business));
         history.push(`${location}/${businessName}`);
     }
 
