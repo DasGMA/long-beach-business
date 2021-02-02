@@ -5,6 +5,7 @@ import {CategoriesReducer} from './CategoriesReducer/CategoriesReducer';
 import {ModalReducer} from './ModalReducer/ModalReducer';
 import {BusinessReducer} from './BusinessReducer/BusinessReducer';
 import {mediaReducer} from './MediaReducer/mediaReducer';
+import {RatingReducer} from './RatingReducer/RatingReducer';
 
 const rootReducer = combineReducers({
   RegisterReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   CategoriesReducer,
   ModalReducer,
   BusinessReducer,
-  mediaReducer
+  mediaReducer,
+  RatingReducer
 });
 
 export default rootReducer;

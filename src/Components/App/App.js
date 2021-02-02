@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getUserInfo } from "../../Redux/Actions/AccountActions";
 import { getCategories } from "../../Redux/Actions/CategoriesActions";
 import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
-import BusinessView from "../BusinessComponents/BusinessView";
+import BusinessView from "../BusinessComponents/BusinessView/BusinessView";
 
 export default function App() {
     const {updated} = useSelector(state => state.CategoriesReducer);

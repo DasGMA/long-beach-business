@@ -11,8 +11,6 @@ export default function BusinessViewPhotoSlider({
     });
 
     const sliderRef = useRef();
-
-    console.log({MEDIA: media})
     
     const checkScroll = () => {
         if (sliderRef.current.scrollLeft >= sliderRef.current.scrollLeftMax) {
@@ -58,7 +56,7 @@ export default function BusinessViewPhotoSlider({
     )
 
     const renderMediaItems = () => {
-        return media.splice(0, 20).map((item, index) => {
+        return media.slice(0, 20).map((item, index) => {
             return <MediaItem key={index} item={item} />
         })
     }

@@ -46,7 +46,7 @@ export const getAllBusinesses = () => async (dispatch) => {
     }
 };
 
-export const getBusiness = (_id) => async (dispatch, getState) => {
+export const getBusiness = (_id) => async (dispatch) => {
     const params = { 
         params: { _id }
      };
@@ -55,11 +55,11 @@ export const getBusiness = (_id) => async (dispatch, getState) => {
         type: GETTING_BUSINESS
     })
     try {
-        const biz = await axios.get(`${url}business`, params);
-        console.log({BIZ: biz})
+        const { data } = await axios.get(`${url}business`, params);
+        
         dispatch({
             type: GOT_BUSINESS,
-            payload: biz.data
+            payload: data
         })
 
     } catch (error) {
