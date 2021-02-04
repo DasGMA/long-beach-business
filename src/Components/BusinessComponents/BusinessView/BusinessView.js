@@ -4,7 +4,9 @@ import { getBusiness } from '../../../Redux/Actions/BusinessActions';
 import '../../../Styles/business-view.scss';
 
 import BusinessViewPhotoSlider from '../../Reusable/BusinessViewPhotoSlider';
+import Reviews from '../../Reusable/Reviews';
 import Spinner from '../../Reusable/Spinner/Spinner';
+import BusinessViewBody from './BusinessViewbody';
 import BusinessViewHeader from './BusinessViewHeader';
 
 export default function BusinessView() {
@@ -23,10 +25,14 @@ export default function BusinessView() {
                     media={business.businessImages.images}
                 />
                 <div className='business-view-inner-container'>
-                    <BusinessViewHeader 
+                    <BusinessViewHeader
                         businessName={business.businessName}
                         rating={business.averageRating}
                     />
+                    <BusinessViewBody
+                        businessDescription={business.businessDescription}
+                    />
+                    <Reviews />
                 </div>
             </div> :
         <Spinner 

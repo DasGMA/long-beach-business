@@ -21,7 +21,9 @@ import {
     GETTING_BUSINESS,
     GETTING_BUSINESS_ERROR,
     GOT_BUSINESS
-} from '../../Actions/BusinessActions'
+} from '../../Actions/BusinessActions';
+
+import { POSTED_BUSINESS_REVIEW } from '../../Actions/ReviewActions';
 
 const initialState = {
     gettingBusinesses: false,
@@ -231,6 +233,22 @@ export const BusinessReducer = (state = initialState, action) => {
                 deletedBusiness: false,
                 deleteBusinessError: true,
                 errors: [...state.errors, payload]
+            }
+        case POSTED_BUSINESS_REVIEW:
+            return {
+                ...state,
+                businesses: [
+                    ...state.businesses.map(biz => {
+                        if (biz._id === payload._id) {
+                            return {
+                                ...biz,
+                                offers: [...biz.offers, payload.data]
+                            }
+                        } else {
+                            return biz;
+                        }
+                    })
+                ]
             }
         default:
             return state
