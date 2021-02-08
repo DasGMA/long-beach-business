@@ -9,7 +9,7 @@
         flex-direction: row;
         height: 35rem;
         width: 100%;
-
+        
         .business-view-media-slider {
             display: flex;
             flex-direction: row;
@@ -55,7 +55,7 @@
         max-width: 102.4rem;
         width: 100%;
         margin-top: -14.1rem;
-        z-index: 9999;
+        z-index: 100;
 
         .business-view-header {
             display: flex;
@@ -66,6 +66,36 @@
                 
                 h1, span {
                     color: white;
+                }
+            }
+        }
+
+        .business-view-body {
+            padding: 1rem;
+
+            .action-container {
+                display: flex;
+                flex-direction: row;
+                border-bottom: 0.1rem solid grey;
+                padding-bottom: 1rem;
+
+                button {
+                    max-width: 15rem;
+                    min-width: 12rem;
+                    width: 100%;
+                    border: 0.1rem solid lightgrey;
+                    font-size: 1.4rem;
+                    padding: 1.2rem 0;
+                    background-color: white;
+
+                    &:hover {
+                        background-color: lightgrey;
+                        transition: linear 0.5s;
+                    }
+                }
+
+                :last-child {
+                    margin-left: 1rem;
                 }
             }
         }

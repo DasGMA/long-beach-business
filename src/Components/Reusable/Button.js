@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../Styles/custom-button.scss';
 
-export default function Button({icon, iconSize, onClick, text, textPosition}) {
+export default function Button({ icon, iconSize, onClick, buttonName }) {
 
     return (
         <div className='custom-button'>
             <button onClick={onClick}>
-                 <i className={`fa fa-${icon} fa-${iconSize}x`}/>
+                 {icon && <i className={`fa fa-${icon} fa-${iconSize}x`}/>} { buttonName }
             </button>
         </div>
     )
@@ -20,7 +20,6 @@ Button.defaultProps = {
 Button.propTypes = {
     icon: PropTypes.string,
     onClick: PropTypes.func,
-    text: PropTypes.string,
-    textPosition: PropTypes.string,
+    buttonName: PropTypes.string,
     iconSize: PropTypes.number
 }

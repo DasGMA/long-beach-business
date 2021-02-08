@@ -34,7 +34,14 @@ export const ReviewReducer = (state = initialState, action) => {
                 selectedForReview: payload
             }
         case CLEAR_REVIEW:
-            return initialState
+            return {
+                ...state,
+                review: {
+                    title: '',
+                    content: '',
+                    rating: 0
+                }
+            }
         default:
             return state
     }

@@ -13,15 +13,16 @@ const url = process.env.REACT_APP_BASE_URL;
 
 export const handleReviewChange = (e) => (dispatch, getState) => {
     e.preventDefault();
+    const { name, value } = e.target;
     const { rating } = getState().RatingReducer;
     const { review } = getState().ReviewReducer;
-    const { name, value } = e.target;
+    
     const payload = {
         ...review,
         [name]: value,
         rating
     };
-
+console.log({rating})
     dispatch({
         type: HANDLE_REVIEW_CHANGE,
         payload
