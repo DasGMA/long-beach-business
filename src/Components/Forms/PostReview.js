@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
-import { clearReview, handleReviewChange, selectForReview } from '../../Redux/Actions/ReviewActions';
+import { clearReview, handleReviewChange, selectForReview, submitReview } from '../../Redux/Actions/ReviewActions';
 import Button from '../Reusable/Button';
 import Rating from '../Reusable/Rating';
 
@@ -22,11 +22,11 @@ export default function PostReview() {
         dispatch(selectForReview(null));
     }
 
-    const submitReview = () => {
+    const postReview = () => {
         dispatch(submitReview());
         closeModal();
     }
-console.log({review})
+
     return (
         <div className='edit-category-form'>
             <div className='edit-header'>
@@ -71,7 +71,7 @@ console.log({review})
                 <Button 
                     icon="check" 
                     iconSize={2} 
-                    onClick={submitReview} 
+                    onClick={postReview} 
                 />
             </div>
         </div>

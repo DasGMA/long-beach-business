@@ -27,7 +27,7 @@ export default function BusinessView() {
         dispatch(selectForReview(business));
         dispatch(toggleModal());
     }
-
+console.log({business})
     return (
         gettingBusiness === false && business !== null ? 
             <div className='business-view'>
@@ -38,6 +38,7 @@ export default function BusinessView() {
                     <BusinessViewHeader
                         businessName={business.businessName}
                         rating={business.averageRating}
+                        reviewsCount={business.reviews.length}
                     />
                     <BusinessViewBody
                         businessDescription={business.businessDescription}

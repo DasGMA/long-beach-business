@@ -22,7 +22,7 @@ export const handleReviewChange = (e) => (dispatch, getState) => {
         [name]: value,
         rating
     };
-console.log({rating})
+
     dispatch({
         type: HANDLE_REVIEW_CHANGE,
         payload
@@ -40,14 +40,14 @@ export const submitReview = () => async (dispatch, getState) => {
 
     const headers = { headers: { 'authorization': token } };
     const data = { ...review, type, _id };
-
+    
     dispatch({
         type: POSTING_REVIEW
     });
 
     try {
         if (type === 'business') {
-            const review = await Axios.post(`${url}write-review`, data, headers);
+            const review = await Axios.post(`${url}post-review`, data, headers);
             
             dispatch({
                 type: POSTED_BUSINESS_REVIEW,

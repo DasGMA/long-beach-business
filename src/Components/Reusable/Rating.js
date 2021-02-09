@@ -10,12 +10,10 @@ function Rating({ rating, adjustable }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (adjustable === false) {
-            const stars = starRef.current.parentElement.getElementsByClassName('star');
-            Array.from(stars).forEach(star => {
-                star.style.color = rating >= parseInt(star.dataset.value) ? 'orange' : 'lightgrey'
-            })
-        }
+        const stars = starRef.current.parentElement.getElementsByClassName('star');
+        Array.from(stars).forEach(star => {
+            star.style.color = rating >= parseInt(star.dataset.value) ? 'orange' : 'lightgrey'
+        })
     }, [rating, adjustable]);
 
     const onHover = (e) => {
@@ -25,7 +23,7 @@ function Rating({ rating, adjustable }) {
         dispatch(setRating(value));
 
         Array.from(stars).forEach(star => {
-            star.style.color = value >= parseInt(star.dataset.value) ? 'orange' : 'grey'
+            star.style.color = value >= parseInt(star.dataset.value) ? 'orange' : 'lightgrey'
         })
     }
 
