@@ -28,6 +28,10 @@ export default function CategoryBusinessesList() {
         <div className='category-business-list'>
             <Filters />
             <div className='business-list'>
+                <div style={{display: 'flex', justifyContent: 'center', marginBottom: '2rem'}}>
+                    <h1>{selectedCategory.category} Businesses</h1>
+                </div>
+                
                 {renderBusinessList()}
             </div>
         </div> :

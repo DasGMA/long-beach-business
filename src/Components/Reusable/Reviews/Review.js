@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Rating from '../Rating';
+import '../../../Styles/review.scss';
 
 function Review({
     review,
@@ -20,11 +21,13 @@ function Review({
                             alt={authorName}
                             src={authorImage}
                         />
+                        <div className='name'>
+                            <h2>{authorName}</h2>
+                        </div>
                     </div>
                     <div className='review-date-rating'>
-                        <Rating rating={rating}/> <span>{reviewDate}</span>
+                        <Rating rating={rating}/> <span className='date'>{new Date(reviewDate).toDateString()}</span>
                     </div>
-
                 </div>
                 <div className='review-title'>
                     <h2>{reviewTitle}</h2>

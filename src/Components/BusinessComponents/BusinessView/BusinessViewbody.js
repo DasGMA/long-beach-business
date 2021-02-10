@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function BusinessViewBody({
     businessDescription,
-    selectForReview
+    selectForReview,
+    match
 }) {
     return (
         <div className='business-view-body'>
             <div className='action-container'>
-                <button
-                    onClick={selectForReview}
-                >Leave Review</button>
+                <button>
+                    <Link to={`${match.url}/write-review`}
+                        onClick={selectForReview}
+                    >Leave Review</Link>
+                </button>
                 <button>Post Media</button>
             </div>
             <p>{businessDescription}</p>
@@ -25,7 +29,8 @@ BusinessViewBody.defaultProps = {
 
 BusinessViewBody.propTypes = {
     businessDescription: PropTypes.string,
-    selectForReview: PropTypes.func
+    selectForReview: PropTypes.func,
+    match: PropTypes.object
 }
 
 export default BusinessViewBody;

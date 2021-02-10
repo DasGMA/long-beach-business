@@ -1,0 +1,45 @@
+.review {
+    display: flex;
+    flex-direction: column;
+    border: 0.1rem solid lightgrey;
+    border-radius: 2rem;
+    padding: 1rem;
+    margin: 2rem 0;
+
+    .review-header {
+        display: flex;
+        flex-direction: column;
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+
+            .author-image {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .name {
+                    margin-left: 1rem;
+                }
+                
+                img {
+                    width: 5rem;
+                    height: auto;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            .review-date-rating {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .date {
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+}

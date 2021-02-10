@@ -65,7 +65,7 @@ export default function Login() {
                     <a href="!#">Privacy Policy</a>.
                 </p>
             </div>
-            <div className="column-section">
+            {/* <div className="column-section">
                 <button className="social-button">
                     <img
                         className="icon"
@@ -82,9 +82,9 @@ export default function Login() {
                     />{" "}
                     Log in with Google
                 </button>
-            </div>
+            </div> */}
             <h2>
-                <span>OR</span>
+                <span>{'<>'}</span>
             </h2>
             <form className="column-section" onSubmit={handleSubmit}>
                 {errors.Username && (

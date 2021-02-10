@@ -13,7 +13,7 @@ import Spinner from '../../Reusable/Spinner/Spinner';
 import BusinessViewBody from './BusinessViewbody';
 import BusinessViewHeader from './BusinessViewHeader';
 
-export default function BusinessView() {
+export default function BusinessView({ match }) {
     const { business, gettingBusiness, selectedBusiness } = useSelector(state => state.BusinessReducer);
     const { visible } = useSelector(state => state.ModalReducer);
     const dispatch = useDispatch();
@@ -25,9 +25,9 @@ export default function BusinessView() {
 
     const selectToReview = () => {
         dispatch(selectForReview(business));
-        dispatch(toggleModal());
+        //dispatch(toggleModal());
     }
-console.log({business})
+
     return (
         gettingBusiness === false && business !== null ? 
             <div className='business-view'>
@@ -43,14 +43,15 @@ console.log({business})
                     <BusinessViewBody
                         businessDescription={business.businessDescription}
                         selectForReview={selectToReview}
+                        match={match}
                     />
-                    <Reviews />
+                    <Reviews reviews={business.reviews} />
                 </div>
-                <Modal 
+                {/* <Modal 
                     visible={visible}
                 >
                     <PostReview />
-                </Modal>
+                </Modal> */}
             </div> :
         <Spinner 
             loading={gettingBusiness === true}

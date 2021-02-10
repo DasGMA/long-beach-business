@@ -12,6 +12,7 @@ import { getUserInfo } from "../../Redux/Actions/AccountActions";
 import { getCategories } from "../../Redux/Actions/CategoriesActions";
 import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
 import BusinessView from "../BusinessComponents/BusinessView/BusinessView";
+import PostReview from "../Forms/PostReview";
 
 export default function App() {
     const {updated} = useSelector(state => state.CategoriesReducer);
@@ -40,7 +41,8 @@ export default function App() {
                         render={ ({ match: { url } }) => (
                             <>
                               <Route exact path={`${url}/`} component={CategoryBusinessesList} />
-                              <Route path={`${url}/:businessName`} component={BusinessView} />
+                              <Route exact path={`${url}/:businessName`} component={BusinessView} />
+                              <ProtectedRoute path={`${url}/:businessName/write-review`} component={PostReview} loggedin={loggedin} />
                             </>
                           )}
                     />

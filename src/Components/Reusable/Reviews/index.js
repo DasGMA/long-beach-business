@@ -10,9 +10,10 @@ function Reviews({
     const renderReviews = () => {
         if (reviews.length === 0) return <div><p>Be the first to Review.</p></div>
         return reviews.map(review => {
-            return <Review 
+            return <Review
+                    key={review._id}
                     review={review.content}
-                    authorImage={review.postedBy.acatar.image.location}
+                    authorImage={review.postedBy.avatar.imageUrl}
                     authorName={review.postedBy.firstName + ' ' + review.postedBy.lastName}
                     reviewDate={review.createdAt}
                     rating={review.rating}
@@ -23,7 +24,7 @@ function Reviews({
 
     return (
         <div className='reviews'>
-            <h1>Reviews</h1>
+            <h1>{reviews.length}{' '}Reviews</h1>
             {renderReviews()}
         </div>
     )

@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import '../../Styles/business-component.scss';
 import PhotoSlider from './PhotoSlider';
 import { selectBusiness } from '../../Redux/Actions/BusinessActions';
+import Rating from '../Reusable/Rating';
 
 export default function BusinessComponent(business) {
     const { businessName, 
@@ -12,6 +13,7 @@ export default function BusinessComponent(business) {
             businessImages,
             businessAddress,
             offers,
+            reviews,
             phoneNumber } = business;
 
     const history = useHistory();
@@ -40,9 +42,9 @@ export default function BusinessComponent(business) {
                 <div className='business-component-display' onClick={navigateToBusiness}>
                     <div className='business-component-header'>
                         <div className='business-name'>
-                            <span>{businessName}</span>
-                            <span>Rating: <span>{averageRating}</span></span> 
-                            <span>Tags</span>
+                            <h1>{businessName}</h1>
+                            <Rating rating={averageRating} /> 
+                            <h2>Tags</h2>
                         </div>
                         <div className='business-address'>
                             <span>{phoneNumber}</span>
@@ -58,7 +60,7 @@ export default function BusinessComponent(business) {
                         <i className='fa fa-thumbs-up fa-2x'> 0</i>
                         <i className='fa fa-thumbs-down fa-2x'> 0</i>
                         <i className='fas fa-comments-o fa fa-2x'> 0</i>
-                        <span>Reviews: 0</span>
+                        <span>Reviews: {reviews.length}</span>
                     </div>
                 </div>
             </div>
