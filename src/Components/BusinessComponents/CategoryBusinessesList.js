@@ -15,12 +15,12 @@ export default function CategoryBusinessesList() {
     }, [dispatch, selectedCategory._id])
 
     const renderBusinessList = () => {
-        return businesses.map(business => {
-            return <BusinessComponent
-                        key={business.businessName}
-                        {...business}
-                    />
-        })
+        return businesses.map(business => (
+            <BusinessComponent
+                key={business.businessName}
+                {...business}
+            />
+        ))
     }
     
     return (
@@ -35,7 +35,7 @@ export default function CategoryBusinessesList() {
                 {renderBusinessList()}
             </div>
         </div> :
-        <Spinner 
+        <Spinner
             loading={businesses === null}
             size='30rem'
         />

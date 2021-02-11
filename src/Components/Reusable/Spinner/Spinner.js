@@ -14,12 +14,15 @@ function Spinner({
         height: size
     }
     return (
-        <img 
-            alt='Spinner'
-            src={spinner}
-            className='spinner'
-            style={animatedSpinner}
-        />
+        <div style={{display: 'flex', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <img 
+                alt='Spinner'
+                src={spinner}
+                className='spinner'
+                style={animatedSpinner}
+            />
+        </div>
+        
     )
 }
 
