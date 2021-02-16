@@ -8,20 +8,24 @@ import FollowingIcon from '@material-ui/icons/StarsRounded';
 import SettingsIcon from '@material-ui/icons/SettingsRounded';
 import LogoutIcon from '@material-ui/icons/ExitToAppRounded';
 import { Divider, List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../Redux/Actions/LogoutActions';
 import getStorePersistor from '../../Redux/store';
 const { persistor } = getStorePersistor();
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     list: {
       width: 250,
+    },
+    activeListItem: {
+      color: theme.palette.primary.main
     }
-  });
+  }));
 
 export default function DrawerList({
-    onClick = () => {}
+    onClick = () => {},
+    path
 }) {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -55,9 +59,9 @@ export default function DrawerList({
         >
           <List>
             {Object.entries(icons).map((icon, index) => (
-              <ListItem button key={index} component={Link} to={icon[1].path}>
-                <ListItemIcon>{ icon[1].icon }</ListItemIcon>
-                <ListItemText primary={ icon[0] } />
+              <ListItem button key={index} component={NavLink} to={icon[1].path} className={path === icon[1].path ? classes.activeListItem : 'null'}>
+                <ListItemIcon className={path === icon[1].path ? classes.activeListItem : 'null'}>{ icon[1].icon }</ListItemIcon>
+                <ListItemText primary={ icon[0] } className={path === icon[1].path ? classes.activeListItem : 'null'}/>
               </ListItem>
             ))}
           </List>

@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../Styles/login.scss";
-import facebook from "../../Assets/facebook.png";
-import google from "../../Assets/google.png";
 import {
     loginAction,
     resetErrors,
@@ -10,8 +7,33 @@ import {
     checkForErrors,
     resetInput,
 } from "../../Redux/Actions/LoginActions";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Spinner from "../Reusable/Spinner/Spinner";
+import { Link, Divider, Grid, makeStyles, TextField, Typography, Button } from "@material-ui/core";
+import AccountIcon from '@material-ui/icons/AccountCircleRounded';
+import LockIcon from '@material-ui/icons/LockOpenRounded';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          maxWidth: 250,
+        },
+      },
+      container: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: theme.spacing(2)
+      },
+      button: {
+          minWidth: 250,
+          paddingTop: theme.spacing(1),
+          paddingBottom: theme.spacing(1),
+          marginTop: theme.spacing(2)
+      }
+    
+}));
 
 export default function Login() {
     const history = useHistory();
@@ -24,6 +46,7 @@ export default function Login() {
         verifyPassword
     } = useSelector((state) => state.LoginReducer);
 
+    const classes = useStyles();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -45,6 +68,7 @@ export default function Login() {
     };
 
     const handleChange = (event) => {
+        console.log(event.target.name)
         dispatch(changeHandle(event));
     };
 
@@ -53,98 +77,91 @@ export default function Login() {
     };
 
     return (
-        <div className="login">
-            <div className="login-top">
-                <h1>Login to LBO</h1>
-                <p>
-                    New to LBO? <a href="!#"> Sign Up</a>.
-                </p>
-                <p>
-                    By logging in, you agree to{" "}
-                    <a href="!#">LBO's Terms of Service</a> and <br />
-                    <a href="!#">Privacy Policy</a>.
-                </p>
+        <div className={classes.container}>
+            <div className={classes.container}>
+                <Typography variant='h3'>Login to LBO</Typography>
+                <Typography variant='body1'>New to LBO? <Link component={NavLink} to='/register'>Register</Link>.</Typography>
             </div>
-            {/* <div className="column-section">
-                <button className="social-button">
-                    <img
-                        className="icon"
-                        src={facebook}
-                        alt="Log in with facebook"
-                    />{" "}
-                    Log in with Facebook
-                </button>
-                <button className="social-button">
-                    <img
-                        className="icon"
-                        src={google}
-                        alt="Log in with google"
-                    />{" "}
-                    Log in with Google
-                </button>
-            </div> */}
-            <h2>
-                <span>{'<>'}</span>
-            </h2>
-            <form className="column-section" onSubmit={handleSubmit}>
-                {errors.Username && (
-                    <span className="error">{errors.Username}</span>
-                )}
-                {errors.LoginDetails && (
-                    <span className="error">{errors.LoginDetails}</span>
-                )}
-                <input
-                    className="input"
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    value={userName}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.Password && (
-                    <span className="error">{errors.Password}</span>
-                )}
-                {errors.LoginDetails && (
-                    <span className="error">{errors.LoginDetails}</span>
-                )}
-                <input
-                    className="input"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.verifyPassword && (
-                    <span className="error">{errors.verifyPassword}</span>
-                )}
-                <input
-                    className="input"
-                    type="password"
-                    name="verifyPassword"
-                    placeholder="Verify password"
-                    value={verifyPassword}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                <span className="span-text">
-                    <a href="!#">Forgot password?</a>
-                </span>
+            <form className={classes.root} noValidate autoComplete='off'>
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <AccountIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.Username}
+                            name='username'
+                            label='Username'
+                            type='text'
+                            value={userName}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.Username}
+                        />
+                    </Grid>
+                </Grid>
+            
+            
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <LockIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.Password}
+                            name='password'
+                            label='Password'
+                            type='password'
+                            value={password}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.Password}
+                        />
+                    </Grid>
+                </Grid>
+            
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <LockIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.verifyPassword}
+                            label='Verify Password'
+                            name='verifyPassword'
+                            type='password'
+                            value={verifyPassword}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.verifyPassword}
+                        />
+                    </Grid>
+                </Grid>
             </form>
-            <div className="column-section">
-                <button className="login-button" onClick={handleSubmit}>
-                    {logingin === true ? (
-                        <Spinner loading={logingin} size={"4rem"} />
-                    ) : (
-                        "Login"
-                    )}
-                </button>
-                <span className="span-text">
-                    New to LBO? <a href="!#">Sign Up</a>
-                </span>
-            </div>
+            <Divider />
+            <Button 
+                onClick={handleSubmit} 
+                className={classes.button}
+                variant='outlined'
+            >
+                {logingin ? <Spinner size={25}/> : 'Login'}
+            </Button>
         </div>
+        
+        //         <span className="span-text">
+        //             <a href="!#">Forgot password?</a>
+        //         </span>
+        //     </form>
+        //     <div className="column-section">
+        //         <button className="login-button" onClick={handleSubmit}>
+        //             {logingin === true ? (
+        //                 <Spinner loading={logingin} size={"4rem"} />
+        //             ) : (
+        //                 "Login"
+        //             )}
+        //         </button>
+        
+        //     </div>
+        // </div>
     );
 }

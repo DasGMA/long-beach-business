@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { logoutAction } from '../../Redux/Actions/LogoutActions';
-
 import NavigationItem from './NavigationItem';
 import DrawerList from './DrawerList';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,6 +80,7 @@ export default function Navigation() {
                     )}
                 </Toolbar>
             </AppBar>
+            <Toolbar />
             <SwipeableDrawer
                 anchor='left'
                 open={drawyerOpened}
@@ -93,8 +89,7 @@ export default function Navigation() {
                 color='inherit'
                 disableBackdropTransition
             >
-                <DrawerList onClick={toggleDrawer}/>
-
+                <DrawerList onClick={toggleDrawer} path={location}/>
             </SwipeableDrawer>
         </div>
     );

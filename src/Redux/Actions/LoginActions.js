@@ -104,7 +104,7 @@ export const checkForErrors = () => (dispatch, getState) => {
   if (userName.length < 2) dispatch(
     setLoginError(
       'Username',
-      'Username must be 2 or more characters length.'
+      'Username must be 2 or more characters.'
     ),
     hasErrors = true
   );
@@ -112,7 +112,7 @@ export const checkForErrors = () => (dispatch, getState) => {
   if (password.length < 2) dispatch(
     setLoginError(
       'Password',
-      'Password must be 2 or more characters length.'
+      'Password must be 2 or more characters.'
     ),
     hasErrors = true
   );
