@@ -3,7 +3,7 @@ import "../../Styles/footer.scss";
 
 export default function Footer() {
     return (
-        <footer>
+        <>
             <div className='footer'>
                 <div className='footer-container'>
                     <div className='footer-links'>
@@ -31,6 +31,6 @@ export default function Footer() {
             <div className='footer-bottom'>
                 <p>Copyright &#169; www.longbeachoffers.com | 2020</p>
             </div>
-        </footer>
+        </>
     );
 }

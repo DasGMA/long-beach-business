@@ -1,16 +1,15 @@
-import React from 'react';
-import { AppBar, IconButton, makeStyles, Toolbar } from '@material-ui/core';
+import React, { useState } from 'react';
+import { AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { useSelector, useDispatch } from 'react-redux';
-//import '../../Styles/navigation.scss';
+
 import { useLocation } from 'react-router-dom';
 import { logoutAction } from '../../Redux/Actions/LogoutActions';
 
-import getStorePersistor from '../../Redux/store';
 import NavigationItem from './NavigationItem';
+import DrawerList from './DrawerList';
 
-const { persistor } = getStorePersistor();
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,22 +17,18 @@ const useStyles = makeStyles((theme) => ({
     },
     navigation: {
         backgroundColor: '#000000',
-        opacity: '0.7'
+        opacity: '0.7',
+        justifyContent: 'center'
     },
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    title: {
-      flexGrow: 1,
-    },
     activeButton: {
-        '&:active': {
-            borderBottom: 'white'
-        }
+        border: '0.1rem solid white'
     },
     button: {
         '&:hover': {
-            borderBottom: 'white'
+            border: '0.1rem solid white'
         }
     }
   }));
@@ -43,40 +38,36 @@ export default function Navigation() {
     const { loggedin } = useSelector((state) => state.LoginReducer);
     const location = useLocation().pathname;
     const classes = useStyles();
-    const dispatch = useDispatch();
+    const [drawyerOpened, setDrawyerOpened] = useState(false);
 
+    const toggleDrawer = () => {
+        if (loggedin === false) return;
+        setDrawyerOpened(!drawyerOpened);
+    }
 
-    const logout = () => {
-        dispatch(logoutAction());
-        persistor.purge()
-            .then(() => {
-            return persistor.flush()
-            })
-            .then(() => {
-            persistor.pause()
-            });
-    };
-console.log({location})
     return (
         <div className={classes.root}>
             <AppBar position='fixed' className={classes.navigation}>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color='inherit' aria-label='menu'>
+                    {loggedin === true && <IconButton 
+                        edge='start'
+                        className={classes.menuButton} 
+                        color='inherit' 
+                        aria-label='menu'
+                        onClick={toggleDrawer}
+                    >
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton>}
+                    <div className={classes.root}>
+                        <NavigationItem 
+                            to='/'
+                            className={location === '/' ? classes.activeButton : classes.button}
+                            name='Home'
+                        />
+                    </div>
                     {loggedin ? (
                     <>
-                        <NavigationItem 
-                            to='/account'
-                            className={location === '/account' && classes.button}
-                            name='Account'
-                        />
-                        <NavigationItem
-                            to='/'
-                            className={classes.button}
-                            name='Logout'
-                            onClick={logout}
-                        />
+                        {/* Maybe will display full menu while not on mobile. Will see later on */}
                     </>
                     ) : (
                     <>
@@ -87,51 +78,24 @@ console.log({location})
                         />
                         <NavigationItem 
                             to='/register'
-                            className={classes.button}
+                            className={location === '/register' ? classes.activeButton : classes.button}
                             name='Register'
                         />
                     </>
                     )}
                 </Toolbar>
             </AppBar>
+            <SwipeableDrawer
+                anchor='left'
+                open={drawyerOpened}
+                onClose={toggleDrawer}
+                onOpen={toggleDrawer}
+                color='inherit'
+                disableBackdropTransition
+            >
+                <DrawerList onClick={toggleDrawer}/>
+
+            </SwipeableDrawer>
         </div>
-        // <nav className='navigation'>
-        //     <div className='inner-nav'>
-        //         <NavigationItem 
-        //             to='/'
-        //             className={location === '/' ? 'nav-link active' : 'nav-link'}
-        //             name='Home'
-        //         />
-                
-        //         {loggedin ? (
-        //             <>
-        //                 <NavigationItem 
-        //                     to='/account'
-        //                     className={location === '/account' ? 'nav-link active' : 'nav-link'}
-        //                     name='Account'
-        //                 />
-        //                 <NavigationItem
-        //                     to='/'
-        //                     className='nav-link'
-        //                     name='Logout'
-        //                     onClick={logout}
-        //                 />
-        //             </>
-        //         ) : (
-        //             <>
-        //                 <NavigationItem
-        //                     to='/login'
-        //                     className={location === '/login' ? 'nav-link active' : 'nav-link'}
-        //                     name='Login'
-        //                 />
-        //                 <NavigationItem 
-        //                     to='/register'
-        //                     className={location === '/register' ? 'nav-link active' : 'nav-link'}
-        //                     name='Register'
-        //                 />
-        //             </>
-        //         )}
-        //     </div>
-        // </nav>
     );
 }

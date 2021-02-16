@@ -30,24 +30,22 @@ export default function App() {
     return (
         <>
             <Navigation />
-            <main>
-                <Switch>
-                    <Route exact path='/' component={HomePage} />
-                    <Route path='/login' component={Login} />
-                    <Route path='/register' component={Register} />
-                    <ProtectedRoute path='/account' component={Account} loggedin={loggedin} />
-                    <Route 
-                        path='/:category'
-                        render={ ({ match: { url } }) => (
-                            <>
-                              <Route exact path={`${url}/`} component={CategoryBusinessesList} />
-                              <Route exact path={`${url}/:businessName`} component={BusinessView} />
-                              <ProtectedRoute path={`${url}/:businessName/write-review`} component={PostReview} loggedin={loggedin} />
-                            </>
-                          )}
-                    />
-                </Switch>
-            </main>
+            <Switch>
+                <Route exact path='/' component={HomePage} />
+                <Route path='/login' component={Login} />
+                <Route path='/register' component={Register} />
+                <ProtectedRoute path='/account' component={Account} loggedin={loggedin} />
+                <Route 
+                    path='/:category'
+                    render={ ({ match: { url } }) => (
+                        <>
+                            <Route exact path={`${url}/`} component={CategoryBusinessesList} />
+                            <Route exact path={`${url}/:businessName`} component={BusinessView} />
+                            <ProtectedRoute path={`${url}/:businessName/write-review`} component={PostReview} loggedin={loggedin} />
+                        </>
+                        )}
+                />
+            </Switch>
             <Footer />
         </>
     );
