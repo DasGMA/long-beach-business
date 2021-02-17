@@ -1,20 +1,60 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import "../../Styles/register.scss";
-import facebook from "../../Assets/facebook.png";
-import google from "../../Assets/google.png";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import '../../Styles/register.scss';
+import { 
+    Link,
+    Divider,
+    Grid,
+    makeStyles,
+    TextField,
+    Typography,
+    Button,
+    Select,
+    MenuItem,
+    InputLabel 
+} from '@material-ui/core';
+import AccountIcon from '@material-ui/icons/AccountCircleRounded';
+import LockIcon from '@material-ui/icons/LockOpenRounded';
+import EmailIcon from '@material-ui/icons/AlternateEmailRounded';
+import AccountTypeIcon from '@material-ui/icons/AssignmentIndRounded';
 import {
     changeHandle,
     registerAction,
     checkForRegisterErrors,
     clearErrors,
     clearInput,
-} from "../../Redux/Actions/RegisterActions";
-import { useHistory } from "react-router-dom";
-import Spinner from "../Reusable/Spinner/Spinner";
+} from '../../Redux/Actions/RegisterActions';
+import { NavLink, useHistory } from 'react-router-dom';
+import Spinner from '../Reusable/Spinner/Spinner';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTextField-root': {
+          margin: theme.spacing(1),
+          maxWidth: 250,
+        },
+      },
+      container: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: theme.spacing(2)
+      },
+      button: {
+          minWidth: 250,
+          paddingTop: theme.spacing(1),
+          paddingBottom: theme.spacing(1),
+          marginTop: theme.spacing(2)
+      },
+      select: {
+          minWidth: 225
+      }
+    
+}));
 
 export default function Register() {
     const {
+        accountType,
         firstName,
         lastName,
         email,
@@ -27,14 +67,15 @@ export default function Register() {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const classes = useStyles();
 
     useEffect(() => {
         if (registered) {
             dispatch(clearInput());
-            history.push("/");
+            history.push('/');
         }
 
-        if (history.location !== "/login") {
+        if (history.location !== '/login') {
             dispatch(clearInput());
         }
     }, [registered, dispatch, history]);
@@ -55,121 +96,134 @@ export default function Register() {
     };
 
     return (
-        <div className="register">
-            <div className="register-top">
-                <h1>Sign up for LBO</h1>
-                <p>Connect your business with comminity.</p>
-                <p>
-                    By continuing, you agree to{" "}
-                    <a href="!#">LBO's Terms of Service</a> and <br />
-                    <a href="!#">Privacy Policy</a>.
-                </p>
+        <div className={classes.container}>
+            <div className={classes.container}>
+                <Typography variant='h3'>Create LBO Account</Typography>
+                <Typography variant='body1'>Already have an Account? <Link component={NavLink} to='/login'>Login</Link>.</Typography>
             </div>
-            {/* <div className="column-section">
-                <button className="social-button">
-                    <img
-                        className="icon"
-                        src={facebook}
-                        alt="Register with facebook"
-                    />{" "}
-                    Sign up with Facebook
-                </button>
-                <button className="social-button">
-                    <img
-                        className="icon"
-                        src={google}
-                        alt="Register with google"
-                    />{" "}
-                    Sign up with Google
-                </button>
-            </div> */}
-            <h2>
-                <span>{'<>'}</span>
-            </h2>
-            <form className="column-section">
-                {errors.firstName && (
-                    <span className="error">{errors.firstName}</span>
-                )}
-                <input
-                    className="input"
-                    name="firstName"
-                    type="text"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.lastName && (
-                    <span className="error">{errors.lastName}</span>
-                )}
-                <input
-                    className="input"
-                    name="lastName"
-                    type="text"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.userName && (
-                    <span className="error">{errors.userName}</span>
-                )}
-                <input
-                    className="input"
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    value={userName}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.email && <span className="error">{errors.email}</span>}
-                <input
-                    className="input"
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.password && (
-                    <span className="error">{errors.password}</span>
-                )}
-                <input
-                    className="input"
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                />
-                {errors.accountType && (
-                    <span className="error">{errors.accountType}</span>
-                )}
-                <select
-                    name="accountType"
-                    onChange={handleChange}
-                    onFocus={onFocus}
-                >
-                    <option value="none">Choose Account Type</option>
-                    <option value="customer">Customer</option>
-                    <option value="business">Business</option>
-                </select>
+            <form className={classes.root} noValidate autoComplete='off'>
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <AccountIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.firstName ? true : false}
+                            name='firstName'
+                            label='First Name'
+                            type='text'
+                            value={firstName}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.firstName}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <AccountIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.lastName ? true : false}
+                            name='lastName'
+                            label='Last Name'
+                            type='text'
+                            value={lastName}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.lastName}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <AccountIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.userName ? true : false}
+                            name='username'
+                            label='Username'
+                            type='text'
+                            value={userName}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.userName}
+                        />
+                    </Grid>
+                </Grid>
+            
+            
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <EmailIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.email ? true : false}
+                            name='email'
+                            label='Email'
+                            type='email'
+                            value={email}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.email}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <LockIcon />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            error={errors.password ? true : false}
+                            label='Password'
+                            name='password'
+                            type='password'
+                            value={password}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            helperText={errors.password}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} alignItems='flex-end'>
+                    <Grid item>
+                        <AccountTypeIcon />
+                    </Grid>
+                    <Grid item>
+                        <InputLabel shrink id='placeholder-label'>
+                            Account Type
+                        </InputLabel>
+                        <Select
+                            name='accountType'
+                            labelId='placeholder-label'
+                            value={accountType}
+                            onChange={handleChange}
+                            onFocus={onFocus}
+                            className={classes.select}
+                        >
+                            <MenuItem value='Customer'>Customer</MenuItem>
+                            <MenuItem value='Business'>Business</MenuItem>
+                        </Select>
+                    </Grid>
+                </Grid>
+               
             </form>
-            <div className="column-section">
-                <button className="login-button" onClick={handleSubmit}>
-                    {registering === true ? (
-                        <Spinner loading={registering} size={"4rem"} />
-                    ) : (
-                        "Signup"
-                    )}
-                </button>
-                <span className="span-text">
-                    Already on LBO? <a href="!#">Log In</a>
-                </span>
-            </div>
+            <Divider />
+            <Button 
+                onClick={handleSubmit} 
+                className={classes.button}
+                variant='outlined'
+            >
+                {registering ? <Spinner size={25}/> : 'Register'}
+            </Button>
         </div>
     );
 }

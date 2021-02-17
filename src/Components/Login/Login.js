@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     loginAction,
     resetErrors,
     changeHandle,
     checkForErrors,
     resetInput,
-} from "../../Redux/Actions/LoginActions";
-import { NavLink, useHistory } from "react-router-dom";
-import Spinner from "../Reusable/Spinner/Spinner";
-import { Link, Divider, Grid, makeStyles, TextField, Typography, Button } from "@material-ui/core";
+} from '../../Redux/Actions/LoginActions';
+import { NavLink, useHistory } from 'react-router-dom';
+import Spinner from '../Reusable/Spinner/Spinner';
+import { Link, Divider, Grid, makeStyles, TextField, Typography, Button } from '@material-ui/core';
 import AccountIcon from '@material-ui/icons/AccountCircleRounded';
 import LockIcon from '@material-ui/icons/LockOpenRounded';
 
@@ -108,7 +108,7 @@ export default function Login() {
                     </Grid>
                     <Grid item>
                         <TextField
-                            error={errors.Password}
+                            error={errors.Password ? true : false}
                             name='password'
                             label='Password'
                             type='password'
@@ -119,23 +119,26 @@ export default function Login() {
                         />
                     </Grid>
                 </Grid>
-            
-                <Grid container spacing={1} alignItems='flex-end'>
-                    <Grid item>
-                        <LockIcon />
+
+                <Grid container direction='column'>
+                    <Grid container spacing={1} alignItems='flex-end'>
+                        <Grid item>
+                            <LockIcon />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                error={errors.verifyPassword ? true : false}
+                                label='Verify Password'
+                                name='verifyPassword'
+                                type='password'
+                                value={verifyPassword}
+                                onChange={handleChange}
+                                onFocus={onFocus}
+                                helperText={errors.verifyPassword}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            error={errors.verifyPassword}
-                            label='Verify Password'
-                            name='verifyPassword'
-                            type='password'
-                            value={verifyPassword}
-                            onChange={handleChange}
-                            onFocus={onFocus}
-                            helperText={errors.verifyPassword}
-                        />
-                    </Grid>
+                    <Typography variant='caption' align='right'><Link component={NavLink} to='!#'>Forgot password?</Link></Typography>
                 </Grid>
             </form>
             <Divider />
@@ -147,21 +150,5 @@ export default function Login() {
                 {logingin ? <Spinner size={25}/> : 'Login'}
             </Button>
         </div>
-        
-        //         <span className="span-text">
-        //             <a href="!#">Forgot password?</a>
-        //         </span>
-        //     </form>
-        //     <div className="column-section">
-        //         <button className="login-button" onClick={handleSubmit}>
-        //             {logingin === true ? (
-        //                 <Spinner loading={logingin} size={"4rem"} />
-        //             ) : (
-        //                 "Login"
-        //             )}
-        //         </button>
-        
-        //     </div>
-        // </div>
     );
 }

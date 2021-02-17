@@ -149,38 +149,33 @@ export const checkForRegisterErrors = () => (dispatch, getState) => {
 
     let hasErrors = false;
 
-    if (firstName.length < 2) {
-        dispatch(setRegisterError('firstName', 'Firstname required field, must be longer than 2 characters.'));
-        hasErrors = true;
-    }
-
     if (lastName.length < 2) {
-        dispatch(setRegisterError('lastName', 'Lastname required field, must be longer than 2 characters.'));
+        dispatch(setRegisterError('lastName', 'Lastname must be longer than 2 characters.'));
         hasErrors = true;
     }
 
     if (email.length < 2) {
-        dispatch(setRegisterError('email', 'Email required field, must be longer than 2 characters.'));
+        dispatch(setRegisterError('email', 'Provide valid email.'));
         hasErrors = true;
     }
 
     if (firstName.length < 2) {
-        dispatch(setRegisterError('firstName', 'Firstname required field, must be longer than 2 characters.'));
+        dispatch(setRegisterError('firstName', 'Firstname must be longer than 2 characters.'));
         hasErrors = true;
     }
 
     if (password.length < 2) {
-        dispatch(setRegisterError('password', 'Password required field, must be longer than 2 characters.'));
+        dispatch(setRegisterError('password', 'Password must be longer than 2 characters.'));
         hasErrors = true;
     }
 
-    if (accountType === 'business' && (zipcode.length < 5 || !zipcode.match(/^\d{5}$/gm))) {
-        dispatch(setRegisterError('zipcode', 'Zipcode required field, must be 5 numerical characters long.'));
-        hasErrors = true;
-    }
+    // if (accountType === 'business' && (zipcode.length < 5 || !zipcode.match(/^\d{5}$/gm))) {
+    //     dispatch(setRegisterError('zipcode', 'Zipcode required field, must be 5 numerical characters long.'));
+    //     hasErrors = true;
+    // }
 
     if (userName.length < 2) {
-        dispatch(setRegisterError('userName', 'Username required field, must be longer than 2 characters.'));
+        dispatch(setRegisterError('userName', 'Username must be longer than 2 characters.'));
         hasErrors = true;
     }
 

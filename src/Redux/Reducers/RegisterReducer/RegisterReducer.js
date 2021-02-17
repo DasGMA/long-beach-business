@@ -20,7 +20,7 @@ const initialState = {
     email: '',
     password: '',
     userName: '',
-    accountType: 'none',
+    accountType: 'Customer',
     registering: false,
     registered: false,
     errors: {}
@@ -99,7 +99,7 @@ export const RegisterReducer = (state = initialState, action) => {
                 email: '',
                 password: '',
                 userName: '',
-                accountType: 'none'
+                accountType: 'Customer'
             }
         default:
             return state
