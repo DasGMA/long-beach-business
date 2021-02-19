@@ -19,9 +19,11 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(2),
     },
     activeButton: {
+        marginLeft: theme.spacing(1),
         border: '0.1rem solid white'
     },
     button: {
+        marginLeft: theme.spacing(1),
         '&:hover': {
             border: '0.1rem solid white'
         }
@@ -41,7 +43,7 @@ export default function Navigation() {
     }
 
     return (
-        <div className={classes.root}>
+        <>
             <AppBar position='fixed' className={classes.navigation}>
                 <Toolbar>
                     {loggedin === true && <IconButton 
@@ -91,6 +93,6 @@ export default function Navigation() {
             >
                 <DrawerList onClick={toggleDrawer} path={location}/>
             </SwipeableDrawer>
-        </div>
+        </>
     );
 }

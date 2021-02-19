@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "../../Styles/homePage.scss";
 import Category from "./Category";
-import Search from "./Search";
 import { useHistory } from 'react-router-dom';
 import { selectCategory } from "../../Redux/Actions/CategoriesActions";
+import { Container, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+
+}))
 
 export default function HomePage() {
     const { categories } = useSelector((state) => state.CategoriesReducer);
@@ -30,11 +33,10 @@ export default function HomePage() {
     };
 
     return (
-        <div className="homePage">
-            <Search />
+        <Container>
             <h1>Latest Offers</h1>
             <h1>Categories</h1>
             <div className="categories">{renderCategories()}</div>
-        </div>
+        </Container>
     );
 }

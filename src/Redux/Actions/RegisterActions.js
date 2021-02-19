@@ -142,7 +142,6 @@ export const checkForRegisterErrors = () => (dispatch, getState) => {
         lastName, 
         email, 
         password, 
-        zipcode, 
         userName, 
         accountType
     } = getState().RegisterReducer;

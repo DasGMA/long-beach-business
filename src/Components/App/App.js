@@ -13,12 +13,25 @@ import { getCategories } from "../../Redux/Actions/CategoriesActions";
 import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
 import BusinessView from "../BusinessComponents/BusinessView/BusinessView";
 import PostReview from "../Forms/PostReview";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+    main: {
+        flex: '1 0 auto'
+    },
+    body: {
+        display: 'flex',
+        height: '100vh',
+        flexDirection: 'column'
+    }
+}))
 
 export default function App() {
     const {updated} = useSelector(state => state.CategoriesReducer);
     const {loggedin} = useSelector(state => state.LoginReducer);
     const dispatch = useDispatch();
-    
+    const classes = useStyles();
+
     useEffect(() => {
         localStorage.getItem('Token') && dispatch(getUserInfo());
     },[dispatch]);
@@ -28,25 +41,27 @@ export default function App() {
     }, [dispatch, updated]);
 
     return (
-        <>
+        <div className={classes.body}>
             <Navigation />
-            <Switch>
-                <Route exact path='/' component={HomePage} />
-                <Route path='/login' component={Login} />
-                <Route path='/register' component={Register} />
-                <ProtectedRoute path='/account' component={Account} loggedin={loggedin} />
-                <Route 
-                    path='/:category'
-                    render={ ({ match: { url } }) => (
-                        <>
-                            <Route exact path={`${url}/`} component={CategoryBusinessesList} />
-                            <Route exact path={`${url}/:businessName`} component={BusinessView} />
-                            <ProtectedRoute path={`${url}/:businessName/write-review`} component={PostReview} loggedin={loggedin} />
-                        </>
-                        )}
-                />
-            </Switch>
+            <div className={classes.main}>
+                <Switch>
+                    <Route exact path='/' component={HomePage} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <ProtectedRoute path='/account' component={Account} loggedin={loggedin} />
+                    <Route 
+                        path='/:category'
+                        render={ ({ match: { url } }) => (
+                            <>
+                                <Route exact path={`${url}/`} component={CategoryBusinessesList} />
+                                <Route exact path={`${url}/:businessName`} component={BusinessView} />
+                                <ProtectedRoute path={`${url}/:businessName/write-review`} component={PostReview} loggedin={loggedin} />
+                            </>
+                            )}
+                    />
+                </Switch>
+            </div>
             <Footer />
-        </>
+        </div>
     );
 }

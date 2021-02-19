@@ -147,7 +147,7 @@ export default function Login() {
                 className={classes.button}
                 variant='outlined'
             >
-                {logingin ? <Spinner size={25}/> : 'Login'}
+                {logingin  ? <Spinner size={25}/> : 'Login'}
             </Button>
         </div>
     );
