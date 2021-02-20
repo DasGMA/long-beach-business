@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rating from '../../Reusable/Rating';
+import StarRating from '../../Reusable/StarRating';
 
 function BusinessViewHeader({
     businessName,
@@ -12,7 +12,7 @@ function BusinessViewHeader({
         <div className='business-view-header'>
             <div className='business-view-header-inner'>
                 <h1>{businessName}</h1>
-                <Rating rating={rating} />
+                <StarRating rating={rating} />
                 <span>{reviewsCount} reviews</span>
             </div>
         </div>
@@ -21,7 +21,6 @@ function BusinessViewHeader({
 
 BusinessViewHeader.defaultProps = {
     businessName: 'Business Name',
-    rating: 0,
     reviewsCount: 0
 }
 

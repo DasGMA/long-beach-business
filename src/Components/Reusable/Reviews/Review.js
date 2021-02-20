@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rating from '../Rating';
+import StarRating from '../StarRating';
 import '../../../Styles/review.scss';
 
 function Review({
@@ -26,7 +26,7 @@ function Review({
                         </div>
                     </div>
                     <div className='review-date-rating'>
-                        <Rating rating={rating}/> <span className='date'>{new Date(reviewDate).toDateString()}</span>
+                        <StarRating rating={rating}/> <span className='date'>{new Date(reviewDate).toDateString()}</span>
                     </div>
                 </div>
                 <div className='review-title'>

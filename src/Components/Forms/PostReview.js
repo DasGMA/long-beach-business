@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '../../Redux/Actions/ModalActions';
 import { clearReview, handleReviewChange, selectForReview, submitReview } from '../../Redux/Actions/ReviewActions';
 import Button from '../Reusable/Button';
-import Rating from '../Reusable/Rating';
+import StarRating from '../Reusable/StarRating';
 
 export default function PostReview() {
     const { review } = useSelector(state => state.ReviewReducer);
@@ -34,10 +34,11 @@ export default function PostReview() {
             </div>
             <form className='edit-body'>
                 <div className='container'>
-                    <Rating 
+                    <StarRating 
                         rating={rating}
-                        adjustable={true}
+                        notAdjustable={false}
                     />
+                    <span>{rating}</span>
                 </div>
                 <div className='input-block'>
                     <label>Review Title:</label>

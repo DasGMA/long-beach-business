@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryBusinessList } from '../../Redux/Actions/CategoriesActions';
-import '../../Styles/business-list.scss';
 import BusinessComponent from './BusinessComponent';
 import Filters from './Filters';
 import Spinner from '../Reusable/Spinner/Spinner';
@@ -25,10 +24,10 @@ export default function CategoryBusinessesList() {
     
     return (
         businesses !== null ? 
-        <div className='category-business-list'>
+        <div >
             <Filters />
-            <div className='business-list'>
-                <div style={{display: 'flex', justifyContent: 'center', marginBottom: '2rem'}}>
+            <div >
+                <div >
                     <h1>{selectedCategory.category} Businesses</h1>
                 </div>
                 

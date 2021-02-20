@@ -1,9 +1,33 @@
 import React, {useState} from 'react';
-import '../../Styles/photo-slider.scss';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
+import { Card, CardMedia, IconButton, makeStyles } from '@material-ui/core';
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        maxWidth: 275,
+        minWidth: 275,
+        position: 'relative'
+      },
+    media: {
+        height: 275,
+    },
+    buttonGroup: {
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        top: 140
+    },
+    button: {
+        color: 'white'
+    }
+}))
 
 export default function PhotoSlider({ images = [] }) {
     const [index, setIndex] = useState(0);
+    const classes = useStyles();
     
     const slideRight = () => {
         if (images.length - 1 === index) return;
@@ -18,23 +42,33 @@ export default function PhotoSlider({ images = [] }) {
     if (images.length === 0) return null;
 
     return (
-        <div className='photo-slider'>
-            <img 
+        <Card className={classes.root}>
+            <CardMedia
+                className={classes.media}
+                component='img'
                 src={images[index].location}
-                alt='Slider item'
+                title='Slider item'
             />
-            <button 
-                className={index !== 0 ? 'left-button' : 'left-button hidden'}
-                onClick={slideLeft}
-            >
-                {"<"}
-            </button>
-            <button 
-                className={index !== images.length - 1 ? 'right-button' : 'right-button hidden'}
-                onClick={slideRight}
-            >
-                {">"}
-            </button>
-        </div>
+            <div className={classes.buttonGroup}>
+                <IconButton
+                    disabled={index === 0}
+                    onClick={slideLeft}
+                >
+                    <LeftIcon 
+                        color={index !== 0 ? 'secondary' : 'disabled'}
+                        fontSize='large'
+                    />
+                </IconButton>
+                <IconButton
+                    disabled={index === images.length - 1}
+                    onClick={slideRight}
+                >
+                    <RightIcon 
+                        color={index !== images.length - 1 ? 'secondary' : 'disabled'}
+                        fontSize='large'
+                    />
+                </IconButton>
+            </div>
+        </Card>
     )
 }

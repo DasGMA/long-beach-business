@@ -13,11 +13,14 @@ import { getCategories } from "../../Redux/Actions/CategoriesActions";
 import CategoryBusinessesList from "../BusinessComponents/CategoryBusinessesList";
 import BusinessView from "../BusinessComponents/BusinessView/BusinessView";
 import PostReview from "../Forms/PostReview";
-import { makeStyles } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     main: {
-        flex: '1 0 auto'
+        flex: '1 0 auto',
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        padding: theme.spacing(2)
     },
     body: {
         display: 'flex',
@@ -43,7 +46,7 @@ export default function App() {
     return (
         <div className={classes.body}>
             <Navigation />
-            <div className={classes.main}>
+            <Container className={classes.main} disableGutters maxWidth={false}>
                 <Switch>
                     <Route exact path='/' component={HomePage} />
                     <Route path='/login' component={Login} />
@@ -60,7 +63,7 @@ export default function App() {
                             )}
                     />
                 </Switch>
-            </div>
+            </Container>
             <Footer />
         </div>
     );

@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Category from "./Category";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Category from './Category';
 import { useHistory } from 'react-router-dom';
-import { selectCategory } from "../../Redux/Actions/CategoriesActions";
-import { Container, makeStyles } from "@material-ui/core";
+import { selectCategory } from '../../Redux/Actions/CategoriesActions';
+import { Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
 
@@ -14,6 +14,7 @@ export default function HomePage() {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const classes = useStyles();
 
     const onClick = (category, _id) => {
         dispatch(selectCategory({category, _id}));
@@ -21,22 +22,21 @@ export default function HomePage() {
     }
 
     const renderCategories = () => {
-        return categories.map((category) => (
+        return categories.map(({_id, businessCount, categoryName, image}) => (
             <Category
-                key={category._id}
-                count={category.businessCount}
-                category={category.categoryName}
-                onClick={() => onClick(category.categoryName, category._id)}
-                src={category.image.imageUrl}
+                key={_id}
+                count={businessCount}
+                category={categoryName}
+                onClick={() => onClick(categoryName, _id)}
+                src={image.imageUrl}
             />
         ));
     };
 
     return (
-        <Container>
-            <h1>Latest Offers</h1>
-            <h1>Categories</h1>
-            <div className="categories">{renderCategories()}</div>
-        </Container>
+        <>
+            <Typography variant='h4' component='h1' align='center'>Categories</Typography>
+            <Grid item spacing={2}>{renderCategories()}</Grid>
+        </>
     );
 }
