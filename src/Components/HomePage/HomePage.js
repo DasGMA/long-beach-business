@@ -36,7 +36,7 @@ export default function HomePage() {
     return (
         <>
             <Typography variant='h4' component='h1' align='center'>Categories</Typography>
-            <Grid item spacing={2}>{renderCategories()}</Grid>
+            <Grid item>{renderCategories()}</Grid>
         </>
     );
 }

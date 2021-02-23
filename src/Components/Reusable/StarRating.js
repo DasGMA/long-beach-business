@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setRating } from '../../Redux/Actions/RatingActions';
 import Rating from '@material-ui/lab/Rating';
 
-function StarRating({ rating, notAdjustable }) {
+function StarRating({ rating, notAdjustable, size }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,6 +21,7 @@ function StarRating({ rating, notAdjustable }) {
             onChange={onChange}
             readOnly={notAdjustable}
             precision={0.1}
+            size={size}
         />
     )
 }
@@ -32,7 +33,8 @@ StarRating.defaultProps = {
 
 StarRating.propTypes = {
     rating: PropTypes.number,
-    notAdjustable: PropTypes.bool
+    notAdjustable: PropTypes.bool,
+    size: PropTypes.string
 }
 
 export default StarRating;

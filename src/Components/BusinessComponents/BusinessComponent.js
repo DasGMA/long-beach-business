@@ -52,7 +52,7 @@ export default function BusinessComponent(business) {
     const location = useLocation().pathname;
     const dispatch = useDispatch();
     const classes = useStyles();
-console.log(business)
+
     const trimmedText = () => {
         if (businessDescription.length > 250) {
             return businessDescription.substring(0, 250) + '... More'

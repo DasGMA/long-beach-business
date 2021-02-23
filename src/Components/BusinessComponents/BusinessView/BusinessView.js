@@ -1,9 +1,8 @@
+import { Grid } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBusiness } from '../../../Redux/Actions/BusinessActions';
 import { selectForReview } from '../../../Redux/Actions/ReviewActions';
-import '../../../Styles/business-view.scss';
-
 import BusinessViewPhotoSlider from '../../Reusable/BusinessViewPhotoSlider';
 import Reviews from '../../Reusable/Reviews';
 import Spinner from '../../Reusable/Spinner/Spinner';
@@ -25,27 +24,25 @@ export default function BusinessView({ match }) {
 
     return (
         gettingBusiness === false && business !== null ? 
-            <div className='business-view'>
+            <>
                 <BusinessViewPhotoSlider 
                     media={business.businessImages.images}
                 />
-                <div className='business-view-inner-container'>
-                    <BusinessViewHeader
-                        businessName={business.businessName}
-                        rating={business.averageRating}
-                        reviewsCount={business.reviews.length}
-                    />
-                    <BusinessViewBody
-                        businessDescription={business.businessDescription}
-                        selectForReview={selectToReview}
-                        match={match}
-                    />
-                    <Reviews reviews={business.reviews} />
-                </div>
-            </div> :
-        <Spinner 
-            loading={gettingBusiness === true}
-            size='30rem'
-        />
+                
+                <BusinessViewHeader
+                    businessName={business.businessName}
+                    rating={business.averageRating}
+                    reviewsCount={business.reviews.length}
+                    media={business.businessImages.images}
+                />
+                <BusinessViewBody
+                    businessDescription={business.businessDescription}
+                    selectForReview={selectToReview}
+                    match={match}
+                />
+                <Reviews reviews={business.reviews} />
+                
+            </> :
+        <Spinner size={300} />
     )
 }

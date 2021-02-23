@@ -35,8 +35,7 @@ export default function CategoryBusinessesList() {
             </div>
         </div> :
         <Spinner
-            loading={businesses === null}
-            size='30rem'
+            size={30}
         />
     )
 }

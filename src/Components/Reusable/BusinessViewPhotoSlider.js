@@ -1,16 +1,74 @@
+import { Grid, GridList, GridListTile, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
+import LeftIcon from '@material-ui/icons/ChevronLeft';
+import RightIcon from '@material-ui/icons/ChevronRight';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        position: 'relative'
+    },
+    slideContainer: {
+        overflow: 'hidden'
+    },
+    buttonGroup: {
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        top: '50%'
+    },
+    gridListRoot: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+      },
+      gridList: {
+        flexWrap: 'nowrap',
+        overflow: 'hidden',
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+      },
+      gridListTitle: {
+        height: 400, width: 400
+      }
+}))
 
 export default function BusinessViewPhotoSlider({
     media=[]
 }) {
+    const bp = [
+        useMediaQuery(('(min-width: 0px)')),
+        useMediaQuery(('(min-width: 600px)')),
+        useMediaQuery(('(min-width: 960px)')),
+        useMediaQuery(('(min-width: 1280px)')),
+        useMediaQuery(('(min-width: 1920px)'))
+    ];
+
+    const [cols, setCols] = useState(0);
+
+    useEffect(() => {
+        const [xs, sm, md, lg, xl] = [...bp];
+        if(xs) setCols(1);
+        if(xs && sm) setCols(2);
+        if(xs && sm && md) setCols(3);
+        if(xs && sm && md && lg) setCols(3);
+        if(xs && sm && md && lg && xl) setCols(4);
+    }, [bp]);
+
+    console.log(cols)
+
 
     const [state, setState] = useState({
-        rightButton: false,
+        rightButton: true,
         leftButton: false,
         scrollPosition: 0
     });
 
     const sliderRef = useRef();
+    const classes = useStyles();
     
     const checkScroll = () => {
         if (sliderRef.current.scrollLeft >= sliderRef.current.scrollLeftMax) {
@@ -45,21 +103,15 @@ export default function BusinessViewPhotoSlider({
     }, [state.scrollPosition])
 
 
-    const MediaItem = (item) => (
-        <div className='business-view-media'>
-            <img
-                alt='Some alt text coming from item'
-                src={item.item.location}
-                style={{height: '100%', width: 'auto', objectFit: 'cover'}}
-            />
-        </div>
+    const renderMediaItems = () => (
+       media.map((item) => (
+        <GridListTile 
+            key={item.location}
+        >
+            <img src={item.location} alt='Some alt text coming from item' />
+        </GridListTile>
+        ))
     )
-
-    const renderMediaItems = () => {
-        return media.slice(0, 20).map((item, index) => {
-            return <MediaItem key={index} item={item} />
-        })
-    }
 
     const slideRight = () => {
         setState(state => ({...state, scrollPosition: 200}));
@@ -74,22 +126,38 @@ export default function BusinessViewPhotoSlider({
     }
 
     return (
-        <div className='media-slider-container'>
-            <div className='business-view-media-slider' ref={sliderRef}>
-                {renderMediaItems()}
+        <Grid container className={classes.root}>
+            <div className={classes.gridListRoot}>
+                <GridList
+                    ref={sliderRef}
+                    className={classes.gridList} 
+                    cols={cols}
+                    cellHeight={400}
+                    spacing={0}
+                >
+                    {renderMediaItems()}
+                </GridList>
             </div>
-            <button 
-                className={state.leftButton === true ? 'left-button' : 'left-button hidden'}
-                onClick={slideLeft}
-            >
-                {"<"}
-            </button>
-            <button 
-                className={state.rightButton === true ? 'right-button' : 'right-button hidden'}
-                onClick={slideRight}
-            >
-                {">"}
-            </button>
-        </div>
+            <div className={classes.buttonGroup}>
+                <IconButton
+                    disabled={!state.leftButton}
+                    onClick={slideLeft}
+                >
+                    <LeftIcon 
+                        color={state.leftButton ? 'secondary' : 'disabled'}
+                        fontSize='large'
+                    />
+                </IconButton>
+                <IconButton
+                    disabled={!state.rightButton}
+                    onClick={slideRight}
+                >
+                    <RightIcon 
+                        color={state.rightButton ? 'secondary' : 'disabled'}
+                        fontSize='large'
+                    />
+                </IconButton>
+            </div>
+        </Grid>
     )
 }
