@@ -5,8 +5,10 @@ import { Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#000000',
-        opacity: '0.7'
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        position: 'absolute',
+        bottom: 0,
+        padding: theme.spacing(2)
     },
     text: {
         color: '#ffffff'
@@ -21,11 +23,11 @@ function BusinessViewHeader({
     const classes = useStyles();
 
     return (
-        <Grid container justify='center' className={classes.root} spacing={4}>
-            <Grid item xs={6} container direction='column'>
-                <Typography variant='h3' component='h1' className={classes.text}>{businessName}</Typography>
+        <Grid container justify='center' className={classes.root}>
+            <Grid item xs sm={8} md={6} container direction='column'>
+                <Typography variant='h4' component='h1' className={classes.text}>{businessName}</Typography>
                 <StarRating rating={rating} size='large' />
-                <Typography variant='caption' className={classes.text}>{reviewsCount} reviews</Typography>
+                <Typography variant='body1' className={classes.text}>{reviewsCount} reviews</Typography>
             </Grid>
         </Grid>
         

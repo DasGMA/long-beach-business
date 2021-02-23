@@ -7,7 +7,6 @@ import BusinessViewPhotoSlider from '../../Reusable/BusinessViewPhotoSlider';
 import Reviews from '../../Reusable/Reviews';
 import Spinner from '../../Reusable/Spinner/Spinner';
 import BusinessViewBody from './BusinessViewbody';
-import BusinessViewHeader from './BusinessViewHeader';
 
 export default function BusinessView({ match }) {
     const { business, gettingBusiness, selectedBusiness } = useSelector(state => state.BusinessReducer);
@@ -24,17 +23,14 @@ export default function BusinessView({ match }) {
 
     return (
         gettingBusiness === false && business !== null ? 
-            <>
-                <BusinessViewPhotoSlider 
+            <Grid container direction='column' alignItems='center'>
+                <BusinessViewPhotoSlider
                     media={business.businessImages.images}
-                />
-                
-                <BusinessViewHeader
                     businessName={business.businessName}
                     rating={business.averageRating}
                     reviewsCount={business.reviews.length}
-                    media={business.businessImages.images}
                 />
+                
                 <BusinessViewBody
                     businessDescription={business.businessDescription}
                     selectForReview={selectToReview}
@@ -42,7 +38,7 @@ export default function BusinessView({ match }) {
                 />
                 <Reviews reviews={business.reviews} />
                 
-            </> :
+            </Grid> :
         <Spinner size={300} />
     )
 }

@@ -6,7 +6,11 @@ import { selectCategory } from '../../Redux/Actions/CategoriesActions';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-
+    root: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        padding: theme.spacing(2)
+    }
 }))
 
 export default function HomePage() {
@@ -34,9 +38,9 @@ export default function HomePage() {
     };
 
     return (
-        <>
+        <div className={classes.root}>
             <Typography variant='h4' component='h1' align='center'>Categories</Typography>
             <Grid item>{renderCategories()}</Grid>
-        </>
+        </div>
     );
 }

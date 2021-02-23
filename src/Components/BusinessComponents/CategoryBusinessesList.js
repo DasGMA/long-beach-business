@@ -4,10 +4,20 @@ import { getCategoryBusinessList } from '../../Redux/Actions/CategoriesActions';
 import BusinessComponent from './BusinessComponent';
 import Filters from './Filters';
 import Spinner from '../Reusable/Spinner/Spinner';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        padding: theme.spacing(2)
+    }
+}));
 
 export default function CategoryBusinessesList() {
     const { businesses, selectedCategory } = useSelector(state => state.CategoriesReducer);
     const dispatch = useDispatch();
+    const classes = useStyles();
 
     useEffect(() => {
         dispatch(getCategoryBusinessList(selectedCategory._id));
@@ -24,7 +34,7 @@ export default function CategoryBusinessesList() {
     
     return (
         businesses !== null ? 
-        <div >
+        <div className={classes.root}>
             <Filters />
             <div >
                 <div >

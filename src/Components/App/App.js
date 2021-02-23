@@ -17,10 +17,7 @@ import { Container, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     main: {
-        flex: '1 0 auto',
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-        padding: theme.spacing(2)
+        flex: '1 0 auto'
     },
     body: {
         display: 'flex',

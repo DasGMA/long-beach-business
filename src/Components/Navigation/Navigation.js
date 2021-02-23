@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     navigation: {
-        backgroundColor: '#000000',
-        opacity: '0.7',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         justifyContent: 'center'
     },
     menuButton: {

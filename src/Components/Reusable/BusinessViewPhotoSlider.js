@@ -1,7 +1,9 @@
-import { Grid, GridList, GridListTile, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
+import { Grid, GridList, GridListTile, IconButton, makeStyles } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 import LeftIcon from '@material-ui/icons/ChevronLeft';
 import RightIcon from '@material-ui/icons/ChevronRight';
+import BusinessViewHeader from '../BusinessComponents/BusinessView/BusinessViewHeader';
+import { BP } from '../../helpers';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,36 +32,27 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
-      },
-      gridListTitle: {
-        height: 400, width: 400
       }
 }))
 
 export default function BusinessViewPhotoSlider({
-    media=[]
+    media=[],
+    businessName,
+    rating,
+    reviewsCount
 }) {
-    const bp = [
-        useMediaQuery(('(min-width: 0px)')),
-        useMediaQuery(('(min-width: 600px)')),
-        useMediaQuery(('(min-width: 960px)')),
-        useMediaQuery(('(min-width: 1280px)')),
-        useMediaQuery(('(min-width: 1920px)'))
-    ];
 
-    const [cols, setCols] = useState(0);
-
+    const [cols, setCols] = useState(3);
+    const bp = BP();
+    
     useEffect(() => {
         const [xs, sm, md, lg, xl] = [...bp];
         if(xs) setCols(1);
-        if(xs && sm) setCols(2);
-        if(xs && sm && md) setCols(3);
-        if(xs && sm && md && lg) setCols(3);
-        if(xs && sm && md && lg && xl) setCols(4);
+        if(sm) setCols(2);
+        if(md) setCols(3);
+        if(lg) setCols(3);
+        if(xl) setCols(4);
     }, [bp]);
-
-    console.log(cols)
-
 
     const [state, setState] = useState({
         rightButton: true,
@@ -130,7 +123,7 @@ export default function BusinessViewPhotoSlider({
             <div className={classes.gridListRoot}>
                 <GridList
                     ref={sliderRef}
-                    className={classes.gridList} 
+                    className={classes.gridList}
                     cols={cols}
                     cellHeight={400}
                     spacing={0}
@@ -158,6 +151,11 @@ export default function BusinessViewPhotoSlider({
                     />
                 </IconButton>
             </div>
+            <BusinessViewHeader 
+                businessName={businessName}
+                rating={rating}
+                reviewsCount={reviewsCount}
+            />
         </Grid>
     )
 }

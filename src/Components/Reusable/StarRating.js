@@ -16,7 +16,7 @@ function StarRating({ rating, notAdjustable, size }) {
       }
 
     return(
-        <Rating 
+        <Rating
             value={rating}
             onChange={onChange}
             readOnly={notAdjustable}
