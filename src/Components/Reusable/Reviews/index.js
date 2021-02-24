@@ -28,6 +28,7 @@ function Reviews({
                     reviewDate={review.createdAt}
                     rating={review.rating}
                     reviewTitle={review.title}
+                    isOnline={review.postedBy.loggedIn}
                     />
         })
     }

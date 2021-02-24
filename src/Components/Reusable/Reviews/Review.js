@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarRating from '../StarRating';
-import '../../../Styles/review.scss';
+import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import StyledAvatar from '../StyledAvatar';
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1)
+    }
+}))
 
 function Review({
     review,
@@ -9,35 +19,51 @@ function Review({
     authorName,
     reviewDate,
     rating,
-    reviewTitle
+    reviewTitle,
+    isOnline
 }) {
 
-    return(
-        <div className='review'>
-            <div className='review-header'>
-                <div className='author-info'>
-                    <div className='author-image'>
-                        <img 
-                            alt={authorName}
-                            src={authorImage}
-                        />
-                        <div className='name'>
-                            <h2>{authorName}</h2>
-                        </div>
-                    </div>
-                    <div className='review-date-rating'>
-                        <StarRating rating={rating}/> <span className='date'>{new Date(reviewDate).toDateString()}</span>
-                    </div>
-                </div>
-                <div className='review-title'>
-                    <h2>{reviewTitle}</h2>
-                </div>
-            </div>
-            <div className='review-body'>
-                <p>{review}</p>
-            </div>
+    const classes = useStyles();
 
-        </div>
+    return(
+        <Paper className={classes.root}>
+            <Grid container direction='row' wrap='nowrap'>
+                <StyledAvatar 
+                    authorName={authorName}
+                    authorImage={authorImage}
+                    isOnline={isOnline.toString()}
+                />
+                <Grid container direction='column'>
+                    <StarRating rating={rating} />
+                    <Typography variant='caption'>{new Date(reviewDate).toDateString()}</Typography>
+                </Grid>
+            </Grid>
+        </Paper>
+        // <div className='review'>
+        //     <div className='review-header'>
+        //         <div className='author-info'>
+        //             <div className='author-image'>
+        //                 <img 
+        //                     alt={authorName}
+        //                     src={authorImage}
+        //                 />
+        //                 <div className='name'>
+        //                     <h2>{authorName}</h2>
+        //                 </div>
+        //             </div>
+        //             <div className='review-date-rating'>
+        //                 <StarRating rating={rating}/> <span className='date'>{new Date(reviewDate).toDateString()}</span>
+        //             </div>
+        //         </div>
+        //         <div className='review-title'>
+        //             <h2>{reviewTitle}</h2>
+        //         </div>
+        //     </div>
+        //     <div className='review-body'>
+        //         <p>{review}</p>
+        //     </div>
+
+        // </div>
     )
 }
 
