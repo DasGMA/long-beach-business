@@ -1,38 +1,63 @@
-import axios from 'axios';
-//import store from '../src/Redux/store';
+import axios from "axios";
 
-const lbo = axios.create({
-    headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-    },
-    baseURL: process.env.REACT_APP_BASE_URL
-});
+const config = {
+  withCredentials: true,
+  headers: {
+    Accept: "application/json",
+    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    timeout: 5000,
+  },
+  baseURL: process.env.REACT_APP_BASE_URL,
+};
 
-// Use token and check if expired or not. If expired, then refresh token.
-lbo.interceptors.request.use(async req => {
-    const token = localStorage.getItem('Token');
-    if (!token) {
-        return req;
-    }
+const axiosInstance = axios.create(config);
 
-    const tokenExpired = Math.floor(new Date() / 1000) - tokenTime > 3300;
-    if (!tokenExpired) {
-        req.headers.authorization = token;
-        return req;
-    }
-
-    const newToken = await refreshToken(token);
-    req.headers.authentication = newToken;
+axiosInstance.interceptors.request.use(
+  async (req) => {
+    const token = localStorage.getItem("Token");
+    if (!token) return req;
+    req.headers.Authorization = `Bearer ${token}`;
     return req;
-})
+  },
+  (error) => Promise.reject(error),
+);
 
-// Chech for axios auth errors.
-lbo.interceptors.response.use(async req => {
-    
-})
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
-// Async function to refresh token.
-async function refreshToken(token) {
+    if (error.response) {
+      if (
+        error.response.status === 401 &&
+        error.response.data === "Not authorized. Not valid refresh token."
+      ) {
+        return Promise.reject(error.response.data);
+      }
 
-}
+      if (error.response.status === 401 && !originalRequest.__isRetryRequest) {
+        originalRequest.__isRetryRequest = true;
+
+        // const response = await axiosInstance.post("/auth/refresh-token");
+
+        // const { jwtToken } = response.data;
+        // localStorage.setItem("Token", jwtToken);
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+        return axiosInstance(originalRequest);
+      }
+
+      if (
+        error.response.status === 403 &&
+        error.response.statusText === "Forbidden"
+      ) {
+        return Promise.reject(error.response.data);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
+
+export default axiosInstance;
